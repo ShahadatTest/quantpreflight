@@ -1,0 +1,507 @@
+[
+  {
+    "index": 1,
+    "id": "defect_01_nvfp4_on_hopper_h100",
+    "status": "PASS",
+    "sec": 5.52,
+    "description": "NVIDIA ModelOpt NVFP4 checkpoint targeted at H100 (sm_90 lacks NVFP4 tensor cores; requires sm_100+)",
+    "caught": [
+      "QPF004 [critical]: NVFP4 requires Blackwell (sm_100+), target is H100 (sm_90)"
+    ]
+  },
+  {
+    "index": 2,
+    "id": "defect_02_nvfp4_on_ampere_a100",
+    "status": "PASS",
+    "sec": 0.01,
+    "description": "NVIDIA ModelOpt NVFP4 checkpoint targeted at A100 (sm_80 lacks NVFP4 tensor cores)",
+    "caught": [
+      "QPF004 [critical]: NVFP4 requires Blackwell (sm_100+), target is A100 (sm_80)"
+    ]
+  },
+  {
+    "index": 3,
+    "id": "defect_03_nvfp4_on_turing_t4",
+    "status": "PASS",
+    "sec": 0.01,
+    "description": "NVIDIA ModelOpt NVFP4 checkpoint targeted at T4 (sm_75 lacks NVFP4 tensor cores)",
+    "caught": [
+      "QPF004 [critical]: ModelOpt checkpoints need sm_80 or newer, target is T4 (sm_75)",
+      "QPF004 [critical]: NVFP4 requires Blackwell (sm_100+), target is T4 (sm_75)",
+      "QPF004 [high]: No FP8 cores on T4 (sm_75), so FP8 may fail to start",
+      "QPF004 [medium]: BF16 runs as FP16 on T4 (sm_75)"
+    ]
+  },
+  {
+    "index": 4,
+    "id": "defect_04_fp8_w8a8_on_turing_t4",
+    "status": "PASS",
+    "sec": 2.7,
+    "description": "NVIDIA ModelOpt FP8 checkpoint targeted at T4 (sm_75 lacks FP8 tensor cores)",
+    "caught": [
+      "QPF004 [critical]: ModelOpt checkpoints need sm_80 or newer, target is T4 (sm_75)",
+      "QPF004 [high]: No FP8 cores on T4 (sm_75), so FP8 may fail to start",
+      "QPF004 [medium]: BF16 runs as FP16 on T4 (sm_75)"
+    ]
+  },
+  {
+    "index": 5,
+    "id": "defect_05_fp8_block_on_sm89_l40s",
+    "status": "PASS",
+    "sec": 2.57,
+    "description": "Qwen3-8B-FP8 (weight_block_size=[128,128]) on L40S (vllm#58241: cutlass_scaled_mm rejects block FP8 on SM89)",
+    "caught": [
+      "QPF004 [high]: Block-scaled FP8 kernel dispatch restriction on L40S (sm_89)"
+    ]
+  },
+  {
+    "index": 6,
+    "id": "defect_06_bf16_on_turing_t4",
+    "status": "PASS",
+    "sec": 2.48,
+    "description": "TinyLlama BF16 checkpoint on T4, which has no BF16 and runs it as FP16 (a warning, verified on real T4)",
+    "caught": [
+      "QPF004 [medium]: BF16 runs as FP16 on T4 (sm_75)"
+    ]
+  },
+  {
+    "index": 7,
+    "id": "defect_07_bf16_granite_on_turing_t4",
+    "status": "PASS",
+    "sec": 2.26,
+    "description": "IBM Granite-3.1-8B BF16 checkpoint on T4, which runs it as FP16 (a warning)",
+    "caught": [
+      "QPF004 [medium]: BF16 runs as FP16 on T4 (sm_75)"
+    ]
+  },
+  {
+    "index": 8,
+    "id": "defect_08_marlin_fp8_on_gb10_sm121",
+    "status": "PASS",
+    "sec": 2.97,
+    "description": "Qwen2.5 AWQ checkpoint on GB10 with VLLM_MARLIN_INPUT_DTYPE=fp8 (vllm#49546 silent corruption)",
+    "caught": [
+      "QPF005 [critical]: Silent Marlin W4A8-FP8 output corruption on GB10 (sm_121)"
+    ]
+  },
+  {
+    "index": 9,
+    "id": "defect_09_marlin_int8_ignored_autoround",
+    "status": "PASS",
+    "sec": 3.4,
+    "description": "AutoRound W8A8 checkpoint on A100 with VLLM_MARLIN_INPUT_DTYPE=int8 (vllm#48904 ignored flag)",
+    "caught": [
+      "QPF005 [high]: VLLM_MARLIN_INPUT_DTYPE=int8 silently ignored on compressed-tensors checkpoints"
+    ]
+  },
+  {
+    "index": 10,
+    "id": "defect_10_fp8_dynamic_on_turing_t4",
+    "status": "PASS",
+    "sec": 5.57,
+    "description": "Llama-3.1 FP8 Dynamic on T4 (sm_75 lacks FP8 tensor cores)",
+    "caught": [
+      "QPF004 [high]: No FP8 cores on T4 (sm_75), so FP8 may fail to start",
+      "QPF004 [medium]: BF16 runs as FP16 on T4 (sm_75)"
+    ]
+  },
+  {
+    "index": 11,
+    "id": "defect_12_mistral_q2k_vocab_oob",
+    "status": "PASS",
+    "sec": 3.55,
+    "description": "Mistral-7B Q2_K GGUF with the token embedding quantized below 4-bit",
+    "caught": [
+      "QPF001 [high]: Bit-starved sensitive layer (llama_embedding_extreme)"
+    ]
+  },
+  {
+    "index": 12,
+    "id": "defect_13_llama31_iq2m_vocab_oob",
+    "status": "PASS",
+    "sec": 17.83,
+    "description": "Llama-3.1 IQ2_M 2-bit GGUF checkpoint served on vLLM, which handles 2-bit I-quants poorly",
+    "caught": [
+      "QPF001 [high]: Bit-starved sensitive layer (llama_embedding_extreme)",
+      "QPF011 [high]: Sub-3-bit GGUF I-quant/ternary tensors (IQ2_S) on vLLM"
+    ]
+  },
+  {
+    "index": 13,
+    "id": "defect_14_olmo_chat_eos_drift",
+    "status": "PASS",
+    "sec": 2.24,
+    "description": "OLMo checkpoint with missing generation eos_token_id causing potential runaway token generation",
+    "caught": [
+      "QPF003 [medium]: Chat stop token missing from generation eos_token_id"
+    ]
+  },
+  {
+    "index": 14,
+    "id": "defect_15_added_tokens_oob_cve_2026",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Adversarial CVE-2026-115916 pattern: tokenizer added_token_id 32005 exceeds 32000-row embedding matrix",
+    "caught": [
+      "QPF002 [critical]: Tokenizer ID exceeds embedding table row bounds"
+    ]
+  },
+  {
+    "index": 15,
+    "id": "defect_16_generation_eos_disjoint_config",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "generation_config.json specifies eos_token_id=2 while config.json specifies eos_token_id=151645 (drift)",
+    "caught": [
+      "QPF003 [medium]: Disjoint eos_token_id sets between config.json and generation_config.json"
+    ]
+  },
+  {
+    "index": 16,
+    "id": "defect_17_chat_template_stop_missing",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Tokenizer chat_template expects <|im_end|> (151645) but generation_config only has ID 2",
+    "caught": [
+      "QPF003 [medium]: Chat stop token missing from generation eos_token_id"
+    ]
+  },
+  {
+    "index": 17,
+    "id": "defect_18_oob_stop_token_id_vllm_crash",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "vllm#54195: Stop token ID 50000 exceeds model vocabulary size 32000, crashing server on boot",
+    "caught": [
+      "QPF002 [critical]: Out-of-bounds eos_token_id in config.json"
+    ]
+  },
+  {
+    "index": 18,
+    "id": "defect_19_mistral_q2k_sub4bit_embed",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Mistral-7B Q2_K GGUF sub-4-bit extreme token embedding quantization degrades output generation",
+    "caught": [
+      "QPF001 [high]: Bit-starved sensitive layer (llama_embedding_extreme)"
+    ]
+  },
+  {
+    "index": 19,
+    "id": "defect_20_llama31_iq2m_sub3bit_embed",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Llama-3.1 IQ2_M 2-bit GGUF checkpoint quantizes embedding down to 2-bit",
+    "caught": [
+      "QPF001 [high]: Bit-starved sensitive layer (llama_embedding_extreme)"
+    ]
+  },
+  {
+    "index": 20,
+    "id": "defect_21_deepseek_router_gate_quantized",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "DeepSeek MoE mlp.gate.weight router quantized to 4-bit, which can distort routing (a quality warning)",
+    "caught": [
+      "QPF001 [medium]: Bit-starved sensitive layer (deepseek_moe_router)"
+    ]
+  },
+  {
+    "index": 21,
+    "id": "defect_22_mamba_ssm_decay_quantized",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Mamba hybrid recurrent decay parameters (A_log, dt_bias) quantized to INT8, which risks state divergence",
+    "caught": [
+      "QPF001 [critical]: Bit-starved sensitive layer (mamba_ssm_state_tensors)"
+    ]
+  },
+  {
+    "index": 22,
+    "id": "defect_23_layernorm_rmsnorm_quantized",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Model with input_layernorm and post_attention_layernorm quantized below 16-bit",
+    "caught": [
+      "QPF001 [critical]: Bit-starved sensitive layer (llama_norms)"
+    ]
+  },
+  {
+    "index": 23,
+    "id": "defect_24_vision_patch_quantized_extreme",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Multimodal VLM vision tower linear projection quantized below 8-bit precision",
+    "caught": [
+      "QPF001 [high]: Bit-starved sensitive layer (qwen_vl_vision_tower_and_merger)"
+    ]
+  },
+  {
+    "index": 24,
+    "id": "defect_25_qwen14b_tp3_gqa_indivisible",
+    "status": "PASS",
+    "sec": 6.46,
+    "description": "Qwen2.5-14B (8 KV heads) deployed on TP=3, which cannot be partitioned evenly across ranks",
+    "caught": [
+      "QPF006 [critical]: GQA num_key_value_heads not divisible by TP degree",
+      "QPF006 [critical]: num_attention_heads not divisible by TP degree"
+    ]
+  },
+  {
+    "index": 25,
+    "id": "defect_26_qwen14b_tp5_gqa_indivisible",
+    "status": "PASS",
+    "sec": 0.01,
+    "description": "Qwen2.5-14B (8 KV heads) deployed on TP=5, violating TP divisibility",
+    "caught": [
+      "QPF006 [critical]: GQA num_key_value_heads not divisible by TP degree"
+    ]
+  },
+  {
+    "index": 26,
+    "id": "defect_27_qwen14b_tp6_gqa_indivisible",
+    "status": "PASS",
+    "sec": 0.01,
+    "description": "Qwen2.5-14B (8 KV heads) deployed on TP=6, violating TP divisibility",
+    "caught": [
+      "QPF006 [critical]: GQA num_key_value_heads not divisible by TP degree",
+      "QPF006 [critical]: num_attention_heads not divisible by TP degree"
+    ]
+  },
+  {
+    "index": 27,
+    "id": "defect_28_qwen14b_tp7_gqa_indivisible",
+    "status": "PASS",
+    "sec": 0.01,
+    "description": "Qwen2.5-14B (8 KV heads) deployed on TP=7, violating TP divisibility",
+    "caught": [
+      "QPF006 [critical]: GQA num_key_value_heads not divisible by TP degree",
+      "QPF006 [critical]: num_attention_heads not divisible by TP degree"
+    ]
+  },
+  {
+    "index": 28,
+    "id": "defect_29_qwen57b_tp7_moe_indivisible",
+    "status": "PASS",
+    "sec": 11.68,
+    "description": "Qwen2-57B-A14B MoE (64 routed experts) deployed on TP=7, violating expert sharding divisibility",
+    "caught": [
+      "QPF006 [critical]: TP degree is not a multiple of num_key_value_heads",
+      "QPF006 [high]: MoE expert count not divisible by TP degree"
+    ]
+  },
+  {
+    "index": 29,
+    "id": "defect_30_qwen57b_tp9_moe_indivisible",
+    "status": "PASS",
+    "sec": 0.05,
+    "description": "Qwen2-57B-A14B MoE (64 routed experts) deployed on TP=9, violating expert sharding divisibility",
+    "caught": [
+      "QPF006 [critical]: TP degree is not a multiple of num_key_value_heads",
+      "QPF006 [critical]: num_attention_heads not divisible by TP degree",
+      "QPF006 [high]: MoE expert count not divisible by TP degree"
+    ]
+  },
+  {
+    "index": 30,
+    "id": "defect_31_tinyllama_tp8_gqa_indivisible",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "TinyLlama (4 KV heads) deployed on TP=8, where ranks exceed available KV head groups",
+    "caught": [
+      "QPF006 [medium]: KV cache heads will be replicated across TP ranks"
+    ]
+  },
+  {
+    "index": 31,
+    "id": "defect_32_gemma2_2b_tp3_indivisible",
+    "status": "PASS",
+    "sec": 10.12,
+    "description": "Gemma-2-2B (4 KV heads, 8 attn heads) deployed on TP=3",
+    "caught": [
+      "QPF006 [critical]: GQA num_key_value_heads not divisible by TP degree",
+      "QPF006 [critical]: num_attention_heads not divisible by TP degree"
+    ]
+  },
+  {
+    "index": 32,
+    "id": "defect_33_wizardlm_desc_act_tp2",
+    "status": "PASS",
+    "sec": 7.41,
+    "description": "WizardLM-7B 8-bit GPTQ with desc_act=true on vLLM, which rejects it (verified on real T4)",
+    "caught": [
+      "QPF008 [critical]: vLLM rejects GPTQ checkpoints with desc_act=true"
+    ]
+  },
+  {
+    "index": 33,
+    "id": "defect_34_wizardlm_desc_act_tp4",
+    "status": "PASS",
+    "sec": 0.01,
+    "description": "WizardLM-7B 8-bit GPTQ with desc_act=true on vLLM across four GPUs",
+    "caught": [
+      "QPF008 [critical]: vLLM rejects GPTQ checkpoints with desc_act=true"
+    ]
+  },
+  {
+    "index": 34,
+    "id": "defect_35_marlin_tile_unaligned_dim",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "AWQ checkpoint post-TP out_features dimension (e.g. 1000) not divisible by Marlin tile (128x64)",
+    "caught": [
+      "QPF007 [high]: Sharded quantized dimensions violate Marlin kernel tile alignment"
+    ]
+  },
+  {
+    "index": 35,
+    "id": "defect_36_group_size_indivisible_after_tp",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Sharded linear dimension not divisible by group_size=128",
+    "caught": [
+      "QPF007 [critical]: Row-parallel sharded input dimension violates quantization group_size",
+      "QPF007 [high]: Sharded quantized dimensions violate Marlin kernel tile alignment"
+    ]
+  },
+  {
+    "index": 36,
+    "id": "defect_37_block_fp8_tile_indivisible",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "FP8 block scale shape not divisible by weight_block_size=[128, 128]",
+    "caught": [
+      "QPF007 [high]: Sharded FP8 tensor dimensions violate weight_block_size"
+    ]
+  },
+  {
+    "index": 37,
+    "id": "defect_38_safetensors_on_llamacpp",
+    "status": "PASS",
+    "sec": 0.01,
+    "description": "Safetensors checkpoint passed directly to llama.cpp without GGUF conversion",
+    "caught": [
+      "QPF011 [critical]: Container format 'safetensors' unsupported by llama.cpp"
+    ]
+  },
+  {
+    "index": 38,
+    "id": "defect_39_gguf_on_tensorrt_llm",
+    "status": "PASS",
+    "sec": 26.8,
+    "description": "GGUF checkpoint passed to TensorRT-LLM container, which requires Safetensors engine build",
+    "caught": [
+      "QPF011 [critical]: Container format 'gguf' unsupported by TensorRT-LLM"
+    ]
+  },
+  {
+    "index": 39,
+    "id": "defect_40_iq2xxs_on_vllm",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Sub-3-bit GGUF (IQ2_M) served on vLLM, falling back to slow dequantization",
+    "caught": [
+      "QPF011 [high]: Sub-3-bit GGUF I-quant/ternary tensors (IQ2_S) on vLLM"
+    ]
+  },
+  {
+    "index": 40,
+    "id": "defect_41_iq1s_on_sglang",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "1-bit GGUF (IQ1_S) served on SGLang",
+    "caught": [
+      "QPF011 [high]: Sub-3-bit GGUF I-quant/ternary tensors (IQ1_S) on vLLM"
+    ]
+  },
+  {
+    "index": 41,
+    "id": "defect_42_qwen57b_moe_on_rtx4090",
+    "status": "PASS",
+    "sec": 0.05,
+    "description": "Qwen2-57B in BF16 on one 24 GiB RTX 4090",
+    "caught": [
+      "QPF012 [critical]: Estimated per-GPU memory (127.05 GiB) exceeds L40S budget (43.20 GiB)"
+    ]
+  },
+  {
+    "index": 42,
+    "id": "defect_43_qwen57b_moe_on_single_l4",
+    "status": "PASS",
+    "sec": 0.05,
+    "description": "Qwen2-57B deployed on a single 24 GiB L4 GPU (TP=1)",
+    "caught": [
+      "QPF012 [critical]: Estimated per-GPU memory (127.05 GiB) exceeds L4 budget (21.60 GiB)"
+    ]
+  },
+  {
+    "index": 43,
+    "id": "defect_44_qwen14b_128k_ctx_on_t4",
+    "status": "PASS",
+    "sec": 0.01,
+    "description": "Qwen2.5-14B with --context-len 131072 on one T4",
+    "caught": [
+      "QPF012 [critical]: Estimated per-GPU memory (35.62 GiB) exceeds T4 budget (13.10 GiB)"
+    ]
+  },
+  {
+    "index": 44,
+    "id": "defect_45_qwen72b_on_single_a100_40gb",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "72B parameter model on a single 40 GiB A100 GPU (TP=1)",
+    "caught": [
+      "QPF012 [critical]: Estimated per-GPU memory (86.86 GiB) exceeds A100 budget (72.00 GiB)"
+    ]
+  },
+  {
+    "index": 45,
+    "id": "defect_46_safetensors_overlapping_spans",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Safetensors shard with overlapping tensor data offsets causing memory span corruption (QPF013)",
+    "caught": [
+      "QPF013 [critical]: Overlapping Safetensors memory spans in model.safetensors: t1 and t2"
+    ]
+  },
+  {
+    "index": 46,
+    "id": "defect_47_safetensors_truncated_file_eof",
+    "status": "PASS",
+    "sec": 0.0,
+    "description": "Safetensors shard truncated prematurely where tensor end offset exceeds physical file size (QPF013)",
+    "caught": [
+      "QPF013 [critical]: Tensor data span extends past file EOF on t1 in model.safetensors"
+    ]
+  },
+  {
+    "index": 47,
+    "id": "defect_48_legacy_pickle_ace_hazard",
+    "status": "PASS",
+    "sec": 3.88,
+    "description": "Checkpoint relying solely on legacy PyTorch pickle serialization (arbitrary code execution supply-chain hazard)",
+    "caught": [
+      "QPF014 [critical]: Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+    ]
+  },
+  {
+    "index": 48,
+    "id": "defect_49_redundant_pickle_in_moe_repo",
+    "status": "PASS",
+    "sec": 5.98,
+    "description": "Official Mixtral-8x7B repository contains lingering legacy pickle weights alongside Safetensors",
+    "caught": [
+      "QPF014 [high]: Redundant legacy pickle weight files lingering alongside Safetensors"
+    ]
+  },
+  {
+    "index": 49,
+    "id": "defect_50_unsandboxed_trust_remote_code",
+    "status": "PASS",
+    "sec": 2.6,
+    "description": "Phi-3 checkpoint requiring trust_remote_code=True for unreviewed custom Python modeling scripts",
+    "caught": [
+      "QPF014 [high]: Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+    ]
+  }
+]

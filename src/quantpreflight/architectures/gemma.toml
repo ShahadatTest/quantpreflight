@@ -1,0 +1,35 @@
+id = "gemma"
+name = "Gemma-2 / Gemma-3 / Gemma-4 Text & Multimodal"
+match_architectures = [
+    "gemma2forcausallm",
+    "gemma3forcausallm",
+    "gemma3forconditionalgeneration",
+    "gemma4forcausallm",
+    "gemma4forconditionalgeneration",
+    "gemma4unifiedforconditionalgeneration",
+]
+match_model_types = ["gemma2", "gemma3", "gemma3_text", "gemma4", "gemma4_text", "gemma4_unified"]
+
+col_parallel_suffixes = ["q_proj", "k_proj", "v_proj", "gate_proj", "up_proj"]
+row_parallel_suffixes = ["o_proj", "down_proj"]
+
+[[sensitive_layers]]
+name = "gemma_vision_and_mm_projector"
+pattern = '(^|\.)(vision_tower|multi_modal_projector|vision_embedder|embed_vision|embed_audio)\..*\.(weight|qweight|weight_packed)$'
+min_bits = 8.0
+severity = "high"
+reason = "SigLIP vision tower and multimodal projector in Gemma-3/4 lose fine-grained visual accuracy at <=4-bit."
+
+[[sensitive_layers]]
+name = "gemma_norms"
+pattern = '(^|\.)([a-z0-9_]*norm[a-z0-9_]*)\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "Gemma pre/post feedforward and QK RMSNorm weights (1 + weight offset) corrupt activations if quantized."
+
+[[sensitive_layers]]
+name = "gemma_large_vocab_embedding"
+pattern = '(^|\.)(embed_tokens|token_embd|lm_head|output)\.(weight|qweight|weight_packed)$'
+min_bits = 4.0
+severity = "high"
+reason = "Sub-4-bit quantization on Gemma 256k+ vocabulary embeddings collapses multilingual token recall."

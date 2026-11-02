@@ -1,0 +1,41 @@
+id = "llama_mllama"
+name = "Llama / Llama-3 / Llama-4 Dense, MoE & Vision"
+match_architectures = [
+    "llamaforcausallm",
+    "mllamaforconditionalgeneration",
+    "llama4forconditionalgeneration",
+    "llama4forcausallm",
+]
+match_model_types = ["llama", "mllama", "llama4", "llama4_text"]
+
+col_parallel_suffixes = ["q_proj", "k_proj", "v_proj", "gate_proj", "up_proj"]
+row_parallel_suffixes = ["o_proj", "down_proj"]
+
+[[sensitive_layers]]
+name = "llama4_moe_router"
+pattern = '(^|\.)(feed_forward\.router|mlp\.gate|ffn_gate_inp)\.(weight|qweight|weight_packed)$'
+exclude_pattern = 'gate_(up_)?proj'
+min_bits = 16.0
+severity = "medium"
+reason = "A quantized MoE router can distort token-to-expert routing. It still loads, so compare output quality with the original model."
+
+[[sensitive_layers]]
+name = "mllama_vision_projector"
+pattern = '(^|\.)(vision_model|multi_modal_projector)\..*\.(weight|qweight|weight_packed)$'
+min_bits = 8.0
+severity = "high"
+reason = "Quantizing Llama vision towers or cross-attention projectors to <=4-bit severely harms image understanding."
+
+[[sensitive_layers]]
+name = "llama_norms"
+pattern = '(^|\.)([a-z0-9_]*norm[a-z0-9_]*)\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "RMSNorm weights must remain >=16-bit."
+
+[[sensitive_layers]]
+name = "llama_embedding_extreme"
+pattern = '(^|\.)(embed_tokens|tok_embeddings|token_embd|lm_head|output)\.(weight|qweight|weight_packed)$'
+min_bits = 4.0
+severity = "high"
+reason = "Sub-4-bit quantization on Llama 128k embeddings or lm_head causes severe perplexity spikes."

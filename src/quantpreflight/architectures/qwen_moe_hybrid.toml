@@ -1,0 +1,44 @@
+id = "qwen_moe_hybrid"
+name = "Qwen2 / Qwen2.5 / Qwen3 / Qwen3-Next Dense, MoE & GatedDeltaNet"
+match_architectures = [
+    "qwen2forcausallm",
+    "qwen2moeforcausallm",
+    "qwen3forcausallm",
+    "qwen3moeforcausallm",
+    "qwen3nextforcausallm",
+    "qwen3_5forcausallm",
+    "qwen4expforcausallm",
+]
+match_model_types = ["qwen2", "qwen2_moe", "qwen3", "qwen3_moe", "qwen3_next"]
+
+col_parallel_suffixes = ["q_proj", "k_proj", "v_proj", "gate_proj", "up_proj", "in_proj_qkvz", "in_proj_ba", "in_proj_qkv", "in_proj_z"]
+row_parallel_suffixes = ["o_proj", "down_proj", "out_proj"]
+
+[[sensitive_layers]]
+name = "qwen_moe_router_gate"
+pattern = '(^|\.)(mlp\.(gate|shared_expert_gate)|ffn_gate_inp)\.(weight|qweight|weight_packed)$'
+exclude_pattern = 'gate_(up_)?proj'
+min_bits = 16.0
+severity = "medium"
+reason = "A quantized MoE router can distort token-to-expert routing. It still loads, so compare output quality with the original model."
+
+[[sensitive_layers]]
+name = "qwen3_next_gated_deltanet_state"
+pattern = '(^|\.)linear_attn\.(A_log|dt_bias|conv1d\.weight|conv1d\.qweight|conv1d\.weight_packed)$|(^|\.)(A_log|dt_bias)$'
+min_bits = 16.0
+severity = "critical"
+reason = "Qwen3-Next hybrid GatedDeltaNet A_log, dt_bias, and short conv1d layers diverge rapidly if quantized."
+
+[[sensitive_layers]]
+name = "qwen_norms"
+pattern = '(^|\.)([a-z0-9_]*norm[a-z0-9_]*)\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "Attention QK-norms and RMSNorm layers in Qwen2/Qwen3 must stay in >=16-bit floating point."
+
+[[sensitive_layers]]
+name = "qwen_embedding_extreme"
+pattern = '(^|\.)(embed_tokens|token_embd|lm_head|output)\.(weight|qweight|weight_packed)$'
+min_bits = 4.0
+severity = "high"
+reason = "Sub-4-bit quantization on Qwen 152k multilingual vocabulary degrades rare and tool-call tokens."

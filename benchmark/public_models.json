@@ -1,0 +1,6053 @@
+[
+ {
+  "repo": "Qwen/Qwen3-8B-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 5.68,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-14B-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 9.29,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-7B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 5.19,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-VL-7B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 6.45,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-3B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 2.5,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-14B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 9.29,
+  "findings": []
+ },
+ {
+  "repo": "cyankiwi/Qwen3.8-27B-AWQ-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 19.57,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-Coder-32B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 18.0,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2-VL-7B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 6.45,
+  "findings": []
+ },
+ {
+  "repo": "cyankiwi/gemma-4-26B-A4B-it-AWQ-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 16.01,
+  "findings": [
+   [
+    "QPF007",
+    "medium",
+    "Sharded quantized dimensions violate Marlin kernel tile alignment"
+   ]
+  ]
+ },
+ {
+  "repo": "Qwen/Qwen2.5-VL-3B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 3.17,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-32B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 18.0,
+  "findings": []
+ },
+ {
+  "repo": "gaunernst/gemma-3-27b-it-int4-awq",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g32 gemm",
+  "weights_gib": 17.2,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-Coder-7B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 5.19,
+  "findings": []
+ },
+ {
+  "repo": "sahilchachra/Unlimited-OCR-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 2.63,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "QuantTrio/gemma-4-31B-it-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g64 gemm",
+  "weights_gib": 19.05,
+  "findings": []
+ },
+ {
+  "repo": "hugging-quants/gemma-2-9b-it-AWQ-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 5.74,
+  "findings": []
+ },
+ {
+  "repo": "cyankiwi/MiniCPM-SALA-AWQ-8bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit g32 pack-quantized",
+  "weights_gib": 9.9,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "casperhansen/llama-3.3-70b-instruct-awq",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 37.04,
+  "findings": []
+ },
+ {
+  "repo": "cyankiwi/Qwen3-Coder-30B-A3B-Instruct-AWQ-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 16.85,
+  "findings": []
+ },
+ {
+  "repo": "Alennnndy/Qwen3.6-27B-AWQ-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 17.38,
+  "findings": []
+ },
+ {
+  "repo": "cyankiwi/Qwen3.5-27B-AWQ-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 18.68,
+  "findings": []
+ },
+ {
+  "repo": "QuantTrio/Qwen3.6-35B-A3B-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 23.7,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-VL-32B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 19.28,
+  "findings": []
+ },
+ {
+  "repo": "QuantTrio/GLM-4.7-Flash-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 18.4,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-72B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 38.74,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-32B-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 18.0,
+  "findings": []
+ },
+ {
+  "repo": "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 5.33,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-Coder-14B-Instruct-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 9.29,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.5-122B-A10B-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 73.43,
+  "findings": []
+ },
+ {
+  "repo": "Maximilian228/Qwen3.8-Flash-Next-NVFP4-GPTQ-Strata",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "gguf",
+  "quant": "gguf 8-bit",
+  "weights_gib": 47.68,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-Coder-7B-Instruct-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 5.19,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-32B-Instruct-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 18.02,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.5-35B-A3B-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 22.73,
+  "findings": []
+ },
+ {
+  "repo": "ISTA-DASLab/gemma-3-27b-it-GPTQ-4b-128g",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 15.71,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-7B-Instruct-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 5.19,
+  "findings": []
+ },
+ {
+  "repo": "QuantTrio/Qwen3-Coder-30B-A3B-Instruct-GPTQ-Int8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 8-bit g128",
+  "weights_gib": 29.79,
+  "findings": []
+ },
+ {
+  "repo": "pearsonkyle/Qwen3.8-27B-GPTQ-W4A16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 18.08,
+  "findings": []
+ },
+ {
+  "repo": "palmfuture/Qwen3.6-35B-A3B-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 22.73,
+  "findings": []
+ },
+ {
+  "repo": "sokada4/Qwen3.8-27B-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 18.22,
+  "findings": []
+ },
+ {
+  "repo": "btbtyler09/Qwen3.6-27B-GPTQ-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g32",
+  "weights_gib": 19.54,
+  "findings": [
+   [
+    "QPF009",
+    "medium",
+    "Duplicate tensor definitions across multiple shards"
+   ]
+  ]
+ },
+ {
+  "repo": "Qwen/Qwen2.5-14B-Instruct-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 9.3,
+  "findings": []
+ },
+ {
+  "repo": "openbmb/MiniCPM-V-4.7-35B-A3B-GPTQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 21.06,
+  "findings": []
+ },
+ {
+  "repo": "Vishva007/Qwen3.8-27B-W4A16-AutoRound-GPTQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g64",
+  "weights_gib": 18.66,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-30B-A3B-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 15.76,
+  "findings": []
+ },
+ {
+  "repo": "SergiioB/Qwen3.8-27B-GPTQ-Int4-sym-G128-MTP-BF16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 18.22,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.5-27B-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 28.16,
+  "findings": []
+ },
+ {
+  "repo": "openbmb/MiniCPM-V-4.7-1B-GPTQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 1.74,
+  "findings": []
+ },
+ {
+  "repo": "mikeinnyc/Qwen3.8-27B-GPTQ-Int4-sym-G128-MTP-BF16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 18.22,
+  "findings": []
+ },
+ {
+  "repo": "openbmb/MiniCPM-V-4.6-GPTQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 1.74,
+  "findings": []
+ },
+ {
+  "repo": "llmfan46/Qwen3.6-35B-A3B-uncensored-heretic-Native-MTP-Preserved-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 20.79,
+  "findings": []
+ },
+ {
+  "repo": "Maximilian228/Huihui-Qwen3.8-Flash-Next-abliterated-NVFP4-GPTQ-Strata",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "gguf",
+  "quant": "gguf 8-bit MOSTLY_Q8_0",
+  "weights_gib": 5.57,
+  "findings": []
+ },
+ {
+  "repo": "Maximilian228/OrcaRouter-Qwen3.8-Flash-Next-Uncensored-NVFP4-GPTQ-Strata",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "gguf",
+  "quant": "gguf 8-bit MOSTLY_Q8_0",
+  "weights_gib": 5.57,
+  "findings": []
+ },
+ {
+  "repo": "openbmb/MiniCPM-V-4.6-Thinking-GPTQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 1.74,
+  "findings": []
+ },
+ {
+  "repo": "ISTA-DASLab/Mistral-Small-3.1-24B-Instruct-2503-GPTQ-4b-128g",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 13.99,
+  "findings": []
+ },
+ {
+  "repo": "llmfan46/Qwen3.6-35B-A3B-uncensored-heretic-GPTQ-Int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 19.22,
+  "findings": []
+ },
+ {
+  "repo": "lilmeaty/SmolLM2-135M-Instruct-GPTQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 2-bit g128",
+  "weights_gib": 0.08,
+  "findings": [
+   [
+    "QPF007",
+    "critical",
+    "Row-parallel sharded input dimension violates quantization group_size"
+   ]
+  ]
+ },
+ {
+  "repo": "mikudev/Cydonia-24B-v2-GPTQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 13.18,
+  "findings": []
+ },
+ {
+  "repo": "btbtyler09/Qwen3.6-35B-A3B-GPTQ-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g32",
+  "weights_gib": 24.49,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.8-27B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 28.75,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.6-35B-A3B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 34.88,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-VL-8B-Instruct-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 9.86,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.6-27B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 28.75,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.5-35B-A3B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 34.88,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/gemma-4-26B-A4B-it-FP8-dynamic",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 26.67,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-4B-Instruct-2507-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 4.83,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 29.03,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 30.07,
+  "findings": []
+ },
+ {
+  "repo": "Kijai/WanVideo_comfy_fp8_scaled",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F16/F32/F8_E4M3/F8_E5M2)",
+  "weights_gib": 43.18,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Qwen-Image-2.1-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/F8_E4M3/I8)",
+  "weights_gib": 16.8,
+  "findings": []
+ },
+ {
+  "repo": "Lightricks/LTX-2.3-fp8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/F8_E4M3)",
+  "weights_gib": 27.5,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-Coder-Next-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 74.84,
+  "findings": []
+ },
+ {
+  "repo": "black-forest-labs/FLUX.2-klein-4b-fp8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F8_E4M3)",
+  "weights_gib": 3.79,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.5-35B-A3B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 36.65,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/gemma-4-31B-it-FP8-block",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 30.98,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-8B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 8.79,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Llama-3.2-3B-Instruct-FP8-dynamic",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 4.09,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.5-397B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 389.57,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-VL-32B-Instruct-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 33.08,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Qwen-Image-2.1-Turbo-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/F8_E4M3/I8)",
+  "weights_gib": 36.84,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.0-397B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 377.29,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.5-122B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 123.81,
+  "findings": []
+ },
+ {
+  "repo": "allenai/olmOCR-7B-0825-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 9.37,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.0-35B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 35.08,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.5-27B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 28.75,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit g16",
+  "weights_gib": 30.44,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "nvidia/NVIDIA-Nemotron-Nano-9B-v2-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit g16",
+  "weights_gib": 9.58,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ]
+  ]
+ },
+ {
+  "repo": "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 449.03,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit",
+  "weights_gib": 21.8,
+  "findings": []
+ },
+ {
+  "repo": "cdiamond/Qwen3.8-27B-iMatrix-NVFP4-MTP-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "B200",
+  "container": "gguf",
+  "quant": "gguf 8-bit ftype_39",
+  "weights_gib": 23.82,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Qwen3.8-27B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit mixed-precision",
+  "weights_gib": 21.81,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/Gemma-4-26B-A4B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 17.49,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/Qwen2.5-VL-7B-Instruct-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 6.71,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/Gemma-4-31B-IT-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 30.39,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.5-35B-A3B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit",
+  "weights_gib": 21.8,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16",
+  "weights_gib": 18.01,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.5-9B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit",
+  "weights_gib": 8.21,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit",
+  "weights_gib": 20.08,
+  "findings": [
+   [
+    "QPF007",
+    "medium",
+    "Sharded quantized dimensions violate Marlin kernel tile alignment"
+   ]
+  ]
+ },
+ {
+  "repo": "RedHatAI/Qwen3.6-35B-A3B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 23.31,
+  "findings": []
+ },
+ {
+  "repo": "RadixArk/Qwen3.8-27B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit",
+  "weights_gib": 20.42,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Qwen3.6-35B-A3B-NVFP4-Fast",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit mixed-precision",
+  "weights_gib": 22.01,
+  "findings": []
+ },
+ {
+  "repo": "melcheikh/gemma-4-31B-it-qat-NVFP4-Blackwell",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 19.04,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Qwen3.6-35B-A3B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit mixed-precision",
+  "weights_gib": 24.66,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/Qwen3.6-27B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit",
+  "weights_gib": 20.42,
+  "findings": []
+ },
+ {
+  "repo": "thinkingmachines/Inkling-Small-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16",
+  "weights_gib": 159.01,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.5-397B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit",
+  "weights_gib": 225.13,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit",
+  "weights_gib": 74.78,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ],
+   [
+    "QPF007",
+    "medium",
+    "Sharded quantized dimensions violate Marlin kernel tile alignment"
+   ]
+  ]
+ },
+ {
+  "repo": "RedHatAI/gemma-4-26B-A4B-it-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 15.29,
+  "findings": []
+ },
+ {
+  "repo": "RadixArk/Qwen3.8-Flash-Next-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 125.87,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Qwen3.6-27B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit mixed-precision",
+  "weights_gib": 21.81,
+  "findings": []
+ },
+ {
+  "repo": "autotrust/JEV-35B-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 23.84,
+  "findings": []
+ },
+ {
+  "repo": "sakamakismile/Qwen3.8-27B-MTP-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 19.15,
+  "findings": []
+ },
+ {
+  "repo": "RadixArk/Muse-Glimmer-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "fp8 8-bit mixed_precision",
+  "weights_gib": 18.32,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/Qwen3.8-Flash-Next-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 123.53,
+  "findings": []
+ },
+ {
+  "repo": "esatapedico/Qwen3.8-27B-NVFP4-MTP-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "B200",
+  "container": "gguf",
+  "quant": "gguf 8-bit MOSTLY_Q8_0",
+  "weights_gib": 24.03,
+  "findings": [
+   [
+    "QPF001",
+    "high",
+    "Bit-starved sensitive layer (token_embedding_or_lm_head_extreme)"
+   ]
+  ]
+ },
+ {
+  "repo": "gittensor-model-hub/Qwen3.8-27B-NVFP4-RTX5090",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 16.69,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/Kimi-K2-Thinking-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 553.4,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ],
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "google/gemma-4-12B-it-qat-w4a16-ct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 9.56,
+  "findings": []
+ },
+ {
+  "repo": "google/gemma-4-E2B-it-qat-w4a16-ct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 7.74,
+  "findings": []
+ },
+ {
+  "repo": "google/gemma-4-31B-it-qat-w4a16-ct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 21.67,
+  "findings": []
+ },
+ {
+  "repo": "google/gemma-4-E4B-it-qat-w4a16-ct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 10.72,
+  "findings": []
+ },
+ {
+  "repo": "abhishekchohan/gemma-3-12b-it-quantized-W4A16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 7.83,
+  "findings": []
+ },
+ {
+  "repo": "LeaderboardModel1/zeta-2.1-autoround-W4A16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 5.74,
+  "findings": []
+ },
+ {
+  "repo": "Zerul/Qwen3.5-0.8B-W4A16-AutoRound-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 0.9,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "Ar4ikov/Qwen3.8-27B-AWQ-W4A16-ASYM",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 18.21,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Qwen3.5-4B-quantized.w4a16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 5.14,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "philbert440/Qwen3.8-27B-W4A16-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 18.21,
+  "findings": []
+ },
+ {
+  "repo": "SherlockID365/Qwen3-VL-8B-Instruct-quantized.w4a16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 6.73,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Qwen3-30B-A3B-Instruct-2507-quantized.w4a16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 15.52,
+  "findings": [
+   [
+    "QPF001",
+    "medium",
+    "Bit-starved sensitive layer (qwen_moe_router_gate)"
+   ]
+  ]
+ },
+ {
+  "repo": "davetha/Qwen3.8-Flash-Next-DERISKED-W4A16-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 167.46,
+  "findings": [
+   [
+    "QPF009",
+    "medium",
+    "Duplicate tensor definitions across multiple shards"
+   ]
+  ]
+ },
+ {
+  "repo": "useful-quants/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-W4A16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g64 pack-quantized",
+  "weights_gib": 16.6,
+  "findings": [
+   [
+    "QPF007",
+    "medium",
+    "Sharded quantized dimensions violate Marlin kernel tile alignment"
+   ]
+  ]
+ },
+ {
+  "repo": "RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w4a16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 5.34,
+  "findings": [
+   [
+    "QPF008",
+    "critical",
+    "vLLM rejects GPTQ checkpoints with desc_act=true"
+   ]
+  ]
+ },
+ {
+  "repo": "desva0/Qwen3.8-27B-Uncensored-W4A16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 16.07,
+  "findings": []
+ },
+ {
+  "repo": "grevinden/qwen3.8-27b-w4a16-autoround-rtx3090",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 15.59,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "dbirks/Qwen3.8-27B-W4A16-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 18.12,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Llama-4-Scout-17B-16E-Instruct-quantized.w4a16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 60.42,
+  "findings": []
+ },
+ {
+  "repo": "philbert440/Qwen3.8-27B-Uncensored-Aggressive-W4A16-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 18.21,
+  "findings": []
+ },
+ {
+  "repo": "ukisai/Swift-1.5-Qwen3.8-27b-W4A16-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 18.21,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Qwen3.5-9B-quantized.w4a16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 10.65,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "RedHatAI/gemma-3-27b-it-quantized.w4a16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 18.33,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/DeepSeek-R1-Distill-Qwen-32B-quantized.w4a16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 17.89,
+  "findings": []
+ },
+ {
+  "repo": "Intel/Qwen3.8-Flash-Next-W4A16-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 168.72,
+  "findings": []
+ },
+ {
+  "repo": "nm-testing/SmolLM-1.7B-Instruct-quantized.w4a16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g64 pack-quantized",
+  "weights_gib": 1.59,
+  "findings": []
+ },
+ {
+  "repo": "hamixdd/Swift-1.5-Qwen3.8-27B-W4A16-RTX3090-NInfer-v3",
+  "status": "unreadable",
+  "error": "CheckpointLoadError: No model.safetensors or model.safetensors.index.json found in hamixdd/Swift-1.5-Qwen3.8-27B-W4A16-RTX3090-NInfer-v3. If this is a GGUF-only repo, pass the .gguf"
+ },
+ {
+  "repo": "IFM/Jais-ASR-W4A16-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 5.43,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "Freaksterz/Qwen3.8-27B-SmoothQuant-W8A8-INT8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit mixed-precision",
+  "weights_gib": 29.1,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Qwen2.5-VL-7B-Instruct-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 9.37,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 8.46,
+  "findings": []
+ },
+ {
+  "repo": "nytopop/Qwen3-30B-A3B.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 29.07,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Mistral-Small-24B-Instruct-2501-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 23.21,
+  "findings": []
+ },
+ {
+  "repo": "Avesed/Qwen3.8-27B-INT8-W8A8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 29.1,
+  "findings": []
+ },
+ {
+  "repo": "akumaburn/Qwen3.8-27B-heretic-SmoothQuant-W8A8-INT8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 29.1,
+  "findings": []
+ },
+ {
+  "repo": "glenic/gemma-4-26B-A4B-it-W8A8-INT8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 26.67,
+  "findings": [
+   [
+    "QPF007",
+    "medium",
+    "Sharded quantized dimensions violate Marlin kernel tile alignment"
+   ]
+  ]
+ },
+ {
+  "repo": "RedHatAI/Qwen2.5-1.5B-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 2.09,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Llama-3.2-1B-Instruct-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 1.89,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Llama-3.2-1B-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 1.89,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Qwen3.5-4B-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 6.3,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "iapp/openthai2.0-qwen3.8-27b-INT8-W8A8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 29.08,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/phi-4-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 14.61,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Qwen2.5-VL-3B-Instruct-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 4.99,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Llama-3.2-3B-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 4.09,
+  "findings": []
+ },
+ {
+  "repo": "jamescallander/Qwen2.5-Math-1.5B-Instruct_w8a8_g128_rk3588.rkllm",
+  "status": "unreadable",
+  "error": "CheckpointLoadError: No model.safetensors or model.safetensors.index.json found in jamescallander/Qwen2.5-Math-1.5B-Instruct_w8a8_g128_rk3588.rkllm. If this is a GGUF-only repo, pas"
+ },
+ {
+  "repo": "RedHatAI/Qwen3.5-9B-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 13.04,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "RedHatAI/gemma-3-4b-it-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 6.27,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/whisper-small-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 0.38,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Qwen2.5-0.5B-Instruct-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 0.84,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Qwen2.5-7B-Instruct-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 8.11,
+  "findings": []
+ },
+ {
+  "repo": "namgyu-youn/Qwen3-8B-W8A8-INT",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "torchao",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "LiquidAI/d1-3B-w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "torchao",
+  "weights_gib": 3.55,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "nytopop/Qwen3-8B.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 8.79,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Qwen2.5-1.5B-Instruct-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 2.09,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Meta-Llama-3.1-70B-Instruct-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 67.68,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Mistral-Small-3.1-24B-Instruct-2503-quantized.w8a8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 24.03,
+  "findings": []
+ },
+ {
+  "repo": "JoaoZaokk/Qwen2.1-W8A8-W8A16-W4A8-W4A16-W4A4-QAT",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/I8/U8)",
+  "weights_gib": 7.58,
+  "findings": []
+ },
+ {
+  "repo": "ramblingpolymath/Qwen3-Coder-30B-A3B-Instruct-W8A8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 29.07,
+  "findings": []
+ },
+ {
+  "repo": "Lorbus/Qwen3.6-27B-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 17.69,
+  "findings": []
+ },
+ {
+  "repo": "Intel/Qwen3-VL-30B-A3B-Instruct-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 16.65,
+  "findings": []
+ },
+ {
+  "repo": "Intel/Qwen3.5-122B-A10B-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 67.41,
+  "findings": [
+   [
+    "QPF009",
+    "medium",
+    "Duplicate tensor definitions across multiple shards"
+   ]
+  ]
+ },
+ {
+  "repo": "Intel/gemma-4-31B-it-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 17.87,
+  "findings": []
+ },
+ {
+  "repo": "Intel/Qwen3.6-35B-A3B-int4-mixed-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 20.01,
+  "findings": []
+ },
+ {
+  "repo": "azampatti/Qwen3.8-Flash-Next-125B-A5B-INT4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 69.99,
+  "findings": []
+ },
+ {
+  "repo": "Vishva007/gemma-4-E4B-it-W4A16-AutoRound-GPTQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 9.36,
+  "findings": []
+ },
+ {
+  "repo": "Frozenlock/Qwen3.8-27B-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 17.69,
+  "findings": []
+ },
+ {
+  "repo": "Vishva007/Qwen3.8-27B-W4A16-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g64 auto_round:auto_gptq",
+  "weights_gib": 18.65,
+  "findings": []
+ },
+ {
+  "repo": "Vishva007/Qwen3-VL-8B-Instruct-W4A16-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 6.75,
+  "findings": []
+ },
+ {
+  "repo": "Intel/Qwen2-0.5B-Instruct-int4-sym-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_awq",
+  "weights_gib": 0.43,
+  "findings": [
+   [
+    "QPF007",
+    "high",
+    "Sharded quantized dimensions violate Marlin kernel tile alignment"
+   ]
+  ]
+ },
+ {
+  "repo": "Intel/Qwen3-Coder-Next-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 39.41,
+  "findings": [
+   [
+    "QPF001",
+    "medium",
+    "Bit-starved sensitive layer (qwen_moe_router_gate)"
+   ],
+   [
+    "QPF009",
+    "medium",
+    "Duplicate tensor definitions across multiple shards"
+   ]
+  ]
+ },
+ {
+  "repo": "LeaderboardModel1/KAT-Coder-V2.5-Dev-AutoRound-W4A16-Tuning",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 19.04,
+  "findings": []
+ },
+ {
+  "repo": "Avuja/Qwen3.8-27B-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 18.21,
+  "findings": []
+ },
+ {
+  "repo": "Intel/Qwen3-Omni-30B-A3B-Instruct-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 24.45,
+  "findings": []
+ },
+ {
+  "repo": "biMEMO/Qwen3.8-27B-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 17.69,
+  "findings": []
+ },
+ {
+  "repo": "intel-ai/MiniMax-H3-MXFP8-CT-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/F8_E4M3/U8)",
+  "weights_gib": 87.89,
+  "findings": []
+ },
+ {
+  "repo": "MKRWW/Qwen3.8-27B-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 17.69,
+  "findings": []
+ },
+ {
+  "repo": "webmp3/Sakura-Humanlike-Chat-2.0-JEV-AutoRound-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 3-bit MOSTLY_Q3_K_M",
+  "weights_gib": 12.56,
+  "findings": [
+   [
+    "QPF001",
+    "high",
+    "Bit-starved sensitive layer (token_embedding_or_lm_head_extreme)"
+   ]
+  ]
+ },
+ {
+  "repo": "Intel/Qwen3.5-9B-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 7.99,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ],
+   [
+    "QPF009",
+    "medium",
+    "Duplicate tensor definitions across multiple shards"
+   ]
+  ]
+ },
+ {
+  "repo": "wasifb/ThinkingCap-Qwen3.8-27B-AutoRound-W4A16",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 17.69,
+  "findings": []
+ },
+ {
+  "repo": "INCModel2/Qwen3-30B-A3B-Instruct-2507-MXFP8-FP8ATTN-CT-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit g32 mxfp8-quantized",
+  "weights_gib": 29.9,
+  "findings": []
+ },
+ {
+  "repo": "OPEA/Mistral-Small-3.1-24B-Instruct-2503-int4-AutoRound-awq-sym",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 14.07,
+  "findings": []
+ },
+ {
+  "repo": "Intel/Qwen3.6-27B-int4-AutoRound",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 17.69,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/llama-3-8b-Instruct-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 5.31,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/mistral-7b-v0.3-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 3.85,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "gabor-hosu/e5-mistral-7b-instruct-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 3.6,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen3-14B-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 10.36,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/llava-1.5-7b-hf-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 3.76,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen3-4B-Instruct-2507-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 3.3,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen3-8B-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 6.97,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 5.31,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen2.5-3B-Instruct-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 2.19,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen2.5-7B-Instruct-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 6.65,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/gpt-oss-20b-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 11.66,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/gemma-4-E2B-it-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 7.57,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen2.5-7B-Instruct-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 5.17,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 1.31,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen3-32B-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 17.89,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen2.5-Coder-7B-Instruct-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 5.17,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen3.8-27B-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 20.81,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/gemma-4-E4B-it-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 10.2,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen3-4B-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 3.31,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen3-0.6B-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 0.54,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen2.5-32B-Instruct-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 17.9,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen2.5-1.5B-Instruct-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 1.42,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen2.5-3B-Instruct-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 1.91,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Llama-3.2-3B-Instruct-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 2.19,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen2.5-0.5B-Instruct-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 0.5,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/mistral-7b-instruct-v0.3-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 3.85,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen2.5-14B-Instruct-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 9.25,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen3-VL-8B-Instruct-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 7.17,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Meta-Llama-3.1-8B-Instruct-unsloth-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 5.55,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Qwen2.5-14B-bnb-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 9.25,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "lmstudio-community/Qwen3.8-27B-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 14.95,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "farbodtavakkoli/OTel-2.0-Decision-26B-A4B-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 16.01,
+  "findings": [
+   [
+    "QPF007",
+    "medium",
+    "Sharded quantized dimensions violate Marlin kernel tile alignment"
+   ]
+  ]
+ },
+ {
+  "repo": "lmstudio-community/gemma-4-E4B-it-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 6.36,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "mlx-community/Qwen3.8-27B-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 14.95,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "lmstudio-community/Qwen3.5-9B-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 5.54,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "rapid-mlx/Ling-3.0-tiny-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 4.14,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ],
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "lmstudio-community/gemma-4-26B-A4B-it-QAT-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 14.54,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "lmstudio-community/gemma-4-12B-it-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 6.28,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "lmstudio-community/Qwen3.6-27B-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 14.95,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "lmstudio-community/Qwen3.6-35B-A3B-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 19.0,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "mlx-community/Qwen2.5-Coder-7B-Instruct-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 3.99,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ],
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.5-9B-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 4.69,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "mlx-community/chatterbox-turbo-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 0.39,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "lmstudio-community/gemma-4-E2B-it-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 4.04,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "cyankiwi/Qwen3.5-4B-AWQ-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 3.76,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "lmstudio-community/DeepSeek-R1-0528-Qwen3-8B-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 4.29,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "cyankiwi/gemma-4-31B-it-AWQ-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 19.47,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.5-35B-A3B-MLX-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 18.17,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "LLMSafety/Qwen2.5-Math-7B-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 5.17,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "cyankiwi/Qwen3.5-9B-AWQ-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 8.45,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "mzbac/voxtral-mini-3b-4bit-mixed",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 4-bit g64",
+  "weights_gib": 2.98,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "audio-cpp/audio.cpp-gguf",
+  "status": "unreadable",
+  "error": "GGUFFormatError: GGUF array length 35116853 exceeds limit."
+ },
+ {
+  "repo": "Serveurperso/YuE2-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 32-bit",
+  "weights_gib": 2.36,
+  "findings": []
+ },
+ {
+  "repo": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 8-bit MOSTLY_IQ2_XS",
+  "weights_gib": 90.3,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Qwen3.8-27B-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 15.32,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.5-9B-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 5.37,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 20.21,
+  "findings": []
+ },
+ {
+  "repo": "SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_0",
+  "weights_gib": 2.04,
+  "findings": []
+ },
+ {
+  "repo": "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 15.4,
+  "findings": []
+ },
+ {
+  "repo": "peculiar-ragdoll/Tiel-Coder-35B-A3B-GGUF-MTP",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 3-bit MOSTLY_IQ4_XS",
+  "weights_gib": 16.87,
+  "findings": []
+ },
+ {
+  "repo": "mudler/locate-anything.cpp-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 32-bit",
+  "weights_gib": 4.39,
+  "findings": []
+ },
+ {
+  "repo": "JonathanColetti/Qwen3.8-27B-Uncensored-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 15.65,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/MiniMax-H3-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit",
+  "weights_gib": 16.97,
+  "findings": []
+ },
+ {
+  "repo": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit",
+  "weights_gib": 103.0,
+  "findings": []
+ },
+ {
+  "repo": "ornith-ai/Ornith-1.0-9B-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 5.23,
+  "findings": []
+ },
+ {
+  "repo": "HauhauCS/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-MTP-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_IQ4_XS",
+  "weights_gib": 14.62,
+  "findings": []
+ },
+ {
+  "repo": "ggml-org/Qwen3.8-27B-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 17.66,
+  "findings": []
+ },
+ {
+  "repo": "Serveurperso/ACE-Step-1.5-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit",
+  "weights_gib": 1.35,
+  "findings": [
+   [
+    "QPF002",
+    "critical",
+    "config.json vocab_size exceeds embedding rows"
+   ]
+  ]
+ },
+ {
+  "repo": "handy-computer/nemotron-3.5-asr-streaming-0.6b-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 0.46,
+  "findings": []
+ },
+ {
+  "repo": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 20.21,
+  "findings": []
+ },
+ {
+  "repo": "handy-computer/parakeet-unified-en-0.6b-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 0.44,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/gemma-4-12b-it-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.62,
+  "findings": []
+ },
+ {
+  "repo": "byteshape/Qwen3.8-27B-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 3-bit",
+  "weights_gib": 12.17,
+  "findings": []
+ },
+ {
+  "repo": "DavidAU/Qwen3.5-9B-The-Defiant-Fable-Uncensored-Heretic-NEO-IMATRIX-MAX-MTP-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.49,
+  "findings": []
+ },
+ {
+  "repo": "scragnog/MOSS-Music-8B-Instruct-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 16-bit ALL_F32",
+  "weights_gib": 1.61,
+  "findings": []
+ },
+ {
+  "repo": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 16-bit MOSTLY_F16",
+  "weights_gib": 50.1,
+  "findings": []
+ },
+ {
+  "repo": "mradermacher/Ornith-1.5-9B-uncensored-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 5.23,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Qwen-Image-2.1-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit",
+  "weights_gib": 3.91,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Qwen3.5-9B-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 5.28,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Qwen3.6-35B-A3B-MTP-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 21.1,
+  "findings": []
+ },
+ {
+  "repo": "optimum-intel-internal-testing/tiny-random-qwen3.5-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g16 pack-quantized",
+  "weights_gib": 0.06,
+  "findings": [
+   [
+    "QPF007",
+    "medium",
+    "Sharded quantized dimensions violate Marlin kernel tile alignment"
+   ]
+  ]
+ },
+ {
+  "repo": "gaunernst/gemma-3-27b-it-qat-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 16.83,
+  "findings": []
+ },
+ {
+  "repo": "nm-testing/Meta-Llama-3-8B-FP8-compressed-tensors-test",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 8.46,
+  "findings": []
+ },
+ {
+  "repo": "optimum-intel-internal-testing/tiny-random-llama-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 0.03,
+  "findings": []
+ },
+ {
+  "repo": "nm-testing/TinyLlama-1.1B-compressed-tensors-kv-cache-scheme",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit pack-quantized",
+  "weights_gib": 1.39,
+  "findings": []
+ },
+ {
+  "repo": "jeonghyeon00/Nanbeige4.3-33B-w4a16-gptq-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 19.21,
+  "findings": []
+ },
+ {
+  "repo": "jeonghyeon00/Nanbeige4.3-33B-w8a16-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit g128 pack-quantized",
+  "weights_gib": 33.52,
+  "findings": []
+ },
+ {
+  "repo": "gaunernst/gemma-3-4b-it-qat-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 3.71,
+  "findings": []
+ },
+ {
+  "repo": "TheHouseOfTheDude/Broken-Tutu-24B_Compressed-Tensors",
+  "status": "unreadable",
+  "error": "CheckpointLoadError: No model.safetensors or model.safetensors.index.json found in TheHouseOfTheDude/Broken-Tutu-24B_Compressed-Tensors. If this is a GGUF-only repo, pass the .gguf "
+ },
+ {
+  "repo": "j-a-a-a-y/Huihui-Qwen3.5-27B-abliterated-W4A16-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 16.43,
+  "findings": []
+ },
+ {
+  "repo": "jia0160/Qwen3.8-27B-Compressed-Tensors-MXFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g32 nvfp4-pack-quantized",
+  "weights_gib": 18.44,
+  "findings": []
+ },
+ {
+  "repo": "dtransposed/llama2.c-stories110M-pruned50-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (U8)",
+  "weights_gib": 0.36,
+  "findings": []
+ },
+ {
+  "repo": "nm-testing/Meta-Llama-3-8B-Instruct-W4A16-compressed-tensors-test",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 5.31,
+  "findings": []
+ },
+ {
+  "repo": "nm-testing/Meta-Llama-3-8B-Instruct-W8A8-FP8-Channelwise-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit naive-quantized",
+  "weights_gib": 8.46,
+  "findings": []
+ },
+ {
+  "repo": "nm-testing/Meta-Llama-3-8B-FP8-compressed-tensors-test-bos",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 8.46,
+  "findings": []
+ },
+ {
+  "repo": "nm-testing/Meta-Llama-3-8B-Instruct-W4A16-ACTORDER-compressed-tensors-test",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 5.31,
+  "findings": []
+ },
+ {
+  "repo": "TheHouseOfTheDude/Behemoth-R1-123B-v2_Compressed-Tensors",
+  "status": "unreadable",
+  "error": "CheckpointLoadError: No model.safetensors or model.safetensors.index.json found in TheHouseOfTheDude/Behemoth-R1-123B-v2_Compressed-Tensors. If this is a GGUF-only repo, pass the .g"
+ },
+ {
+  "repo": "amd-quark/Qwen3-30B-A3B-NVFP4-2-layers-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 1.81,
+  "findings": []
+ },
+ {
+  "repo": "gaunernst/gemma-3-12b-it-qat-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 8.3,
+  "findings": []
+ },
+ {
+  "repo": "gaunernst/gemma-3-1b-it-qat-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 0.93,
+  "findings": [
+   [
+    "QPF002",
+    "critical",
+    "Tokenizer ID exceeds embedding table row bounds"
+   ]
+  ]
+ },
+ {
+  "repo": "rocca/GLM-4.5-compressed-tensors-w4a16-g128-v1",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 171.67,
+  "findings": []
+ },
+ {
+  "repo": "Ishant86/FuseO1-DeepSeekR1-QwQ-SkyT1-32B-compressed-tensors-int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 17.89,
+  "findings": []
+ },
+ {
+  "repo": "nm-testing/Meta-Llama-3-8B-Instruct-Non-Uniform-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 8.46,
+  "findings": []
+ },
+ {
+  "repo": "czhu-cohere/Meta-Llama-3-8B-Instruct-W4A8-compressed-tensors-test",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 5.26,
+  "findings": []
+ },
+ {
+  "repo": "frossardr/final_MCA_w4a8_compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit pack-quantized",
+  "weights_gib": 1.36,
+  "findings": []
+ },
+ {
+  "repo": "mgoin/SparseLLama-2-7b-ultrachat_200k-pruned_50.2of4-compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (U8)",
+  "weights_gib": 7.32,
+  "findings": []
+ },
+ {
+  "repo": "TheHouseOfTheDude/Behemoth-X-123B-v2_Compressed-Tensors",
+  "status": "unreadable",
+  "error": "CheckpointLoadError: No model.safetensors or model.safetensors.index.json found in TheHouseOfTheDude/Behemoth-X-123B-v2_Compressed-Tensors. If this is a GGUF-only repo, pass the .gg"
+ },
+ {
+  "repo": "TheHouseOfTheDude/L3.3-70B-Animus-V12.4_Compressed-Tensors",
+  "status": "unreadable",
+  "error": "CheckpointLoadError: No model.safetensors or model.safetensors.index.json found in TheHouseOfTheDude/L3.3-70B-Animus-V12.4_Compressed-Tensors. If this is a GGUF-only repo, pass the "
+ },
+ {
+  "repo": "TheHouseOfTheDude/GLM-4.7_Compressed-Tensors",
+  "status": "unreadable",
+  "error": "CheckpointLoadError: No model.safetensors or model.safetensors.index.json found in TheHouseOfTheDude/GLM-4.7_Compressed-Tensors. If this is a GGUF-only repo, pass the .gguf file URL"
+ },
+ {
+  "repo": "frossardr/final_MCA_w8a8_compressed-tensors",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit pack-quantized",
+  "weights_gib": 1.57,
+  "findings": []
+ },
+ {
+  "repo": "FenomAI/Qwen3.6-27B-AWQ-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 19.04,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Qwen3.8-27B-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 18.12,
+  "findings": []
+ },
+ {
+  "repo": "cyankiwi/Qwen3.6-27B-AWQ-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 19.04,
+  "findings": []
+ },
+ {
+  "repo": "cyankiwi/Ornith-1.0-9B-AWQ-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 8.37,
+  "findings": []
+ },
+ {
+  "repo": "Abiray/Minimax-H3-nvfp4-INT4-INT8-Convrot",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F16/F32/F8_E4M3/U8)",
+  "weights_gib": 17.16,
+  "findings": []
+ },
+ {
+  "repo": "gaunernst/gemma-3-12b-it-int4-awq",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g32 gemm",
+  "weights_gib": 8.45,
+  "findings": []
+ },
+ {
+  "repo": "bleysg/Qwen3.5-122B-A10B-int4-fp8-hybrid",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "autoround 4-bit g128 auto_round:auto_gptq",
+  "weights_gib": 62.29,
+  "findings": [
+   [
+    "QPF009",
+    "medium",
+    "Duplicate tensor definitions across multiple shards"
+   ]
+  ]
+ },
+ {
+  "repo": "hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 37.04,
+  "findings": []
+ },
+ {
+  "repo": "cyankiwi/gemma-4-26B-A4B-it-qat-AWQ-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 16.01,
+  "findings": [
+   [
+    "QPF007",
+    "medium",
+    "Sharded quantized dimensions violate Marlin kernel tile alignment"
+   ]
+  ]
+ },
+ {
+  "repo": "cyankiwi/gemma-4-12B-it-AWQ-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 10.45,
+  "findings": []
+ },
+ {
+  "repo": "openbmb/MiniCPM-V-4.7-35B-A3B-int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g128 pack-quantized",
+  "weights_gib": 21.06,
+  "findings": []
+ },
+ {
+  "repo": "openbmb/MiniCPM-V-4.7-1B-int4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "bitsandbytes 4-bit nf4",
+  "weights_gib": 1.46,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'bitsandbytes' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "RecursiveSI/flint-int4-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_1",
+  "weights_gib": 24.2,
+  "findings": []
+ },
+ {
+  "repo": "cyankiwi/gemma-4-E2B-it-AWQ-INT4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 4-bit g32 pack-quantized",
+  "weights_gib": 7.06,
+  "findings": []
+ },
+ {
+  "repo": "rhasspy/faster-whisper-base-int8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "rhasspy/faster-whisper-tiny-int8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "MATLOWAI/minimax-h3-fused-turbo-int8-convrot",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/I8)",
+  "weights_gib": 19.54,
+  "findings": []
+ },
+ {
+  "repo": "rhasspy/faster-whisper-small-int8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "lokeshe09/Qwen3.6-35B-A3B-INT8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit int-quantized",
+  "weights_gib": 33.31,
+  "findings": []
+ },
+ {
+  "repo": "OpenVINO/Qwen2.5-Coder-7B-Instruct-int8-ov",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "KittenML/kitten-tts-nano-0.8-int8",
+  "status": "unreadable",
+  "error": "CheckpointLoadError: No model.safetensors or model.safetensors.index.json found in KittenML/kitten-tts-nano-0.8-int8. If this is a GGUF-only repo, pass the .gguf file URL or subpath"
+ },
+ {
+  "repo": "rhasspy/faster-whisper-medium-int8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "toxicdog/MOSS-Image-SFT-Turbo-INT8-ConvRot",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/I8)",
+  "weights_gib": 5.04,
+  "findings": []
+ },
+ {
+  "repo": "lued/Qwen3.8-27B-INT8-W8A16-MTP",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit g128 pack-quantized",
+  "weights_gib": 29.44,
+  "findings": []
+ },
+ {
+  "repo": "Bedovyy/Anima-INT8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/I8)",
+  "weights_gib": 4.88,
+  "findings": []
+ },
+ {
+  "repo": "sandpies/Minimax-H3-fl2va-ref2va-hybrid-unpruned-int8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/I8)",
+  "weights_gib": 31.7,
+  "findings": []
+ },
+ {
+  "repo": "aufklarer/Parakeet-EOU-120M-CoreML-INT8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "cardamonnl/Qwen-Image-Edit-2511-int8-convrot",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/I8)",
+  "weights_gib": 19.14,
+  "findings": []
+ },
+ {
+  "repo": "JustFrederik/nllb-200-distilled-600M-ct2-int8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "OpenVINO/gemma-4-E4B-it-int8-ov",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "NidAll/Qwen3VL-8B-Abliterated-INT8-ConvRot",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/I8)",
+  "weights_gib": 8.71,
+  "findings": []
+ },
+ {
+  "repo": "orca-zhang/bge-small-en-v1.5-int8",
+  "status": "unreadable",
+  "error": "CheckpointLoadError: No model.safetensors or model.safetensors.index.json found in orca-zhang/bge-small-en-v1.5-int8. If this is a GGUF-only repo, pass the .gguf file URL or subpath"
+ },
+ {
+  "repo": "drbaph/vdn-minimax-h3-int8-convrot-comfyui",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/I8)",
+  "weights_gib": 3.25,
+  "findings": []
+ },
+ {
+  "repo": "cyankiwi/Qwen3.5-9B-AWQ-BF16-INT8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit g32 pack-quantized",
+  "weights_gib": 13.17,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "aufklarer/Parakeet-TDT-v3-CoreML-INT8-30s",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "PulpCut/MiniMax-H3-Ref2VA-Turbo-INT8-ConvRot",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F16/F32/I8)",
+  "weights_gib": 19.53,
+  "findings": []
+ },
+ {
+  "repo": "MATLOWAI/MOSS-Image-SFT-DeBand-int8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/I8)",
+  "weights_gib": 5.04,
+  "findings": []
+ },
+ {
+  "repo": "OpenVINO/distil-whisper-large-v3-int8-ov",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "Jab1718/qwen3.8-flash-coder-44gb-selective-int8",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/I8)",
+  "weights_gib": 44.29,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/TinyLlama-1.1B-Chat-v1.0-marlin",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128 marlin",
+  "weights_gib": 0.71,
+  "findings": [
+   [
+    "QPF010",
+    "high",
+    "config.json declares quantization, but all tensors are >=16-bit"
+   ]
+  ]
+ },
+ {
+  "repo": "LnL-AI/TinyLlama-1.1B-Chat-v1.0-GPTQ-Marlin-4bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128 marlin",
+  "weights_gib": 0.71,
+  "findings": [
+   [
+    "QPF010",
+    "high",
+    "config.json declares quantization, but all tensors are >=16-bit"
+   ]
+  ]
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v4-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v4-i1-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "openbmb/MiniCPM4-8B-marlin-vLLM",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 4.8,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "openbmb/MiniCPM4.1-8B-Marlin",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 4.76,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "openbmb/MiniCPM4-8B-marlin-cpmcu",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 4.76,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "NemoStation/Marlin-2B-MLX-8bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 8-bit g64",
+  "weights_gib": 2.48,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ],
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoModelForCausalLM)"
+   ]
+  ]
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v7-i1-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v2-i1-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v8-i1-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "jadeonrails/marlin-2b-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 16-bit MOSTLY_F16",
+  "weights_gib": 4.45,
+  "findings": []
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v7-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "lunahr/Marlin-2B-ungated",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 5.07,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoModelForCausalLM)"
+   ]
+  ]
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v1-i1-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v3-i1-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "mradermacher/Repose-Marlin-12B-i1-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v2-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "backyardai/Nemo-12B-Marlin-v5-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "user9874/Repose-Marlin-12B-i1-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "mgoin/Meta-Llama-3-70B-Instruct-Marlin",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128 marlin",
+  "weights_gib": 36.8,
+  "findings": [
+   [
+    "QPF010",
+    "high",
+    "config.json declares quantization, but all tensors are >=16-bit"
+   ]
+  ]
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v8-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "mradermacher/Bielik-11B-v3.0-Instruct-gptq-marlin-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.26,
+  "findings": []
+ },
+ {
+  "repo": "openbmb/MiniCPM4-8B-marlin-Eagle-vLLM",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ],
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "mradermacher/Nemo-12B-Marlin-v3-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "wizardeur/Qwen3.5-9B-GPTQ-marlin",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "gptq 4-bit g128",
+  "weights_gib": 10.35,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "starble-dev/Nemo-12B-Marlin-v5-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "RichardErkhov/UsernameJustAnother_-_Nemo-12B-Marlin-v8-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "mradermacher/Repose-Marlin-12B-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.96,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-0.6B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 1.4,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-14B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 27.51,
+  "findings": []
+ },
+ {
+  "repo": "Comfy-Org/Qwen-Image-2.1",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32/F8_E4M3/I8)",
+  "weights_gib": 22.81,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-Embedding-0.6B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 1.11,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "Qwen/Qwen3-4B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 7.49,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.8-27B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 51.75,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-8B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 15.26,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-VL-8B-Instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 16.33,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.5-9B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 17.98,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.5-4B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 8.68,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-7B-Instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 14.19,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-VL-7B-Instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 15.45,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-0.5B-Instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 0.92,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen2.5-1.5B-Instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 2.88,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.6-35B-A3B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 66.97,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-1.7B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 3.78,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-VL-4B-Instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 8.27,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.8-Flash-Next",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 335.28,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.5-0.8B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 1.63,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 3.59,
+  "findings": []
+ },
+ {
+  "repo": "Qwen/Qwen3.5-2B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 4.24,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Llama-3.2-1B-Instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 2.3,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/llama-nemotron-rerank-1b-v2",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 2.3,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Redundant legacy pickle weight files lingering alongside Safetensors"
+   ],
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForSequenceClassification)"
+   ]
+  ]
+ },
+ {
+  "repo": "unsloth/Llama-3.2-3B-Instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 5.98,
+  "findings": []
+ },
+ {
+  "repo": "llamafactory/tiny-random-Llama-3",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F16)",
+  "weights_gib": 0.01,
+  "findings": []
+ },
+ {
+  "repo": "NousResearch/Hermes-3-Llama-3.1-8B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 14.96,
+  "findings": []
+ },
+ {
+  "repo": "IlyaGusev/saiga_llama3_8b",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 14.96,
+  "findings": [
+   [
+    "QPF003",
+    "medium",
+    "Disjoint eos_token_id sets between config.json and generation_config.json"
+   ]
+  ]
+ },
+ {
+  "repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 4.58,
+  "findings": []
+ },
+ {
+  "repo": "failspy/Meta-Llama-3-8B-Instruct-abliterated-v3",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 14.96,
+  "findings": []
+ },
+ {
+  "repo": "nvidia/llama-nemotron-embed-1b-v2",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 2.3,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Redundant legacy pickle weight files lingering alongside Safetensors"
+   ],
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "mesolitica/llama2-embedding-1b-8k",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F32)",
+  "weights_gib": 3.53,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "optimum-intel-internal-testing/tiny-random-LlamaForCausalLM",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ],
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "McGill-NLP/LLM2Vec-Meta-Llama-3-8B-Instruct-mntp",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F32)",
+  "weights_gib": 0.16,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "trl-internal-testing/tiny-random-LlamaForCausalLM",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F32)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Redundant legacy pickle weight files lingering alongside Safetensors"
+   ],
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "Weni/Llama-Guard-3-8B-AWQ",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 5.33,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Llama-3.1-8B-Instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 14.96,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Voxtral-Mini-4B-Realtime-2602",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 8.25,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Mistral-7B-Instruct-v0.2",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 13.49,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Redundant legacy pickle weight files lingering alongside Safetensors"
+   ]
+  ]
+ },
+ {
+  "repo": "mistralai/Mistral-7B-Instruct-v0.3",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 13.5,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Mistral-7B-v0.1",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 13.49,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Redundant legacy pickle weight files lingering alongside Safetensors"
+   ]
+  ]
+ },
+ {
+  "repo": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 86.99,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Redundant legacy pickle weight files lingering alongside Safetensors"
+   ]
+  ]
+ },
+ {
+  "repo": "mistralai/Ministral-3-14B-Reasoning-2512",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 25.97,
+  "findings": []
+ },
+ {
+  "repo": "mistral-experimental/pixtral-12b",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 23.62,
+  "findings": []
+ },
+ {
+  "repo": "llava-hf/llava-v1.6-mistral-7b-hf",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F16)",
+  "weights_gib": 14.09,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Mistral-Small-3.1-24B-Instruct-2503",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 44.72,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Mistral-7B-v0.3",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 13.5,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Ministral-3-14B-Instruct-2512",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit static",
+  "weights_gib": 14.65,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Devstral-Small-2-24B-Instruct-2512",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit static",
+  "weights_gib": 24.02,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 13.34,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Mistral-Nemo-Instruct-2407",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 22.81,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Voxtral-Mini-3B-2507",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16/F32)",
+  "weights_gib": 8.71,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Mistral-Small-3.2-24B-Instruct-2506",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 44.72,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Mistral-7B-Instruct-v0.1",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 13.49,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Redundant legacy pickle weight files lingering alongside Safetensors"
+   ]
+  ]
+ },
+ {
+  "repo": "mistralai/Ministral-3-8B-Instruct-2512",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit static",
+  "weights_gib": 9.7,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Mistral-Small-24B-Instruct-2501-FP8-dynamic",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "compressed-tensors 8-bit float-quantized",
+  "weights_gib": 23.21,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Mistral-Small-24B-Instruct-2501",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 43.91,
+  "findings": []
+ },
+ {
+  "repo": "intfloat/e5-mistral-7b-instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F16)",
+  "weights_gib": 13.24,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Redundant legacy pickle weight files lingering alongside Safetensors"
+   ]
+  ]
+ },
+ {
+  "repo": "NousResearch/Hermes-2-Pro-Mistral-7B-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 4.07,
+  "findings": []
+ },
+ {
+  "repo": "RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-NVFP4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "B200",
+  "container": "safetensors",
+  "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+  "weights_gib": 14.96,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Ministral-3-3B-Instruct-2512",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit static",
+  "weights_gib": 4.35,
+  "findings": []
+ },
+ {
+  "repo": "mistralai/Magistral-Small-2506",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 43.91,
+  "findings": []
+ },
+ {
+  "repo": "optimum-intel-internal-testing/tiny-random-mistral3",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F32)",
+  "weights_gib": 0.06,
+  "findings": []
+ },
+ {
+  "repo": "optimum-intel-internal-testing/tiny-random-mistral",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "mistralai/Mistral-Nemo-Base-2407",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 22.81,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-V3.2",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 642.12,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-V4-Flash-0731",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 155.42,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-V4.1-Flash",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 475.24,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-OCR",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 6.21,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-R1",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 641.29,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-V3",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 641.29,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "antirez/deepseek-v4.1-flash-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 8-bit",
+  "weights_gib": 340.59,
+  "findings": []
+ },
+ {
+  "repo": "antirez/deepseek-v4-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 2-bit MOSTLY_IQ2_XXS",
+  "weights_gib": 90.88,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-V4-Flash",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 148.65,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 3.31,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/DeepSeek-V4.1-Flash-1017-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit ftype_38",
+  "weights_gib": 460.59,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-OCR-2",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 6.31,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "Abiray/DeepSeek-V4.1-Flash-1017-Uncensored-GSQ-RCO-IQ2_XXS-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit",
+  "weights_gib": 103.0,
+  "findings": []
+ },
+ {
+  "repo": "huihui-ai/Huihui-DeepSeek-V4-Flash-0731-abliterated-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_IQ2_XXS",
+  "weights_gib": 145.26,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 15.26,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-V4-Pro",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 805.32,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 61.03,
+  "findings": []
+ },
+ {
+  "repo": "0xSero/deepseek-v4-flash-0731-spark",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "exl3 3-bit",
+  "weights_gib": 99.44,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'exl3' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 14.19,
+  "findings": []
+ },
+ {
+  "repo": "huihui-ai/Huihui-DeepSeek-V4-Flash-abliterated-ds4-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit",
+  "weights_gib": 3.55,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-V3.1",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 641.29,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "deepseek-ai/deepseek-coder-7b-instruct-v1.5",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 12.87,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 27.51,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-V3-0324",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 641.29,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModel)"
+   ]
+  ]
+ },
+ {
+  "repo": "casperhansen/deepseek-r1-distill-qwen-32b-awq",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "awq 4-bit g128 gemm",
+  "weights_gib": 18.0,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-V4-Flash-Vision-Exp",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 156.29,
+  "findings": []
+ },
+ {
+  "repo": "peasantsmith/DeepSeek-V4.1-Flash-1017-Maya-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 6-bit MOSTLY_IQ2_XXS",
+  "weights_gib": 316.16,
+  "findings": []
+ },
+ {
+  "repo": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "fp8 8-bit block-fp8",
+  "weights_gib": 475.24,
+  "findings": []
+ },
+ {
+  "repo": "google/gemma-4-31B-it",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 58.25,
+  "findings": []
+ },
+ {
+  "repo": "google/gemma-4-26B-A4B-it",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 48.07,
+  "findings": []
+ },
+ {
+  "repo": "google/gemma-4-E4B-it",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 14.89,
+  "findings": []
+ },
+ {
+  "repo": "google/gemma-4-E2B-it",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 9.54,
+  "findings": []
+ },
+ {
+  "repo": "google/gemma-4-12B-it",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 22.28,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/gemma-4-26B-A4B-it-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 15.77,
+  "findings": []
+ },
+ {
+  "repo": "litert-community/gemma-4-E2B-it-litert-lm",
+  "status": "unreadable",
+  "error": "CheckpointLoadError: No model.safetensors or model.safetensors.index.json found in litert-community/gemma-4-E2B-it-litert-lm. If this is a GGUF-only repo, pass the .gguf file URL or"
+ },
+ {
+  "repo": "lmstudio-community/gemma-4-E4B-it-MLX-8bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 8-bit g64",
+  "weights_gib": 8.33,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "google/gemma-4-E4B-it-qat-q4_0-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 6-bit MOSTLY_Q4_0",
+  "weights_gib": 4.79,
+  "findings": []
+ },
+ {
+  "repo": "lmstudio-community/gemma-4-E4B-it-MLX-6bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 6-bit g64",
+  "weights_gib": 7.34,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "lmstudio-community/gemma-4-E4B-it-MLX-5bit",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "mlx 5-bit g64",
+  "weights_gib": 6.85,
+  "findings": [
+   [
+    "QPF011",
+    "high",
+    "Quantization method 'mlx' unsupported by vLLM"
+   ]
+  ]
+ },
+ {
+  "repo": "google/gemma-4-12B-it-qat-q4_0-gguf",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_0",
+  "weights_gib": 6.48,
+  "findings": []
+ },
+ {
+  "repo": "HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 6-bit MOSTLY_Q4_K_M",
+  "weights_gib": 4.95,
+  "findings": []
+ },
+ {
+  "repo": "HauhauCS/Gemma4-12B-QAT-Uncensored-HauhauCS-Balanced",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 6.86,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/gemma-4-E4B-it-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 5-bit MOSTLY_Q4_K_M",
+  "weights_gib": 4.62,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/gemma-4-E2B-it-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 5-bit MOSTLY_Q4_K_M",
+  "weights_gib": 2.88,
+  "findings": []
+ },
+ {
+  "repo": "google/gemma-4-E4B",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 14.89,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/gemma-4-E2B-it-qat-mobile-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_BF16",
+  "weights_gib": 0.04,
+  "findings": []
+ },
+ {
+  "repo": "philbert440/Qwen3.8-27B-Uncensored-Cyber-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 17.66,
+  "findings": []
+ },
+ {
+  "repo": "microsoft/Phi-3.5-mini-instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 7.12,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ]
+  ]
+ },
+ {
+  "repo": "microsoft/Phi-4-mini-instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 7.15,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ]
+  ]
+ },
+ {
+  "repo": "microsoft/phi-4",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 27.31,
+  "findings": []
+ },
+ {
+  "repo": "microsoft/Phi-3-mini-4k-instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 7.12,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ]
+  ]
+ },
+ {
+  "repo": "microsoft/Phi-3.5-vision-instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 7.72,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ],
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "cybersectony/phishing-email-detection-distilbert_v2.4.1",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F32)",
+  "weights_gib": 0.25,
+  "findings": []
+ },
+ {
+  "repo": "ptouch/phishing-distilbert-cyber207",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F32)",
+  "weights_gib": 0.25,
+  "findings": []
+ },
+ {
+  "repo": "microsoft/phi-2",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F16)",
+  "weights_gib": 5.18,
+  "findings": []
+ },
+ {
+  "repo": "microsoft/Phi-3-mini-128k-instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 7.12,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ]
+  ]
+ },
+ {
+  "repo": "trl-internal-testing/tiny-Phi3ForCausalLM-3",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 0.0,
+  "findings": []
+ },
+ {
+  "repo": "unsloth/Phi-4-mini-instruct-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 2.31,
+  "findings": []
+ },
+ {
+  "repo": "bartowski/microsoft_Phi-4-mini-instruct-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 2.31,
+  "findings": []
+ },
+ {
+  "repo": "microsoft/Phi-4-multimodal-instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 10.38,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ]
+  ]
+ },
+ {
+  "repo": "philschmid/bart-large-cnn-samsum",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "pytorch_bin",
+  "quant": "unquantized (unknown)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "critical",
+    "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+   ]
+  ]
+ },
+ {
+  "repo": "katuni4ka/tiny-random-phi3",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F32)",
+  "weights_gib": 0.01,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ]
+  ]
+ },
+ {
+  "repo": "optimum-intel-internal-testing/tiny-random-Phi3ForCausalLM",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F32)",
+  "weights_gib": 0.01,
+  "findings": []
+ },
+ {
+  "repo": "microsoft/phi-1_5",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F16)",
+  "weights_gib": 2.64,
+  "findings": []
+ },
+ {
+  "repo": "MaziyarPanahi/Phi-3.5-mini-instruct-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 2.23,
+  "findings": []
+ },
+ {
+  "repo": "optimum-intel-internal-testing/phi-3.5-moe-tiny-random",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ]
+  ]
+ },
+ {
+  "repo": "optimum-intel-internal-testing/tiny-random-PhiForCausalLM",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F32)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Redundant legacy pickle weight files lingering alongside Safetensors"
+   ]
+  ]
+ },
+ {
+  "repo": "microsoft/Phi-3-vision-128k-instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 7.72,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ],
+   [
+    "QPF003",
+    "medium",
+    "Chat stop token missing from generation eos_token_id"
+   ]
+  ]
+ },
+ {
+  "repo": "MaziyarPanahi/Phi-4-mini-instruct-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 2.31,
+  "findings": []
+ },
+ {
+  "repo": "echarlaix/tiny-random-PhiForCausalLM",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (F32)",
+  "weights_gib": 0.0,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Redundant legacy pickle weight files lingering alongside Safetensors"
+   ]
+  ]
+ },
+ {
+  "repo": "MaziyarPanahi/phi-4-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 8.43,
+  "findings": []
+ },
+ {
+  "repo": "microsoft/Phi-4-mini-reasoning",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 7.15,
+  "findings": []
+ },
+ {
+  "repo": "bartowski/Phi-3.5-mini-instruct-GGUF",
+  "status": "scanned",
+  "engine": "llamacpp",
+  "gpu": "H100",
+  "container": "gguf",
+  "quant": "gguf 4-bit MOSTLY_Q4_K_M",
+  "weights_gib": 2.23,
+  "findings": []
+ },
+ {
+  "repo": "microsoft/Phi-4-reasoning",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 27.31,
+  "findings": []
+ },
+ {
+  "repo": "microsoft/Phi-3.5-MoE-instruct",
+  "status": "scanned",
+  "engine": "vllm",
+  "gpu": "H100",
+  "container": "safetensors",
+  "quant": "unquantized (BF16)",
+  "weights_gib": 77.99,
+  "findings": [
+   [
+    "QPF014",
+    "high",
+    "Unsandboxed custom Python modeling code required (AutoConfig, AutoModelForCausalLM)"
+   ]
+  ]
+ }
+]

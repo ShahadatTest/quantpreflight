@@ -1,0 +1,171 @@
+# Declarative GPU capability table for pre-flight quantization and VRAM checks.
+
+[[gpus]]
+id = "T4"
+aliases = ["tesla-t4", "sm_75", "sm75"]
+vendor = "nvidia"
+arch = "sm_75"
+compute_capability = 75
+# 16 GB with ECC off. Clouds run it with ECC on, and PyTorch sees 14.56 GiB.
+vram_gb = 14.56
+supports_bf16 = false
+supports_fp8_w8a8 = false
+supports_fp8_block_scale = false
+supports_nvfp4 = false
+supports_marlin = false
+
+[[gpus]]
+id = "A10G"
+aliases = ["a10", "rtx3090", "rtx-3090", "sm_86", "sm86"]
+vendor = "nvidia"
+arch = "sm_86"
+compute_capability = 86
+vram_gb = 24.0
+supports_bf16 = true
+supports_fp8_w8a8 = false
+supports_fp8_block_scale = false
+supports_nvfp4 = false
+supports_marlin = true
+
+[[gpus]]
+id = "A100-40GB"
+aliases = ["a100-40g", "a100_40gb"]
+vendor = "nvidia"
+arch = "sm_80"
+compute_capability = 80
+vram_gb = 40.0
+supports_bf16 = true
+supports_fp8_w8a8 = false
+supports_fp8_block_scale = false
+supports_nvfp4 = false
+supports_marlin = true
+
+[[gpus]]
+id = "A100"
+aliases = ["a100-80gb", "a100-80g", "sm_80", "sm80"]
+vendor = "nvidia"
+arch = "sm_80"
+compute_capability = 80
+vram_gb = 80.0
+supports_bf16 = true
+supports_fp8_w8a8 = false
+supports_fp8_block_scale = false
+supports_nvfp4 = false
+supports_marlin = true
+
+[[gpus]]
+id = "L4"
+aliases = ["nvidia-l4"]
+vendor = "nvidia"
+arch = "sm_89"
+compute_capability = 89
+vram_gb = 24.0
+supports_bf16 = true
+supports_fp8_w8a8 = true
+supports_fp8_block_scale = false
+supports_nvfp4 = false
+supports_marlin = true
+
+[[gpus]]
+id = "L40S"
+aliases = ["l40", "rtx4090", "rtx-4090", "rtx6000-ada", "sm_89", "sm89"]
+vendor = "nvidia"
+arch = "sm_89"
+compute_capability = 89
+vram_gb = 48.0
+supports_bf16 = true
+supports_fp8_w8a8 = true
+supports_fp8_block_scale = false
+supports_nvfp4 = false
+supports_marlin = true
+
+[[gpus]]
+id = "H100"
+aliases = ["h100-80gb", "h100-sxm", "sm_90", "sm_90a", "sm90"]
+vendor = "nvidia"
+arch = "sm_90"
+compute_capability = 90
+vram_gb = 80.0
+supports_bf16 = true
+supports_fp8_w8a8 = true
+supports_fp8_block_scale = true
+supports_nvfp4 = false
+supports_marlin = true
+
+[[gpus]]
+id = "H200"
+aliases = ["h200-141gb"]
+vendor = "nvidia"
+arch = "sm_90"
+compute_capability = 90
+vram_gb = 141.0
+supports_bf16 = true
+supports_fp8_w8a8 = true
+supports_fp8_block_scale = true
+supports_nvfp4 = false
+supports_marlin = true
+
+[[gpus]]
+id = "B200"
+aliases = ["b100", "gb200", "sm_100", "sm_100a", "sm100"]
+vendor = "nvidia"
+arch = "sm_100"
+compute_capability = 100
+vram_gb = 192.0
+supports_bf16 = true
+supports_fp8_w8a8 = true
+supports_fp8_block_scale = true
+supports_nvfp4 = true
+supports_marlin = true
+
+[[gpus]]
+id = "RTX5090"
+aliases = ["rtx-5090", "sm_120", "sm120"]
+vendor = "nvidia"
+arch = "sm_120"
+compute_capability = 120
+vram_gb = 32.0
+supports_bf16 = true
+supports_fp8_w8a8 = true
+supports_fp8_block_scale = true
+supports_nvfp4 = true
+supports_marlin = true
+
+[[gpus]]
+id = "GB10"
+aliases = ["dgx-spark", "sm_121", "sm_121a", "sm121"]
+vendor = "nvidia"
+arch = "sm_121"
+compute_capability = 121
+vram_gb = 128.0
+supports_bf16 = true
+supports_fp8_w8a8 = true
+supports_fp8_block_scale = true
+supports_nvfp4 = true
+supports_marlin = true
+
+[[gpus]]
+id = "MI250X"
+aliases = ["mi250", "gfx90a"]
+vendor = "amd"
+arch = "gfx90a"
+compute_capability = 900
+vram_gb = 64.0
+supports_bf16 = true
+supports_fp8_w8a8 = false
+supports_fp8_block_scale = false
+supports_nvfp4 = false
+supports_marlin = false
+
+[[gpus]]
+id = "MI300X"
+aliases = ["mi300", "mi325x", "gfx942"]
+vendor = "amd"
+arch = "gfx942"
+compute_capability = 942
+vram_gb = 192.0
+supports_bf16 = true
+supports_fp8_w8a8 = true
+supports_fp8_block_scale = true
+supports_nvfp4 = false
+supports_marlin = false

@@ -1,0 +1,142 @@
+[
+  {
+    "issue_id": "vllm#59867",
+    "title": "GLM-5.3-Flash-NVFP4 + MTP: draft layer is BF16 in the checkpoint but vLLM builds its experts NVFP4-packed",
+    "url": "https://github.com/vllm-project/vllm/issues/59867",
+    "target_rules": ["QPF009", "QPF010"],
+    "category": "speculative_draft_quant_mismatch"
+  },
+  {
+    "issue_id": "vllm#59905",
+    "title": "Gemma 4 E4B AutoRound-GPTQ fails to load on 0.24.0 - audio_tower expects unquantized .weight",
+    "url": "https://github.com/vllm-project/vllm/issues/59905",
+    "target_rules": ["QPF001"],
+    "category": "quantized_multimodal_sensitive_layer"
+  },
+  {
+    "issue_id": "vllm#54195",
+    "title": "Out-of-vocab stop_token_ids crashes the whole engine on backends with bounds-checked index kernels",
+    "url": "https://github.com/vllm-project/vllm/issues/54195",
+    "target_rules": ["QPF002"],
+    "category": "oob_stop_token_id"
+  },
+  {
+    "issue_id": "vllm#60587",
+    "title": "DeepSeek-V4-Flash-Vision-Exp fails at engine init on v0.31.0: deep_gemm_fp8_o_proj shape mismatch",
+    "url": "https://github.com/vllm-project/vllm/issues/60587",
+    "target_rules": ["QPF007", "QPF009"],
+    "category": "sharded_shape_mismatch"
+  },
+  {
+    "issue_id": "vllm#45101",
+    "title": "FP8 MoE on SM120 (RTX PRO 6000 Blackwell) crashes in Triton fused_moe",
+    "url": "https://github.com/vllm-project/vllm/issues/45101",
+    "target_rules": ["QPF004"],
+    "category": "gpu_hardware_incompatibility"
+  },
+  {
+    "issue_id": "vllm#56832",
+    "title": "--moe-backend marlin is applied to the unquantized MTP draft MoE and aborts",
+    "url": "https://github.com/vllm-project/vllm/issues/56832",
+    "target_rules": ["QPF007", "QPF009"],
+    "category": "marlin_unaligned_draft"
+  },
+  {
+    "issue_id": "vllm#51971",
+    "title": "Qwen3 MoE GPTQ qzeros shape mismatch on ROCm gfx1201",
+    "url": "https://github.com/vllm-project/vllm/issues/51971",
+    "target_rules": ["QPF007", "QPF010"],
+    "category": "qzeros_shape_mismatch"
+  },
+  {
+    "issue_id": "vllm#45922",
+    "title": "Online MXFP8 falls back to Marlin W8A16 on non-SM100+ GPUs but crashes during warmup with invalid Marlin thread config",
+    "url": "https://github.com/vllm-project/vllm/issues/45922",
+    "target_rules": ["QPF004", "QPF007"],
+    "category": "mxfp8_hardware_and_alignment"
+  },
+  {
+    "issue_id": "vllm#43564",
+    "title": "FP8 block-quant loader rejects artifacts using 'weight_scale' rather than 'weight_scale_inv' naming",
+    "url": "https://github.com/vllm-project/vllm/issues/43564",
+    "target_rules": ["QPF010"],
+    "category": "scale_tensor_naming"
+  },
+  {
+    "issue_id": "vllm#43888",
+    "title": "MLA: kv_b_proj.weight.dtype AttributeError on quantized ColumnParallelLinear in chunked prefill",
+    "url": "https://github.com/vllm-project/vllm/issues/43888",
+    "target_rules": ["QPF001"],
+    "category": "quantized_mla_sensitive_layer"
+  },
+  {
+    "issue_id": "vllm#60261",
+    "title": "Block-FP8 models crash on SM120 without a CUDA toolkit: DeepGEMM is selected although its JIT cannot run",
+    "url": "https://github.com/vllm-project/vllm/issues/60261",
+    "target_rules": ["QPF004"],
+    "category": "block_fp8_sm120"
+  },
+  {
+    "issue_id": "vllm#59798",
+    "title": "Qwen3.8-Flash-Next AutoRound/INC checkpoint fails because PLE rejects INCConfig even though PLE is unquantized",
+    "url": "https://github.com/vllm-project/vllm/issues/59798",
+    "target_rules": ["QPF010"],
+    "category": "autoround_unquantized_layer_conflict"
+  },
+  {
+    "issue_id": "vllm#61314",
+    "title": "quantization=fp8 + kv_cache_dtype=float16 on a bf16 model crashes at startup",
+    "url": "https://github.com/vllm-project/vllm/issues/61314",
+    "target_rules": ["QPF004"],
+    "category": "fp8_bf16_dtype_conflict"
+  },
+  {
+    "issue_id": "vllm#56973",
+    "title": "GLM-5.3-Flash with TP=1 per rank fails at CUDA-graph capture: grid.z exceeds 65535",
+    "url": "https://github.com/vllm-project/vllm/issues/56973",
+    "target_rules": ["QPF001", "QPF007"],
+    "category": "recurrent_kda_grid_overflow"
+  },
+  {
+    "issue_id": "vllm#40587",
+    "title": "+rotary_embedding error with DeepSeek-V3.2-NVFP4",
+    "url": "https://github.com/vllm-project/vllm/issues/40587",
+    "target_rules": ["QPF004"],
+    "category": "nvfp4_arch_compatibility"
+  },
+  {
+    "issue_id": "vllm#52713",
+    "title": "Marlin MoE support probe raises TypeError instead of returning a verdict for unset group_size",
+    "url": "https://github.com/vllm-project/vllm/issues/52713",
+    "target_rules": ["QPF007"],
+    "category": "marlin_moe_unset_group_size"
+  },
+  {
+    "issue_id": "vllm#58241",
+    "title": "cutlass_scaled_mm_supports_block_fp8 rejects SM89 (L4/L40S/RTX 4090) despite native hardware FP8 support",
+    "url": "https://github.com/vllm-project/vllm/issues/58241",
+    "target_rules": ["QPF004"],
+    "category": "cutlass_block_fp8_sm89_restriction"
+  },
+  {
+    "issue_id": "vllm#49546",
+    "title": "VLLM_MARLIN_INPUT_DTYPE=fp8 silently corrupts output on GB10/sm_121a at temperature=0",
+    "url": "https://github.com/vllm-project/vllm/issues/49546",
+    "target_rules": ["QPF005"],
+    "category": "marlin_fp8_gb10_silent_corruption"
+  },
+  {
+    "issue_id": "vllm#48904",
+    "title": "VLLM_MARLIN_INPUT_DTYPE=int8 silently ignored on auto-round quantized checkpoints",
+    "url": "https://github.com/vllm-project/vllm/issues/48904",
+    "target_rules": ["QPF005"],
+    "category": "autoround_marlin_int8_ignored"
+  },
+  {
+    "issue_id": "vllm#62595",
+    "title": "Marlin shape-alignment errors across GPTQ/AWQ checkpoints with TP sharding",
+    "url": "https://github.com/vllm-project/vllm/issues/62595",
+    "target_rules": ["QPF007"],
+    "category": "marlin_tp_sharded_alignment"
+  }
+]

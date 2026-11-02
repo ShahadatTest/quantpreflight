@@ -1,0 +1,47 @@
+name: Report a false alarm or missed crash
+description: Tell us when quantpreflight flags something that works or misses something that breaks.
+title: "[Detection]: <short summary>"
+labels: ["detection"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What happened?
+      options:
+        - It flagged a model that works (false alarm)
+        - It passed a model that fails (missed crash)
+    validations:
+      required: true
+  - type: input
+    id: rule
+    attributes:
+      label: Rule ID
+      description: Leave this empty if nothing was reported.
+      placeholder: QPF004
+  - type: input
+    id: model
+    attributes:
+      label: Model
+      description: A public Hugging Face repo ID. If it's private, paste its config.json below instead.
+      placeholder: org/model
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command
+      placeholder: quantpreflight check org/model --engine vllm --gpu H100 --tp 4
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect, and why?
+      description: Include the engine version and the real error if you have them. Remove private names and tokens first.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `quantpreflight --version`.

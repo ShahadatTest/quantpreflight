@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval'; connect-src 'self' https://cdn.jsdelivr.net https://huggingface.co https://*.huggingface.co https://*.hf.co; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<title>quantpreflight: check a quantized model before you download it</title>
+<meta name="description" content="Find out if a quantized AI model will crash, corrupt its output, or run out of memory on your GPUs, before you pull 400 GB. Free, open source, and no GPU needed.">
+<meta property="og:title" content="Will this model run on your GPUs?">
+<meta property="og:description" content="Paste a config.json and find out before you download the weights. Free, open source, and it runs in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://layer8labs8.github.io/quantpreflight/">
+<meta property="og:image" content="https://layer8labs8.github.io/quantpreflight/social.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+<a class="brand" href="#top">quantpreflight</a>
+<nav aria-label="Main">
+<a href="#scanner">Scanner</a>
+<a href="#checks">Checks</a>
+<a href="#accuracy">Accuracy</a>
+<a href="#install">Install</a>
+<a href="#support">Support</a>
+<a href="https://github.com/layer8labs8/quantpreflight">GitHub</a>
+</nav>
+</header>
+
+<main id="top">
+<section class="hero">
+<p class="label">Open source · MIT · No GPU needed</p>
+<h1>Will this model run on your GPUs?</h1>
+<p class="lead">A quantized checkpoint can take an hour to download and still crash at load, return garbage, or run out of memory. quantpreflight reads the config and tensor headers, so you find out first. Enter a Hugging Face model or paste a <code>config.json</code>.</p>
+<div class="hero-actions">
+<div class="command"><code><!-- install --></code><button type="button" class="copy" data-copy="<!-- install -->">Copy</button></div>
+<a class="plain" href="https://github.com/layer8labs8/quantpreflight">View the code</a>
+</div>
+</section>
+
+<section class="scanner" id="scanner" aria-label="Model config scanner">
+<div class="scanner-bar">
+<div class="tabs" id="tabs" role="group" aria-label="Example models"></div>
+<p class="private">A pasted config stays in this tab. A model ID is fetched from Hugging Face.</p>
+</div>
+<div class="panes">
+<div class="editor">
+<form class="hub" id="hub">
+<label for="repo">Hugging Face model</label>
+<div><input id="repo" type="text" placeholder="Qwen/Qwen2.5-7B-Instruct-AWQ" spellcheck="false" autocapitalize="off" autocomplete="off"><button type="submit" id="hub-scan">Scan headers</button></div>
+</form>
+<div class="file"><span id="file"></span><button type="button" class="ghost" id="clear">Clear</button></div>
+<div class="code">
+<pre id="gutter" aria-hidden="true"></pre>
+<div class="field">
+<textarea id="source" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Model config.json"></textarea>
+</div>
+</div>
+<div class="target" role="group" aria-label="Where you plan to run it">
+<label>Engine<select id="engine"></select></label>
+<label>GPU<select id="gpu"></select></label>
+<label>GPUs per replica<input id="tp" type="number" min="1" max="1024" step="1" inputmode="numeric"></label>
+<label>Weights (GiB)<input id="weights" type="number" min="0" step="0.01" inputmode="decimal"></label>
+</div>
+<div class="run">
+<button type="button" id="scan">Check this model</button>
+<p id="status" role="status"></p>
+</div>
+</div>
+<div class="report" id="report" aria-live="polite"></div>
+</div>
+<noscript><p class="note">The browser scanner needs JavaScript. You can still install it with pip.</p></noscript>
+</section>
+
+<section class="section" id="problem">
+<h2>Why the failure comes so late</h2>
+<ol class="steps">
+<li><h3>You pull the weights</h3><p>A 40 to 400 GB checkpoint lands on your GPU nodes. That part goes fine, because nothing has looked inside it yet.</p></li>
+<li><h3>The engine starts loading</h3><p>Now vLLM or SGLang finds a tensor it can't split, a kernel your GPU doesn't have, or a token past the end of the embedding table.</p></li>
+<li><h3>You find out the hard way</h3><p>Sometimes it's a crash. Sometimes it's worse: the server runs and quietly returns nonsense.</p></li>
+</ol>
+<figure class="prompt">
+<figcaption>What the model card says</figcaption>
+<pre><code>NVFP4 · 4-bit · fast on <mark class="safe">modern NVIDIA GPUs</mark></code></pre>
+<figcaption>What quantpreflight says, from the headers alone</figcaption>
+<pre><code><mark>CRITICAL QPF004: NVFP4 requires Blackwell (sm_100+), target is H100 (sm_90)</mark></code></pre>
+</figure>
+<p class="after">Everything it needs is in small JSON files and the first bytes of each weight file. A 38.74 GiB checkpoint took 887 KiB of reads.</p>
+</section>
+
+<section class="section" id="checks">
+<h2>What it checks</h2>
+<p class="intro">Each finding names the file or tensor at fault and how to fix it. Pasting a <code>config.json</code> skips the tensor checks. A model ID reads the tensor headers too, and the command line also handles GGUF, <code>tokenizer.json</code>, gated models, and local folders.</p>
+<table class="rules">
+<thead><tr><th scope="col">Rule</th><th scope="col">Severity</th><th scope="col">Question</th></tr></thead>
+<tbody>
+<!-- rules -->
+</tbody>
+</table>
+</section>
+
+<section class="section" id="targets">
+<h2>Works with</h2>
+<h3 class="list-title">Formats</h3>
+<ul class="tools">
+<!-- formats -->
+</ul>
+<h3 class="list-title">Engines</h3>
+<ul class="tools">
+<!-- engines -->
+</ul>
+<h3 class="list-title">GPUs</h3>
+<ul class="tools">
+<!-- gpus -->
+</ul>
+<p class="intro">Is your model family or GPU missing? Adding one is usually a single TOML file with no Python. Read the <a href="https://github.com/layer8labs8/quantpreflight/blob/main/CONTRIBUTING.md">contributing guide</a>.</p>
+</section>
+
+<section class="section" id="accuracy">
+<h2>How accurate is it?</h2>
+<p class="intro">Every change runs against <!-- case_count --> small checkpoints labelled with what must fire and what must stay quiet.</p>
+<div class="numbers-wrap">
+<table class="numbers">
+<thead><tr><th scope="col">Cases</th><th scope="col">Number</th><th scope="col">Caught</th><th scope="col">Missed</th><th scope="col">False alarms</th></tr></thead>
+<tbody>
+<!-- benchmark -->
+</tbody>
+</table>
+</div>
+<p class="intro">That's <!-- recall --> recall and <!-- precision --> precision on these cases. We wrote them ourselves, so treat this as a regression check and not a promise about your model. The misses are real gaps, listed in the repository.</p>
+<div class="proof">
+<p><strong><!-- gpu_match --> of <!-- gpu_total --></strong><span>real vLLM loads on Tesla T4 predicted correctly</span></p>
+<p><strong><!-- public_count --></strong><span>public models scanned with no crashes</span></p>
+<p><strong><!-- public_clean --></strong><span>of those had nothing to report</span></p>
+</div>
+<p class="intro">Real runs changed the tool: they showed which warnings were wrong and fitted the memory estimate. Only T4 GPUs have been tested so far, so rules for other GPUs rest on vendor docs and engine issues. <a href="https://github.com/layer8labs8/quantpreflight/blob/main/docs/accuracy.md">Read the full report</a>.</p>
+</section>
+
+<section class="section" id="install">
+<h2>Run it on your model</h2>
+<div class="usage">
+<article>
+<h3>Command line</h3>
+<pre id="use-cli"><code><!-- install -->
+quantpreflight check Qwen/Qwen2.5-7B-Instruct-AWQ --gpu H100 --tp 4</code></pre>
+<button type="button" class="copy" data-copy-from="use-cli">Copy</button>
+</article>
+<article>
+<h3>Pre-commit</h3>
+<pre id="use-hook"><code>repos:
+  - repo: https://github.com/layer8labs8/quantpreflight
+    rev: <!-- ref -->
+    hooks:
+      - id: quantpreflight</code></pre>
+<button type="button" class="copy" data-copy-from="use-hook">Copy</button>
+</article>
+<article class="wide">
+<h3>GitHub Action</h3>
+<pre id="use-action"><code>name: Model preflight
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: layer8labs8/quantpreflight@<!-- ref -->
+        with:
+          target: ./exported-checkpoint
+          gpu: H100
+          tp: "4"
+          fail-on: high</code></pre>
+<button type="button" class="copy" data-copy-from="use-action">Copy</button>
+</article>
+</div>
+<p class="intro">It works on Hugging Face repo IDs, direct URLs, local folders, and single <code>.safetensors</code> or <code>.gguf</code> files. Set <code>HF_TOKEN</code> for gated models. The <a href="https://github.com/layer8labs8/quantpreflight/blob/main/docs/usage.md">usage guide</a> covers every option.</p>
+</section>
+
+<section class="section" id="limits">
+<h2>What it can't do</h2>
+<ul class="limits">
+<li>A clean report means no known problem was found. It doesn't prove the model will load or answer well.</li>
+<li>It never reads weight values, so it can't see NaNs or measure quality loss.</li>
+<li>The memory estimate assumes one request unless you pass <code>--concurrency</code>. Real traffic needs more.</li>
+<li>Engines move fast. Its compatibility tables describe known behavior and can fall behind a new release.</li>
+</ul>
+<p class="intro"><a href="https://github.com/layer8labs8/quantpreflight#what-it-cant-do">See the full list</a></p>
+</section>
+
+<section class="section" id="support">
+<h2>Support the project</h2>
+<p class="intro">If this project helped you, I'm really glad. If you'd like to support it, you can send a crypto tip below. If not, that's completely okay.</p>
+<div class="wallets">
+<!-- support -->
+</div>
+<p class="note">Your wallet or exchange will ask you to choose a network. Pick one listed above and use the address next to it. Crypto payments can't be reversed, so check before you send.</p>
+</section>
+</main>
+
+<footer class="bottom">
+<span>quantpreflight v<!-- version --></span>
+<a href="https://github.com/layer8labs8/quantpreflight">GitHub</a>
+<a href="#support">Support</a>
+<a href="https://github.com/layer8labs8/quantpreflight/blob/main/SECURITY.md">Security</a>
+<a href="https://github.com/layer8labs8/quantpreflight/blob/main/LICENSE">MIT License</a>
+</footer>
+
+<script id="site-data" type="application/json"><!-- data --></script>
+<script src="app.js"></script>
+</body>
+</html>

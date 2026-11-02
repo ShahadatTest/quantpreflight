@@ -1,0 +1,39 @@
+name: Action self-test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  clean-model-passes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        with:
+          target: tests/fixtures/good-model
+          gpu: H100
+          tp: "4"
+
+  broken-model-fails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: scan
+        uses: ./
+        continue-on-error: true
+        with:
+          target: tests/fixtures/broken-model
+          gpu: H100
+          tp: "4"
+          sarif-file: results.sarif
+      - name: Check that the action failed and wrote a report
+        env:
+          OUTCOME: ${{ steps.scan.outcome }}
+        run: |
+          test "$OUTCOME" = "failure"
+          grep -q '"ruleId": "QPF006"' results.sarif

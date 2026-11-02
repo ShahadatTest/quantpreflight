@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantpreflight"
+version = "0.2.0"
+description = "Zero-GPU pre-flight scanner for 32/16/8/4/2-bit quantized AI checkpoints across Safetensors and GGUF."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "quantpreflight contributors" }
+]
+keywords = [
+    "ai",
+    "llm",
+    "quantization",
+    "vllm",
+    "sglang",
+    "tensorrt-llm",
+    "llama-cpp",
+    "safetensors",
+    "gguf",
+    "fp8",
+    "awq",
+    "gptq",
+    "marlin",
+    "nvfp4",
+    "static-analysis",
+    "sarif",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "tomli>=2.0; python_version < '3.11'",
+]
+
+[project.urls]
+Homepage = "https://layer8labs8.github.io/quantpreflight/"
+Source = "https://github.com/layer8labs8/quantpreflight"
+Issues = "https://github.com/layer8labs8/quantpreflight/issues"
+Changelog = "https://github.com/layer8labs8/quantpreflight/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+]
+
+[project.scripts]
+quantpreflight = "quantpreflight.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+quantpreflight = ["architectures/*.toml", "hardware/*.toml", "hardware/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "tools"]

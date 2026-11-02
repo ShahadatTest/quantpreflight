@@ -1,0 +1,8 @@
+{
+  "eos_token": "<|end|>",
+  "added_tokens_decoder": {
+    "32004": {
+      "content": "<|end|>"
+    }
+  }
+}

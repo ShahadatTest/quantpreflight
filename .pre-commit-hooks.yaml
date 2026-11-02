@@ -1,0 +1,8 @@
+- id: quantpreflight
+  name: quantpreflight
+  description: Pre-flight check local quantized model checkpoints and configs before deployment.
+  entry: quantpreflight check
+  language: python
+  pass_filenames: true
+  types_or: [json]
+  files: (^|/)(config\.json|model\.safetensors\.index\.json)$

@@ -1,0 +1,66 @@
+id = "default"
+name = "Generic Transformer / Hybrid Checkpoint"
+match_architectures = []
+match_model_types = []
+
+col_parallel_suffixes = [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "qkv_proj",
+    "gate_proj",
+    "up_proj",
+    "gate_up_proj",
+    "w1",
+    "w3",
+    "attn_q",
+    "attn_k",
+    "attn_v",
+    "ffn_gate",
+    "ffn_up",
+]
+
+row_parallel_suffixes = [
+    "o_proj",
+    "out_proj",
+    "down_proj",
+    "w2",
+    "attn_output",
+    "ffn_down",
+]
+
+[[sensitive_layers]]
+name = "moe_router_gate"
+pattern = '(^|\.)((mlp|block_sparse_moe|moe)\.(gate|shared_expert_gate)|router|ffn_gate_inp)\.(weight|qweight|weight_packed)$'
+exclude_pattern = 'gate_(up_)?proj'
+min_bits = 16.0
+severity = "medium"
+reason = "A quantized MoE router can distort token-to-expert routing. It still loads, so compare output quality with the original model."
+
+[[sensitive_layers]]
+name = "ssm_recurrent_state"
+pattern = '(^|\.)(A_log|dt_bias|D|ssm_a|ssm_d|ssm_dt)$|(^|\.)(linear_attn|mamba|ssm)\.conv1d\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "Quantizing recurrent SSM / Mamba / GatedDeltaNet decay logs or 1D conv kernels below 16-bit causes state divergence."
+
+[[sensitive_layers]]
+name = "normalization_weights"
+pattern = '(^|\.)([a-z0-9_]*norm[a-z0-9_]*)\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "RMSNorm and LayerNorm scale vectors are tiny and severely degrade activations if quantized below 16-bit."
+
+[[sensitive_layers]]
+name = "multimodal_vision_or_projector"
+pattern = '(^|\.)(visual|vision_tower|vision_model|multi_modal_projector|mm_projector|audio_tower|aligner)\..*\.(weight|qweight|weight_packed)$'
+min_bits = 8.0
+severity = "high"
+reason = "Quantizing vision encoders or multimodal projectors to 4-bit or lower degrades spatial grounding and small-font OCR."
+
+[[sensitive_layers]]
+name = "token_embedding_or_lm_head_extreme"
+pattern = '(^|\.)(embed_tokens|wte|tok_embeddings|token_embd|lm_head|output)\.(weight|qweight|weight_packed)$'
+min_bits = 4.0
+severity = "high"
+reason = "Sub-4-bit (2-bit or 3-bit) quantization of token embeddings or lm_head causes severe vocabulary logit collapse."

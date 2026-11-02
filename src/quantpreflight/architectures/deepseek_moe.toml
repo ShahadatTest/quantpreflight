@@ -1,0 +1,36 @@
+id = "deepseek_moe"
+name = "DeepSeek-V2 / V3 / V3.2 / V4 / R1 MLA + MoE"
+match_architectures = [
+    "deepseekv2forcausallm",
+    "deepseekv3forcausallm",
+    "deepseekmtpmodel",
+    "deepseekv32forcausallm",
+    "deepseekv4forcausallm",
+    "deepseekv41forcausallm",
+]
+match_model_types = ["deepseek_v2", "deepseek_v3", "deepseek_v32", "deepseek_v4", "deepseek_v41"]
+
+col_parallel_suffixes = ["q_a_proj", "q_b_proj", "kv_b_proj", "gate_proj", "up_proj", "gate_up_proj", "wq_a", "wq_b", "wkv", "w1", "w3"]
+row_parallel_suffixes = ["o_proj", "down_proj", "wo_a", "wo_b", "w2"]
+
+[[sensitive_layers]]
+name = "deepseek_moe_router"
+pattern = '(^|\.)(mlp|ffn)\.gate\.(weight|qweight|weight_packed|e_score_correction_bias)$'
+exclude_pattern = 'gate_(up_)?proj'
+min_bits = 16.0
+severity = "medium"
+reason = "A quantized MoE router can distort token-to-expert routing. It still loads, so compare output quality with the original model."
+
+[[sensitive_layers]]
+name = "deepseek_kv_layernorm_and_rmsnorm"
+pattern = '(^|\.)([a-z0-9_]*norm[a-z0-9_]*)\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "MLA compressed KV latent norms (kv_a_layernorm, q_a_layernorm) cannot be quantized below 16-bit."
+
+[[sensitive_layers]]
+name = "deepseek_embedding_and_head"
+pattern = '(^|\.)(embed_tokens|lm_head)\.(weight|qweight|weight_packed)$'
+min_bits = 4.0
+severity = "high"
+reason = "Sub-4-bit quantization on DeepSeek 129k vocabulary embeddings or lm_head collapses token generation."

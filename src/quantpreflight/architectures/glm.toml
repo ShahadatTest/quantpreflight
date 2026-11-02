@@ -1,0 +1,29 @@
+id = "glm"
+name = "GLM-4 MoE"
+match_architectures = ["glm4moeforcausallm", "glm4moeliteforcausallm"]
+match_model_types = ["glm4_moe", "glm4_moe_lite"]
+
+col_parallel_suffixes = ["q_proj", "k_proj", "v_proj", "gate_proj", "up_proj"]
+row_parallel_suffixes = ["o_proj", "down_proj"]
+
+[[sensitive_layers]]
+name = "glm_moe_router"
+pattern = '(^|\.)mlp\.gate\.(weight|qweight|weight_packed)$'
+exclude_pattern = 'gate_(up_)?proj'
+min_bits = 16.0
+severity = "medium"
+reason = "A quantized MoE router can distort token-to-expert routing. It still loads, so compare output quality with the original model."
+
+[[sensitive_layers]]
+name = "glm_norms"
+pattern = '(^|\.)([a-z0-9_]*norm[a-z0-9_]*)\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "LayerNorm scale vectors are tiny and degrade activations if quantized below 16-bit."
+
+[[sensitive_layers]]
+name = "glm_embedding_extreme"
+pattern = '(^|\.)(embed_tokens|lm_head)\.(weight|qweight|weight_packed)$'
+min_bits = 4.0
+severity = "high"
+reason = "Sub-4-bit embeddings or lm_head cause severe vocabulary logit collapse."

@@ -1,0 +1,7157 @@
+[
+  {
+    "id": "clean_qwen25_72b_awq_h100_tp4",
+    "description": "Valid Qwen2.5-72B-Instruct 4-bit AWQ checkpoint on 4x H100 with padded vocab",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "Qwen2ForCausalLM"
+      ],
+      "model_type": "qwen2",
+      "vocab_size": 152064,
+      "hidden_size": 8192,
+      "intermediate_size": 29696,
+      "num_hidden_layers": 80,
+      "num_attention_heads": 64,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 32768,
+      "eos_token_id": 151645,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "generation_config": {
+      "eos_token_id": [
+        151645,
+        151643
+      ]
+    },
+    "tokenizer_config": {
+      "eos_token": "<|im_end|>"
+    },
+    "tokenizer_max_id": 151664,
+    "tokenizer_eos_id": 151645,
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          152064,
+          8192
+        ]
+      },
+      "model.layers.0.input_layernorm.weight": {
+        "dtype": "F16",
+        "shape": [
+          8192
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          8192,
+          1024
+        ]
+      },
+      "model.layers.0.self_attn.o_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          8192,
+          1024
+        ]
+      },
+      "model.layers.0.mlp.gate_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          8192,
+          3712
+        ]
+      },
+      "model.layers.0.mlp.down_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          29696,
+          1024
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          152064,
+          8192
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 4
+    },
+    "must_fire": [],
+    "must_not_fire": [
+      "QPF001",
+      "QPF002",
+      "QPF003",
+      "QPF004",
+      "QPF006",
+      "QPF007",
+      "QPF010",
+      "QPF012"
+    ],
+    "group": "safe"
+  },
+  {
+    "id": "clean_deepseek_moe_fp8_h100_tp8",
+    "description": "Valid DeepSeek-V3 block-FP8 checkpoint keeping MoE router gate and norms in BF16",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "DeepseekV3ForCausalLM"
+      ],
+      "model_type": "deepseek_v3",
+      "vocab_size": 129280,
+      "hidden_size": 7168,
+      "num_hidden_layers": 4,
+      "num_attention_heads": 128,
+      "num_key_value_heads": 128,
+      "n_routed_experts": 256,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic",
+        "weight_block_size": [
+          128,
+          128
+        ]
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          129280,
+          7168
+        ]
+      },
+      "model.layers.0.mlp.gate.weight": {
+        "dtype": "BF16",
+        "shape": [
+          256,
+          7168
+        ]
+      },
+      "model.layers.0.mlp.experts.0.gate_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          2048,
+          7168
+        ]
+      },
+      "model.layers.0.mlp.experts.0.down_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          7168,
+          2048
+        ]
+      },
+      "model.layers.0.input_layernorm.weight": {
+        "dtype": "BF16",
+        "shape": [
+          7168
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "BF16",
+        "shape": [
+          129280,
+          7168
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 8
+    },
+    "must_fire": [],
+    "must_not_fire": [
+      "QPF001",
+      "QPF004",
+      "QPF006",
+      "QPF007"
+    ],
+    "group": "safe"
+  },
+  {
+    "id": "clean_gguf_q4km_llamacpp",
+    "description": "Valid Llama 8B Q4_K_M GGUF checkpoint served on llama.cpp",
+    "container": "gguf",
+    "gguf_arch": "llama",
+    "gguf_file_type": 15,
+    "gguf_vocab": 32000,
+    "gguf_tensors": [
+      {
+        "name": "token_embd.weight",
+        "ggml_type": 12,
+        "dims": [
+          4096,
+          32000
+        ]
+      },
+      {
+        "name": "blk.0.attn_norm.weight",
+        "ggml_type": 0,
+        "dims": [
+          4096
+        ]
+      },
+      {
+        "name": "blk.0.attn_q.weight",
+        "ggml_type": 12,
+        "dims": [
+          4096,
+          4096
+        ]
+      },
+      {
+        "name": "output.weight",
+        "ggml_type": 14,
+        "dims": [
+          4096,
+          32000
+        ]
+      }
+    ],
+    "target": {
+      "engine": "llamacpp",
+      "gpu": "L4",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": [
+      "QPF001",
+      "QPF002",
+      "QPF011"
+    ],
+    "group": "safe"
+  },
+  {
+    "id": "bug_moe_router_and_deltanet_quantized",
+    "description": "Hybrid Qwen3-Next checkpoint accidentally quantizes mlp.gate and linear_attn.A_log to FP8",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "Qwen3NextForCausalLM"
+      ],
+      "model_type": "qwen3_next",
+      "vocab_size": 151936,
+      "hidden_size": 2048,
+      "num_attention_heads": 16,
+      "num_key_value_heads": 4,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          151936,
+          2048
+        ]
+      },
+      "model.layers.0.mlp.gate.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          64,
+          2048
+        ]
+      },
+      "model.layers.0.linear_attn.A_log": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          16
+        ]
+      },
+      "model.layers.0.mlp.experts.0.up_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          1024,
+          2048
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF001"
+    ],
+    "must_not_fire": [
+      "QPF004"
+    ],
+    "group": "sensitive"
+  },
+  {
+    "id": "bug_cve_2026_115916_added_token_oob",
+    "description": "Off-by-one added_tokens special token ID == embed_tokens.shape[0]",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8
+    },
+    "tokenizer_max_id": 32000,
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "BF16",
+        "shape": [
+          32000,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF002"
+    ],
+    "must_not_fire": [
+      "QPF001"
+    ],
+    "group": "tokens"
+  },
+  {
+    "id": "bug_eos_token_drift",
+    "description": "Chat template uses <|im_end|> (32001) missing from generation_config eos_token_id",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "Qwen2ForCausalLM"
+      ],
+      "vocab_size": 32064,
+      "hidden_size": 2048,
+      "eos_token_id": 2
+    },
+    "generation_config": {
+      "eos_token_id": [
+        2
+      ]
+    },
+    "tokenizer_config": {
+      "eos_token": "<|im_end|>"
+    },
+    "tokenizer_max_id": 32001,
+    "tokenizer_eos_id": 32001,
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          32064,
+          2048
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF003"
+    ],
+    "must_not_fire": [
+      "QPF002"
+    ],
+    "group": "tokens"
+  },
+  {
+    "id": "bug_block_fp8_on_l40s_sm89",
+    "description": "Block-scaled FP8 (128x128) deployed to L40S (sm_89) on vLLM (vllm#58241)",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "Qwen3ForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic",
+        "weight_block_size": [
+          128,
+          128
+        ]
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "L40S",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": [
+      "QPF001"
+    ],
+    "group": "hardware"
+  },
+  {
+    "id": "bug_nvfp4_on_h100",
+    "description": "Blackwell-only NVFP4 checkpoint targeted at Hopper H100 (sm_90)",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "quantization_config": {
+        "quant_method": "nvfp4",
+        "quant_algo": "nvfp4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.mlp.up_proj.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          2048
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": [
+      "QPF010"
+    ],
+    "group": "hardware"
+  },
+  {
+    "id": "bug_gb10_marlin_fp8_corruption",
+    "description": "4-bit AWQ on GB10 (sm_121) with VLLM_MARLIN_INPUT_DTYPE=fp8 (vllm#49546)",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "Qwen3MoeForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.mlp.experts.0.up_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "GB10",
+      "tp": 1,
+      "marlin_input_dtype": "fp8"
+    },
+    "must_fire": [
+      "QPF005"
+    ],
+    "must_not_fire": [
+      "QPF004"
+    ],
+    "group": "kernels"
+  },
+  {
+    "id": "bug_autoround_marlin_int8_ignored",
+    "description": "AutoRound checkpoint with VLLM_MARLIN_INPUT_DTYPE=int8 silently ignored (vllm#48904)",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "quantization_config": {
+        "quant_method": "auto-round",
+        "bits": 4,
+        "group_size": 128
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1,
+      "marlin_input_dtype": "int8"
+    },
+    "must_fire": [
+      "QPF005"
+    ],
+    "must_not_fire": [],
+    "group": "kernels"
+  },
+  {
+    "id": "bug_tp4_gqa_6_kv_heads_and_marlin_unaligned",
+    "description": "AWQ checkpoint with 6 KV heads and intermediate_size=11016 on TP=4 (vllm#62595)",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "intermediate_size": 11016,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 6,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.mlp.gate_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          1377
+        ]
+      },
+      "model.layers.0.mlp.down_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          11016,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 4
+    },
+    "must_fire": [
+      "QPF006",
+      "QPF007"
+    ],
+    "must_not_fire": [
+      "QPF001"
+    ],
+    "group": "parallel"
+  },
+  {
+    "id": "bug_gptq_desc_act_tp2",
+    "description": "GPTQ desc_act=true checkpoint served across TP=2",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "desc_act": true
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.o_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 2
+    },
+    "must_fire": [
+      "QPF008"
+    ],
+    "must_not_fire": [
+      "QPF006"
+    ],
+    "group": "parallel"
+  },
+  {
+    "id": "bug_mtp_pre_projection_mismatch",
+    "description": "Gemma4 MTP pre_projection tensor shape incompatible with base hidden_size (vllm#62340)",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "Gemma4ForCausalLM"
+      ],
+      "model_type": "gemma4",
+      "vocab_size": 262144,
+      "hidden_size": 3072,
+      "num_attention_heads": 24,
+      "num_key_value_heads": 8
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          262144,
+          3072
+        ]
+      },
+      "mtp.pre_projection.weight": {
+        "dtype": "BF16",
+        "shape": [
+          4096,
+          2048
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF009"
+    ],
+    "must_not_fire": [
+      "QPF001"
+    ],
+    "group": "files"
+  },
+  {
+    "id": "bug_config_claims_awq_but_weights_bf16",
+    "description": "config.json claims 4-bit AWQ while exported tensors are all BF16",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.mlp.up_proj.weight": {
+        "dtype": "BF16",
+        "shape": [
+          11008,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF010"
+    ],
+    "must_not_fire": [
+      "QPF001"
+    ],
+    "group": "files"
+  },
+  {
+    "id": "bug_safetensors_passed_to_llamacpp",
+    "description": "Safetensors checkpoint targeted at llama.cpp without GGUF conversion",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "llamacpp",
+      "gpu": "L4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF011"
+    ],
+    "must_not_fire": [],
+    "group": "engines"
+  },
+  {
+    "id": "bug_vram_overflow_on_single_l4",
+    "description": "41 GiB checkpoint targeted at a single 24 GiB L4 GPU (TP=1)",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "Qwen2ForCausalLM"
+      ],
+      "vocab_size": 152064,
+      "hidden_size": 8192,
+      "num_hidden_layers": 80,
+      "num_attention_heads": 64,
+      "num_key_value_heads": 8,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          152064,
+          8192
+        ]
+      },
+      "model.layers.0.mlp.down_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          29696,
+          1024
+        ],
+        "byte_size_override": 42949672960
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "L4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF012"
+    ],
+    "must_not_fire": [
+      "QPF001",
+      "QPF004"
+    ],
+    "group": "memory"
+  },
+  {
+    "id": "bug_safetensors_overlapping_spans_qpf013",
+    "description": "Safetensors shard with overlapping tensor data offsets causing data corruption",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 32
+    },
+    "tensors": {
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ],
+        "offset_override": 0
+      },
+      "model.layers.0.self_attn.k_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ],
+        "offset_override": 1024
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100-80GB",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF013"
+    ],
+    "must_not_fire": [
+      "QPF001",
+      "QPF004"
+    ],
+    "group": "files"
+  },
+  {
+    "id": "bug_insecure_pytorch_pickle_weights_qpf014",
+    "description": "Legacy PyTorch pickle checkpoint format vulnerable to arbitrary code execution",
+    "container": "pytorch_bin",
+    "legacy_weight_files": [
+      "pytorch_model.bin"
+    ],
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 32
+    },
+    "tensors": {},
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100-80GB",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF014"
+    ],
+    "must_not_fire": [
+      "QPF001",
+      "QPF004"
+    ],
+    "group": "files"
+  },
+  {
+    "id": "clean_deepseek_mla_kv_budget_qpf012_ok",
+    "description": "DeepSeek-V2 MLA joint latent KV cache fitting cleanly in VRAM budget",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "DeepseekV2ForCausalLM"
+      ],
+      "model_type": "deepseek_v2",
+      "vocab_size": 102400,
+      "hidden_size": 2048,
+      "num_hidden_layers": 28,
+      "num_attention_heads": 16,
+      "num_key_value_heads": 16,
+      "kv_lora_rank": 512,
+      "qk_rope_head_dim": 64,
+      "quantization_config": {
+        "quant_method": "fp8"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          102400,
+          2048
+        ]
+      },
+      "model.layers.0.mlp.gate.weight": {
+        "dtype": "BF16",
+        "shape": [
+          64,
+          2048
+        ]
+      },
+      "model.layers.0.mlp.down_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          2048,
+          14336
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "L40S",
+      "tp": 1,
+      "context_len": 4096
+    },
+    "must_fire": [],
+    "must_not_fire": [
+      "QPF001",
+      "QPF004",
+      "QPF012",
+      "QPF013"
+    ],
+    "group": "safe"
+  },
+  {
+    "id": "clean_mistral_sliding_window_ok",
+    "description": "Mistral-7B with sliding-window attention (4096) fitting cleanly within GPU budget",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "MistralForCausalLM"
+      ],
+      "model_type": "mistral",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "sliding_window": 4096,
+      "max_position_embeddings": 32768,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.mlp.down_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          14336,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "RTX-4090",
+      "tp": 1,
+      "context_len": 32768
+    },
+    "must_fire": [],
+    "must_not_fire": [
+      "QPF001",
+      "QPF004",
+      "QPF012",
+      "QPF013"
+    ],
+    "group": "safe"
+  },
+  {
+    "id": "safe_unquantized_bf16_a100",
+    "group": "safe",
+    "description": "Plain BF16 model on an A100",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "BF16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "BF16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_unquantized_f16_t4",
+    "group": "safe",
+    "description": "Plain FP16 model on a T4, which has no BF16",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "T4",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_no_gpu_named",
+    "group": "safe",
+    "description": "Plain model with no GPU target",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_awq_a100",
+    "group": "safe",
+    "description": "4-bit AWQ on an A100",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_awq_8bit_h100_tp2",
+    "group": "safe",
+    "description": "8-bit AWQ on two H100s",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 8,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          1024
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 2
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_gptq_h100_tp4",
+    "group": "safe",
+    "description": "4-bit GPTQ on four H100s",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true,
+        "desc_act": false
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 4
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_gptq_marlin_l4",
+    "group": "safe",
+    "description": "Pre-packed Marlin GPTQ on an L4",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true,
+        "desc_act": false,
+        "checkpoint_format": "marlin"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "L4",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_autoround_a100",
+    "group": "safe",
+    "description": "AutoRound 4-bit on an A100",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "auto-round",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_fp8_h100",
+    "group": "safe",
+    "description": "FP8 on an H100",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_fp8_l40s",
+    "group": "safe",
+    "description": "Per-tensor FP8 on an L40S",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "L40S",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_block_fp8_h100_tp2",
+    "group": "safe",
+    "description": "Block FP8 on two H100s",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic",
+        "weight_block_size": [
+          128,
+          128
+        ]
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 2
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_nvfp4_b200",
+    "group": "safe",
+    "description": "NVFP4 on a B200",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "modelopt",
+        "quant_algo": "NVFP4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          2048
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "B200",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_mxfp4_b200",
+    "group": "safe",
+    "description": "MXFP4 on a B200",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "modelopt",
+        "quant_algo": "MXFP4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          2048
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "B200",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_ct_w4a16_l4",
+    "group": "safe",
+    "description": "Compressed-Tensors W4A16 on an L4",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "compressed-tensors",
+        "config_groups": {
+          "g": {
+            "weights": {
+              "num_bits": 4,
+              "group_size": 128,
+              "symmetric": true
+            }
+          }
+        }
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "L4",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_ct_w8a8_h100",
+    "group": "safe",
+    "description": "Compressed-Tensors W8A8 on an H100",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "compressed-tensors",
+        "config_groups": {
+          "g": {
+            "weights": {
+              "num_bits": 8,
+              "symmetric": true
+            },
+            "input_activations": {
+              "num_bits": 8,
+              "type": "int"
+            }
+          }
+        }
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "I8",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_router_kept_16bit",
+    "group": "safe",
+    "description": "4-bit MoE that keeps its router at 16-bit",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      },
+      "num_local_experts": 8
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.mlp.experts.0.up_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      },
+      "model.layers.0.mlp.gate.weight": {
+        "dtype": "F16",
+        "shape": [
+          8,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 2
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_vision_kept_16bit",
+    "group": "safe",
+    "description": "4-bit text with a 16-bit vision tower",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      },
+      "visual.blocks.0.attn.proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          1024,
+          1024
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_norms_kept_16bit",
+    "group": "safe",
+    "description": "4-bit model with 16-bit norms",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      },
+      "model.layers.0.input_layernorm.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_padded_embedding",
+    "group": "safe",
+    "description": "Embedding rows larger than the vocabulary",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 31000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_last_token_in_bounds",
+    "group": "safe",
+    "description": "Highest token ID is the last embedding row",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": [],
+    "tokenizer_max_id": 31999
+  },
+  {
+    "id": "safe_multi_eos_gen_config",
+    "group": "safe",
+    "description": "Chat stop token listed in generation_config",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": [],
+    "generation_config": {
+      "eos_token_id": [
+        2,
+        7
+      ]
+    },
+    "tokenizer_config": {
+      "eos_token": "<e>"
+    },
+    "tokenizer_eos_id": 7
+  },
+  {
+    "id": "safe_no_pad_token_minus_one",
+    "group": "safe",
+    "description": "pad_token_id of -1 means no padding token",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "pad_token_id": -1
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_kv_heads_equal_tp",
+    "group": "safe",
+    "description": "Eight KV heads across eight GPUs",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 8
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_expert_count_divides",
+    "group": "safe",
+    "description": "128 experts across four GPUs",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "num_local_experts": 128
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 4
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_rtx5090_no_flag",
+    "group": "safe",
+    "description": "4-bit AWQ on an RTX 5090 without the Marlin flag",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "RTX5090",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_gb10_int8_on_awq",
+    "group": "safe",
+    "description": "Marlin INT8 flag on AWQ is not the AutoRound bug",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "GB10",
+      "tp": 1,
+      "marlin_input_dtype": "int8"
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_mamba_ssm",
+    "group": "safe",
+    "description": "Pure Mamba model with no attention cache",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "MambaForCausalLM"
+      ],
+      "model_type": "mamba",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_trtllm_awq",
+    "group": "safe",
+    "description": "AWQ on TensorRT-LLM",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "trtllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_sglang_fp8",
+    "group": "safe",
+    "description": "FP8 on SGLang",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "sglang",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_gptq_desc_act_sglang_one_gpu",
+    "group": "safe",
+    "description": "desc_act on one GPU is fine for SGLang",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true,
+        "desc_act": true
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "sglang",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "safe_gguf_attn_output_is_not_the_head",
+    "group": "safe",
+    "description": "GGUF attention output is not lm_head",
+    "container": "gguf",
+    "config": {},
+    "tensors": {},
+    "gguf_tensors": [
+      {
+        "name": "token_embd.weight",
+        "dims": [
+          4096,
+          32000
+        ],
+        "ggml_type": 15
+      },
+      {
+        "name": "blk.0.attn_output.weight",
+        "dims": [
+          4096,
+          4096
+        ],
+        "ggml_type": 15
+      }
+    ],
+    "gguf_file_type": 15,
+    "gguf_vocab": 32000,
+    "target": {
+      "engine": "llamacpp",
+      "gpu": "L4",
+      "tp": 1
+    },
+    "must_fire": [],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_nvfp4_on_h100",
+    "group": "hardware",
+    "description": "NVFP4 on H100, which has no NVFP4 cores",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "modelopt",
+        "quant_algo": "NVFP4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          2048
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_nvfp4_on_a100",
+    "group": "hardware",
+    "description": "NVFP4 on A100, which has no NVFP4 cores",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "modelopt",
+        "quant_algo": "NVFP4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          2048
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_nvfp4_on_t4",
+    "group": "hardware",
+    "description": "NVFP4 on T4, which has no NVFP4 cores",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "modelopt",
+        "quant_algo": "NVFP4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          2048
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "T4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_nvfp4_on_l4",
+    "group": "hardware",
+    "description": "NVFP4 on L4, which has no NVFP4 cores",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "modelopt",
+        "quant_algo": "NVFP4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          2048
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "L4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_block_fp8_on_a100",
+    "group": "hardware",
+    "description": "Block FP8 on A100, which has no FP8 cores",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic",
+        "weight_block_size": [
+          128,
+          128
+        ]
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_block_fp8_on_a10g",
+    "group": "hardware",
+    "description": "Block FP8 on A10G, which has no FP8 cores",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic",
+        "weight_block_size": [
+          128,
+          128
+        ]
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A10G",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_fp8_on_t4",
+    "group": "hardware",
+    "description": "FP8 on a T4 with no FP8 cores or Marlin",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "T4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_block_fp8_restricted_l4",
+    "group": "hardware",
+    "description": "Block FP8 hits the sm_89 dispatch limit on L4",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic",
+        "weight_block_size": [
+          128,
+          128
+        ]
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "L4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_block_fp8_restricted_rtx4090",
+    "group": "hardware",
+    "description": "Block FP8 hits the sm_89 dispatch limit on RTX4090",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic",
+        "weight_block_size": [
+          128,
+          128
+        ]
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "RTX4090",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_bf16_weights_on_t4",
+    "group": "hardware",
+    "description": "BF16 weights on a T4",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "BF16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "BF16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "BF16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "T4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_awq_bf16_dtype_on_t4",
+    "group": "hardware",
+    "description": "AWQ model that asks for BF16 on a T4",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      },
+      "torch_dtype": "bfloat16"
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "T4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_marlin_on_mi300x",
+    "group": "hardware",
+    "description": "Pre-packed Marlin on AMD MI300X",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true,
+        "desc_act": false,
+        "checkpoint_format": "marlin"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "MI300X",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_marlin_on_mi250x",
+    "group": "hardware",
+    "description": "Pre-packed Marlin on AMD MI250X",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true,
+        "desc_act": false,
+        "checkpoint_format": "marlin"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "MI250X",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "hw_modelopt_fp8_on_t4",
+    "group": "hardware",
+    "description": "vLLM needs sm_80 for ModelOpt FP8",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "modelopt",
+        "quant_algo": "FP8"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "T4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF004"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "kernel_marlin_fp8_gb10_awq",
+    "group": "kernels",
+    "description": "VLLM_MARLIN_INPUT_DTYPE=fp8 corrupts 4-bit awq on GB10",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "GB10",
+      "tp": 1,
+      "marlin_input_dtype": "fp8"
+    },
+    "must_fire": [
+      "QPF005"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "kernel_marlin_fp8_gb10_gptq",
+    "group": "kernels",
+    "description": "VLLM_MARLIN_INPUT_DTYPE=fp8 corrupts 4-bit gptq on GB10",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true,
+        "desc_act": false
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "GB10",
+      "tp": 1,
+      "marlin_input_dtype": "fp8"
+    },
+    "must_fire": [
+      "QPF005"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "kernel_marlin_fp8_gb10_autoround",
+    "group": "kernels",
+    "description": "VLLM_MARLIN_INPUT_DTYPE=fp8 corrupts 4-bit autoround on GB10",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "auto-round",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "GB10",
+      "tp": 1,
+      "marlin_input_dtype": "fp8"
+    },
+    "must_fire": [
+      "QPF005"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "kernel_marlin_fp8_rtx5090",
+    "group": "kernels",
+    "description": "The same corruption on an RTX 5090",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "RTX5090",
+      "tp": 1,
+      "marlin_input_dtype": "fp8"
+    },
+    "must_fire": [
+      "QPF005"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "kernel_marlin_int8_ct",
+    "group": "kernels",
+    "description": "Marlin INT8 flag ignored on Compressed-Tensors",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "compressed-tensors",
+        "config_groups": {
+          "g": {
+            "weights": {
+              "num_bits": 4,
+              "group_size": 128,
+              "symmetric": true
+            }
+          }
+        }
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1,
+      "marlin_input_dtype": "int8"
+    },
+    "must_fire": [
+      "QPF005"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "kernel_moe_hint_gb10",
+    "group": "kernels",
+    "description": "4-bit MoE on GB10 gets a warning about the flag",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      },
+      "num_local_experts": 8
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.mlp.experts.0.up_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "GB10",
+      "tp": 2
+    },
+    "must_fire": [
+      "QPF005"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tp_heads_not_divisible",
+    "group": "parallel",
+    "description": "32 heads across three GPUs",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 3
+    },
+    "must_fire": [
+      "QPF006"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tp_kv_heads_not_divisible",
+    "group": "parallel",
+    "description": "Six KV heads across four GPUs",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 24,
+      "num_key_value_heads": 6,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 4
+    },
+    "must_fire": [
+      "QPF006"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tp_not_multiple_of_kv_heads",
+    "group": "parallel",
+    "description": "Two KV heads across three GPUs",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 24,
+      "num_key_value_heads": 2,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 3
+    },
+    "must_fire": [
+      "QPF006"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tp_kv_heads_replicated",
+    "group": "parallel",
+    "description": "Two KV heads across four GPUs are replicated",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 2,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 4
+    },
+    "must_fire": [
+      "QPF006"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tp_experts_not_divisible",
+    "group": "parallel",
+    "description": "Seven experts across two GPUs",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "num_local_experts": 7
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 2
+    },
+    "must_fire": [
+      "QPF006"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tp_routed_experts_not_divisible",
+    "group": "parallel",
+    "description": "DeepSeek style expert count",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "n_routed_experts": 255
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 2
+    },
+    "must_fire": [
+      "QPF006"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "align_col_not_divisible",
+    "group": "parallel",
+    "description": "Linear output cannot be split across GPUs",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          508
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 4
+    },
+    "must_fire": [
+      "QPF007"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "align_row_not_divisible",
+    "group": "parallel",
+    "description": "Linear input cannot be split across GPUs",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true,
+        "desc_act": false
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.o_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          513,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 16
+    },
+    "must_fire": [
+      "QPF007"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "align_group_size_after_tp",
+    "group": "parallel",
+    "description": "Per-rank input breaks group_size",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 100,
+        "sym": true,
+        "desc_act": false
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.o_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF007"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "align_marlin_tile",
+    "group": "parallel",
+    "description": "Input size breaks the 128x64 Marlin tile",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4000,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF007"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "align_fp8_block",
+    "group": "parallel",
+    "description": "FP8 tensor does not fit a 128x128 block",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic",
+        "weight_block_size": [
+          128,
+          128
+        ]
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4000,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF007"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "gptq_desc_act_tp4",
+    "group": "parallel",
+    "description": "desc_act with four GPUs",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true,
+        "desc_act": true
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 4
+    },
+    "must_fire": [
+      "QPF008"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "gptq_desc_act_single_gpu",
+    "group": "parallel",
+    "description": "vLLM rejects desc_act even on one GPU",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true,
+        "desc_act": true
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF008"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tok_added_token_at_rows",
+    "group": "tokens",
+    "description": "Added token ID equal to the embedding rows",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF002"
+    ],
+    "must_not_fire": [],
+    "tokenizer_max_id": 32000
+  },
+  {
+    "id": "tok_added_token_past_rows",
+    "group": "tokens",
+    "description": "Added token far past the embedding rows",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF002"
+    ],
+    "must_not_fire": [],
+    "tokenizer_max_id": 32500
+  },
+  {
+    "id": "tok_vocab_size_past_rows",
+    "group": "tokens",
+    "description": "vocab_size larger than the embedding",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32001,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF002"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tok_eos_past_rows",
+    "group": "tokens",
+    "description": "eos_token_id past the embedding",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 32000
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF002"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tok_bos_past_rows",
+    "group": "tokens",
+    "description": "bos_token_id past the embedding",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "bos_token_id": 32005
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF002"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tok_pad_past_rows",
+    "group": "tokens",
+    "description": "pad_token_id past the embedding",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "pad_token_id": 32000
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF002"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "tok_generation_eos_past_rows",
+    "group": "tokens",
+    "description": "generation_config eos_token_id past the embedding",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF002"
+    ],
+    "must_not_fire": [],
+    "generation_config": {
+      "eos_token_id": [
+        2,
+        32001
+      ]
+    }
+  },
+  {
+    "id": "tok_lm_head_smaller",
+    "group": "tokens",
+    "description": "lm_head has fewer rows than the tokenizer",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          31990,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF002"
+    ],
+    "must_not_fire": [],
+    "tokenizer_max_id": 31999
+  },
+  {
+    "id": "tok_stop_token_missing",
+    "group": "tokens",
+    "description": "Chat stop token missing from generation_config",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF003"
+    ],
+    "must_not_fire": [],
+    "generation_config": {
+      "eos_token_id": [
+        2
+      ]
+    },
+    "tokenizer_config": {
+      "eos_token": "<e>"
+    },
+    "tokenizer_eos_id": 7
+  },
+  {
+    "id": "tok_stop_token_missing_config",
+    "group": "tokens",
+    "description": "Chat stop token missing from config.json",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF003"
+    ],
+    "must_not_fire": [],
+    "tokenizer_config": {
+      "eos_token": "<e>"
+    },
+    "tokenizer_eos_id": 7
+  },
+  {
+    "id": "tok_eos_sets_disjoint",
+    "group": "tokens",
+    "description": "config and generation_config share no stop token",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF003"
+    ],
+    "must_not_fire": [],
+    "generation_config": {
+      "eos_token_id": [
+        9
+      ]
+    }
+  },
+  {
+    "id": "layer_router_4bit",
+    "group": "sensitive",
+    "description": "MoE router gate at 4-bit",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 4,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      },
+      "model.layers.0.mlp.gate.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          1
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF001"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "layer_sparse_moe_gate_8bit",
+    "group": "sensitive",
+    "description": "Mixtral style gate at 8-bit",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "MixtralForCausalLM"
+      ],
+      "model_type": "mixtral",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "fp8",
+        "activation_scheme": "dynamic"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      },
+      "model.layers.0.block_sparse_moe.gate.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          8,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF001"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "layer_norm_4bit",
+    "group": "sensitive",
+    "description": "LayerNorm packed to 4-bit",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "modelopt",
+        "quant_algo": "NVFP4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          2048
+        ]
+      },
+      "model.layers.0.input_layernorm.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          8
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "B200",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF001"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "layer_vision_4bit",
+    "group": "sensitive",
+    "description": "Vision tower at 4-bit",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "Qwen2VLForConditionalGeneration"
+      ],
+      "model_type": "qwen2_vl",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "modelopt",
+        "quant_algo": "NVFP4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          2048
+        ]
+      },
+      "visual.blocks.0.attn.proj.weight_packed": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          8
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "B200",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF001"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "layer_lm_head_2bit",
+    "group": "sensitive",
+    "description": "lm_head at 2-bit",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "awq",
+        "bits": 2,
+        "group_size": 128,
+        "zero_point": true,
+        "version": "gemm"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          2000
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF001"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "file_missing_shard",
+    "group": "files",
+    "description": "index.json points at a shard that is not there",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF009"
+    ],
+    "must_not_fire": [],
+    "missing_shards": [
+      "model-00002-of-00002.safetensors"
+    ]
+  },
+  {
+    "id": "file_dangling_tensor",
+    "group": "files",
+    "description": "index.json names a tensor no shard has",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF009"
+    ],
+    "must_not_fire": [],
+    "dangling_index_tensors": [
+      "model.layers.9.mlp.up_proj.weight"
+    ]
+  },
+  {
+    "id": "file_duplicate_tensor",
+    "group": "files",
+    "description": "The same tensor in two shards",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF009"
+    ],
+    "must_not_fire": [],
+    "duplicate_tensors": [
+      "lm_head.weight"
+    ]
+  },
+  {
+    "id": "file_missing_quant_config",
+    "group": "files",
+    "description": "Packed tensors but no quantization_config",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          4096,
+          512
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF010"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "file_fp8_without_config",
+    "group": "files",
+    "description": "FP8 tensors but no quantization_config",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F8_E4M3",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF010"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "file_stale_quant_config",
+    "group": "files",
+    "description": "quantization_config left on a 16-bit model",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "gptq",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true,
+        "desc_act": false
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF010"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "file_span_overlap",
+    "group": "files",
+    "description": "Two tensors share bytes",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "a.weight": {
+        "dtype": "F16",
+        "shape": [
+          8,
+          8
+        ]
+      },
+      "b.weight": {
+        "dtype": "F16",
+        "shape": [
+          8,
+          8
+        ],
+        "offset_override": 64
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF013"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "file_span_too_short",
+    "group": "files",
+    "description": "Declared span smaller than the shape needs",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "a.weight": {
+        "dtype": "F16",
+        "shape": [
+          8,
+          8
+        ],
+        "byte_size_override": 64
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF013"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "file_truncated_shard",
+    "group": "files",
+    "description": "Tensor span runs past the end of the file",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "a.weight": {
+        "dtype": "F16",
+        "shape": [
+          8,
+          8
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF013"
+    ],
+    "must_not_fire": [],
+    "shard_file_sizes": {
+      "model.safetensors": 200
+    },
+    "shard_header_lengths": {
+      "model.safetensors": 100
+    }
+  },
+  {
+    "id": "file_pickle_only",
+    "group": "files",
+    "description": "Weights exist only as pickle files",
+    "container": "pytorch_bin",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {},
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF014"
+    ],
+    "must_not_fire": [
+      "QPF011"
+    ],
+    "legacy_weight_files": [
+      "pytorch_model.bin"
+    ]
+  },
+  {
+    "id": "file_pickle_left_behind",
+    "group": "files",
+    "description": "Pickle weights left next to Safetensors",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF014"
+    ],
+    "must_not_fire": [],
+    "legacy_weight_files": [
+      "pytorch_model.bin"
+    ]
+  },
+  {
+    "id": "file_remote_code",
+    "group": "files",
+    "description": "Model needs trust_remote_code",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "auto_map": {
+        "AutoModelForCausalLM": "modeling_x.Model"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF014"
+    ],
+    "must_not_fire": [],
+    "custom_code_files": [
+      "modeling_x.py"
+    ]
+  },
+  {
+    "id": "file_split_gguf_part_missing",
+    "group": "files",
+    "description": "A split GGUF with one part missing",
+    "container": "gguf",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "llamacpp",
+      "gpu": "L4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF009"
+    ],
+    "must_not_fire": [],
+    "gguf_tensors": [
+      {
+        "name": "blk.0.attn_q.weight",
+        "dims": [
+          4096,
+          4096
+        ],
+        "ggml_type": 15
+      }
+    ],
+    "gguf_file_type": 15,
+    "missing_shards": [
+      "model-00002-of-00003.gguf"
+    ]
+  },
+  {
+    "id": "engine_gguf_on_tensorrt",
+    "group": "engines",
+    "description": "GGUF on TensorRT-LLM",
+    "container": "gguf",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "trtllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF011"
+    ],
+    "must_not_fire": [],
+    "gguf_tensors": [
+      {
+        "name": "blk.0.attn_q.weight",
+        "dims": [
+          4096,
+          4096
+        ],
+        "ggml_type": 15
+      }
+    ],
+    "gguf_file_type": 15
+  },
+  {
+    "id": "engine_iq2_on_vllm",
+    "group": "engines",
+    "description": "2-bit I-quant GGUF on vLLM",
+    "container": "gguf",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF011"
+    ],
+    "must_not_fire": [],
+    "gguf_tensors": [
+      {
+        "name": "blk.0.attn_q.weight",
+        "dims": [
+          4096,
+          4096
+        ],
+        "ggml_type": 16
+      }
+    ],
+    "gguf_file_type": 19
+  },
+  {
+    "id": "engine_iq2_on_sglang",
+    "group": "engines",
+    "description": "2-bit I-quant GGUF on SGLang",
+    "container": "gguf",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "sglang",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF011"
+    ],
+    "must_not_fire": [],
+    "gguf_tensors": [
+      {
+        "name": "blk.0.attn_q.weight",
+        "dims": [
+          4096,
+          4096
+        ],
+        "ggml_type": 16
+      }
+    ],
+    "gguf_file_type": 19
+  },
+  {
+    "id": "engine_autoround_on_tensorrt",
+    "group": "engines",
+    "description": "AutoRound on TensorRT-LLM",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "auto-round",
+        "bits": 4,
+        "group_size": 128,
+        "sym": true
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.qweight": {
+        "dtype": "I32",
+        "shape": [
+          512,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "trtllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF011"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "engine_bnb_on_tensorrt",
+    "group": "engines",
+    "description": "bitsandbytes on TensorRT-LLM",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "bitsandbytes",
+        "load_in_4bit": true,
+        "bnb_4bit_quant_type": "nf4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "trtllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF011"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "engine_bitnet_on_sglang",
+    "group": "engines",
+    "description": "BitNet on SGLang",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "bitnet"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          1024
+        ]
+      }
+    },
+    "target": {
+      "engine": "sglang",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF011"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "engine_old_vllm_has_advisories",
+    "group": "engines",
+    "description": "vLLM 0.31.0 has published advisories",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1,
+      "engine_version": "0.31.0"
+    },
+    "must_fire": [
+      "QPF015"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "engine_very_old_vllm_has_advisories",
+    "group": "engines",
+    "description": "vLLM 0.8.0 has published advisories",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1,
+      "engine_version": "0.8.0"
+    },
+    "must_fire": [
+      "QPF015"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "engine_bnb_on_vllm",
+    "group": "engines",
+    "description": "vLLM has no bitsandbytes loader",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization_config": {
+        "quant_method": "bitsandbytes",
+        "load_in_4bit": true,
+        "bnb_4bit_quant_type": "nf4"
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "U8",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "A100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF011"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "engine_context_above_model_limit",
+    "group": "engines",
+    "description": "Context of 4096 on a model limited to 2048",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 2048,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "tp": 1,
+      "context_len": 4096
+    },
+    "must_fire": [
+      "QPF016"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "engine_mlx_on_vllm",
+    "group": "engines",
+    "description": "MLX weights need MLX, not vLLM",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2,
+      "quantization": {
+        "bits": 4,
+        "group_size": 64
+      },
+      "quantization_config": {
+        "bits": 4,
+        "group_size": 64
+      }
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF011"
+    ],
+    "must_not_fire": [
+      "QPF010"
+    ]
+  },
+  {
+    "id": "mem_40gib_on_l4",
+    "group": "memory",
+    "description": "40 GiB of weights on one L4",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "L4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF012"
+    ],
+    "must_not_fire": [],
+    "total_weight_bytes": 42949672960
+  },
+  {
+    "id": "mem_20gib_on_t4",
+    "group": "memory",
+    "description": "20 GiB of weights on one T4",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "T4",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF012"
+    ],
+    "must_not_fire": [],
+    "total_weight_bytes": 21474836480
+  },
+  {
+    "id": "mem_100gib_on_h100",
+    "group": "memory",
+    "description": "100 GiB of weights on one H100",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF012"
+    ],
+    "must_not_fire": [],
+    "total_weight_bytes": 107374182400
+  },
+  {
+    "id": "mem_300gib_on_two_h100",
+    "group": "memory",
+    "description": "300 GiB of weights on two H100s",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 2
+    },
+    "must_fire": [
+      "QPF012"
+    ],
+    "must_not_fire": [],
+    "total_weight_bytes": 322122547200
+  },
+  {
+    "id": "mem_fits_with_tp",
+    "group": "memory",
+    "description": "The same 300 GiB fits on eight H100s",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 8
+    },
+    "must_fire": [],
+    "must_not_fire": [],
+    "total_weight_bytes": 322122547200
+  },
+  {
+    "id": "gap_nan_weights",
+    "group": "gaps",
+    "description": "Weights full of NaN look healthy from the header",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF013"
+    ],
+    "must_not_fire": []
+  },
+  {
+    "id": "gap_real_traffic_oom",
+    "group": "gaps",
+    "description": "Fits the minimal cache but runs out under real traffic",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 131072,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF012"
+    ],
+    "must_not_fire": [],
+    "total_weight_bytes": 53687091200
+  },
+  {
+    "id": "gap_request_time_token",
+    "group": "gaps",
+    "description": "With no --engine-version, a request-time token bug in the server stays out of sight",
+    "container": "safetensors",
+    "config": {
+      "architectures": [
+        "LlamaForCausalLM"
+      ],
+      "model_type": "llama",
+      "vocab_size": 32000,
+      "hidden_size": 4096,
+      "num_hidden_layers": 32,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "max_position_embeddings": 4096,
+      "eos_token_id": 2
+    },
+    "tensors": {
+      "model.embed_tokens.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "lm_head.weight": {
+        "dtype": "F16",
+        "shape": [
+          32000,
+          4096
+        ]
+      },
+      "model.layers.0.self_attn.q_proj.weight": {
+        "dtype": "F16",
+        "shape": [
+          4096,
+          4096
+        ]
+      }
+    },
+    "target": {
+      "engine": "vllm",
+      "gpu": "H100",
+      "tp": 1
+    },
+    "must_fire": [
+      "QPF002"
+    ],
+    "must_not_fire": []
+  }
+]

@@ -1,0 +1,30 @@
+name: Add a model family, GPU, or engine
+description: Ask for support for something quantpreflight doesn't know yet.
+title: "[Profile]: <name>"
+labels: ["profile"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What's missing?
+      options:
+        - A model family
+        - A GPU or accelerator
+        - A serving engine
+        - A quantization format
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      placeholder: GB300, Qwen3-MoE, or similar
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Link a public model, a config.json, or the vendor's spec. Which layers are sensitive? Which formats does the GPU support?
+    validations:
+      required: true

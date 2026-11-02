@@ -1,0 +1,29 @@
+id = "mistral_mixtral"
+name = "Mistral / Mixtral / Pixtral Dense, MoE & Vision"
+match_architectures = ["mistralforcausallm", "mixtralforcausallm", "pixtralforconditionalgeneration", "mistral3forconditionalgeneration"]
+match_model_types = ["mistral", "mixtral", "pixtral", "mistral3"]
+
+col_parallel_suffixes = ["q_proj", "k_proj", "v_proj", "gate_proj", "up_proj", "w1", "w3"]
+row_parallel_suffixes = ["o_proj", "down_proj", "w2"]
+
+[[sensitive_layers]]
+name = "mixtral_moe_router"
+pattern = '(^|\.)(block_sparse_moe\.gate|mlp\.gate|ffn_gate_inp)\.(weight|qweight|weight_packed)$'
+exclude_pattern = 'gate_(up_)?proj'
+min_bits = 16.0
+severity = "medium"
+reason = "A quantized MoE router can distort token-to-expert routing. It still loads, so compare output quality with the original model."
+
+[[sensitive_layers]]
+name = "pixtral_vision_encoder"
+pattern = '(^|\.)(vision_tower|multi_modal_projector)\..*\.(weight|qweight|weight_packed)$'
+min_bits = 8.0
+severity = "high"
+reason = "Pixtral vision tower and adapter layers degrade significantly at <=4-bit."
+
+[[sensitive_layers]]
+name = "mistral_norms"
+pattern = '(^|\.)([a-z0-9_]*norm[a-z0-9_]*)\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "RMSNorm weights must remain >=16-bit."

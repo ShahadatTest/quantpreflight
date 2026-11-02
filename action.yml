@@ -1,0 +1,69 @@
+name: "quantpreflight"
+description: "Zero-GPU pre-flight scanner for 32/16/8/4/2-bit quantized AI checkpoints before GPU deployment."
+branding:
+  icon: "cpu"
+  color: "blue"
+
+inputs:
+  target:
+    description: "Hugging Face repo ID (org/model), HTTPS URL, or local checkpoint path."
+    required: true
+  gpu:
+    description: "Target GPU profile (e.g. H100, A100, L40S, T4, B200, GB10, MI300X)."
+    required: false
+    default: ""
+  engine:
+    description: "Target serving engine (vllm, sglang, trtllm, llamacpp)."
+    required: false
+    default: "vllm"
+  tp:
+    description: "Tensor parallel degree."
+    required: false
+    default: "1"
+  engine-version:
+    description: "Installed engine version, checked against published advisories (vLLM and SGLang)."
+    required: false
+    default: ""
+  fail-on:
+    description: "Minimum severity that fails the check (critical, high, medium, low, none)."
+    required: false
+    default: "high"
+  sarif-file:
+    description: "Optional path to write a SARIF 2.1.0 report."
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install quantpreflight
+      shell: bash
+      run: python -m pip install --upgrade "${{ github.action_path }}"
+
+    - name: Run quantpreflight
+      shell: bash
+      env:
+        INPUT_TARGET: ${{ inputs.target }}
+        INPUT_GPU: ${{ inputs.gpu }}
+        INPUT_ENGINE: ${{ inputs.engine }}
+        INPUT_TP: ${{ inputs.tp }}
+        INPUT_ENGINE_VERSION: ${{ inputs.engine-version }}
+        INPUT_FAIL_ON: ${{ inputs.fail-on }}
+        INPUT_SARIF: ${{ inputs.sarif-file }}
+      run: |
+        args=("check" "$INPUT_TARGET" "--engine" "$INPUT_ENGINE" "--tp" "$INPUT_TP" "--fail-on" "$INPUT_FAIL_ON")
+        if [ -n "$INPUT_GPU" ]; then
+          args+=("--gpu" "$INPUT_GPU")
+        fi
+        if [ -n "$INPUT_ENGINE_VERSION" ]; then
+          args+=("--engine-version" "$INPUT_ENGINE_VERSION")
+        fi
+        if [ -n "$INPUT_SARIF" ]; then
+          args+=("--format" "sarif" "--output" "$INPUT_SARIF")
+        fi
+        quantpreflight "${args[@]}"

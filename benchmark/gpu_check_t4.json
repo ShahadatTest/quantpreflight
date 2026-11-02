@@ -1,0 +1,886 @@
+{
+ "meta": {
+  "quantpreflight": "0.2.0",
+  "context": 4096,
+  "gpus": [
+   {
+    "name": "Tesla T4",
+    "memory_gib": 15.0
+   },
+   {
+    "name": "Tesla T4",
+    "memory_gib": 15.0
+   }
+  ],
+  "vllm": "0.33.0",
+  "notes": "Predictions were recomputed with the current rules. Real outcomes are unchanged."
+ },
+ "results": [
+  {
+   "repo": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "tp": 1,
+   "note": "small plain model",
+   "prediction": {
+    "verdict": "go",
+    "context": 2048,
+    "findings": [
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "unquantized (BF16)",
+    "weights_gib": 2.05,
+    "estimated_vram_gib": 3.11
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 134,
+    "peak_gib": 12.91,
+    "text": " Paris.\n\n2. B.",
+    "kv_cache_tokens": 490560.0,
+    "max_concurrency": 239.53,
+    "kv_available_gib": 10.29,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-1.5B-Instruct",
+   "tp": 1,
+   "note": "small plain model",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "unquantized (BF16)",
+    "weights_gib": 2.88,
+    "estimated_vram_gib": 4.15
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 137,
+    "peak_gib": 12.92,
+    "text": " Paris. The capital of France is also",
+    "kv_cache_tokens": 339616.0,
+    "max_concurrency": 82.91,
+    "kv_available_gib": 9.07,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-Coder-7B-Instruct-AWQ",
+   "tp": 1,
+   "note": "AWQ",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [],
+    "quant": "awq 4-bit g128 gemm",
+    "weights_gib": 5.19,
+    "estimated_vram_gib": 6.99
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 157,
+    "peak_gib": 12.29,
+    "text": " Paris. Paris is located in the northern",
+    "kv_cache_tokens": 112720.0,
+    "max_concurrency": 27.52,
+    "kv_available_gib": 6.02,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "casperhansen/llama-3-8b-instruct-awq",
+   "tp": 1,
+   "note": "AWQ from a third party",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [],
+    "quant": "awq 4-bit g128 gemm",
+    "weights_gib": 5.33,
+    "estimated_vram_gib": 7.44
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 165,
+    "peak_gib": 12.28,
+    "text": " Paris. The city is located in the",
+    "kv_cache_tokens": 49552.0,
+    "max_concurrency": 12.1,
+    "kv_available_gib": 6.05,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8",
+   "tp": 1,
+   "note": "8-bit GPTQ",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [],
+    "quant": "gptq 8-bit g128",
+    "weights_gib": 8.25,
+    "estimated_vram_gib": 10.61
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 177,
+    "peak_gib": 14.56,
+    "text": " Paris. Which of the following statements is",
+    "kv_cache_tokens": 56576.0,
+    "max_concurrency": 13.81,
+    "kv_available_gib": 3.02,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "TechxGenus/Meta-Llama-3-8B-Instruct-GPTQ",
+   "tp": 1,
+   "note": "GPTQ from a third party",
+   "prediction": {
+    "verdict": "no-go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF008",
+      "critical",
+      "vLLM rejects GPTQ checkpoints with desc_act=true"
+     ]
+    ],
+    "quant": "gptq 4-bit g128",
+    "weights_gib": 5.34,
+    "estimated_vram_gib": 7.45
+   },
+   "actual": {
+    "loaded": false,
+    "exit_code": 1,
+    "seconds": 23,
+    "peak_gib": 0.0,
+    "text": null,
+    "kv_cache_tokens": null,
+    "max_concurrency": null,
+    "kv_available_gib": null,
+    "weights_gib": null,
+    "error": [
+     "pydantic_core._pydantic_core.ValidationError: 1 validation error for VllmConfig",
+     "  Value error, GPTQ group activation ordering (desc_act=True) is no longer supported. Use a checkpoint with static activation ordering or desc_act=False. [type=value_error, input_value=ArgsKwargs((), {'model_co... 'shutdown_timeout': 0}), input_type=ArgsKwargs]",
+     "    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+    ]
+   }
+  },
+  {
+   "repo": "RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w8a8",
+   "tp": 1,
+   "note": "Compressed-Tensors W8A8",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "compressed-tensors 8-bit int-quantized",
+    "weights_gib": 8.46,
+    "estimated_vram_gib": 11.13
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 180,
+    "peak_gib": 12.27,
+    "text": " Paris. It is located in the northern",
+    "kv_cache_tokens": 23424.0,
+    "max_concurrency": 5.72,
+    "kv_available_gib": 2.86,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8-dynamic",
+   "tp": 1,
+   "note": "Compressed-Tensors FP8",
+   "prediction": {
+    "verdict": "no-go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF004",
+      "high",
+      "No FP8 cores on T4 (sm_75), so FP8 may fail to start"
+     ],
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "compressed-tensors 8-bit naive-quantized",
+    "weights_gib": 8.46,
+    "estimated_vram_gib": 10.88
+   },
+   "actual": {
+    "loaded": false,
+    "exit_code": 1,
+    "seconds": 84,
+    "peak_gib": 8.74,
+    "text": null,
+    "kv_cache_tokens": null,
+    "max_concurrency": null,
+    "kv_available_gib": null,
+    "weights_gib": null,
+    "error": [
+     "(EngineCore pid=2614) ERROR 11-02 16:06:16 [core.py:1584]     )",
+     "(EngineCore pid=2614) ERROR 11-02 16:06:16 [core.py:1584] RuntimeError: NVRTCCompiler failed with exit code 1; source and compiler logs: /root/.humming/cache/97496ef76d5d7fe97532ee873ec1e8ef",
+     "    raise RuntimeError(",
+     "RuntimeError: NVRTCCompiler failed with exit code 1; source and compiler logs: /root/.humming/cache/97496ef76d5d7fe97532ee873ec1e8ef",
+     "    raise RuntimeError(",
+     "RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}"
+    ]
+   }
+  },
+  {
+   "repo": "NousResearch/Hermes-3-Llama-3.1-8B",
+   "tp": 2,
+   "note": "plain 15 GiB model across two GPUs",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "unquantized (BF16)",
+    "weights_gib": 14.96,
+    "estimated_vram_gib": 9.72
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 259,
+    "peak_gib": 13.04,
+    "text": " a city of romance, art, fashion",
+    "kv_cache_tokens": 64096.0,
+    "max_concurrency": 15.65,
+    "kv_available_gib": 3.91,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-VL-3B-Instruct",
+   "tp": 1,
+   "note": "vision model",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "unquantized (BF16)",
+    "weights_gib": 6.99,
+    "estimated_vram_gib": 9.04
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 207,
+    "peak_gib": 11.82,
+    "text": " Paris. The capital of the United States",
+    "kv_cache_tokens": 88400.0,
+    "max_concurrency": 21.58,
+    "kv_available_gib": 3.04,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-0.5B-Instruct",
+   "tp": 1,
+   "note": "small plain model",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "unquantized (BF16)",
+    "weights_gib": 0.92,
+    "estimated_vram_gib": 1.78
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 103,
+    "peak_gib": 13.16,
+    "text": " Paris. It is the largest city in",
+    "kv_cache_tokens": 995184.0,
+    "max_concurrency": 242.96,
+    "kv_available_gib": 11.39,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-7B-Instruct-AWQ",
+   "tp": 1,
+   "note": "AWQ",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [],
+    "quant": "awq 4-bit g128 gemm",
+    "weights_gib": 5.19,
+    "estimated_vram_gib": 6.99
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 159,
+    "peak_gib": 12.29,
+    "text": " Paris. Paris is located in the northern",
+    "kv_cache_tokens": 112720.0,
+    "max_concurrency": 27.52,
+    "kv_available_gib": 6.02,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-7B-Instruct-AWQ",
+   "tp": 2,
+   "note": "AWQ across two GPUs",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [],
+    "quant": "awq 4-bit g128 gemm",
+    "weights_gib": 5.19,
+    "estimated_vram_gib": 3.82
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 160,
+    "peak_gib": 13.19,
+    "text": " Paris. Paris is located in the northern",
+    "kv_cache_tokens": 332000.0,
+    "max_concurrency": 81.05,
+    "kv_available_gib": 8.87,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-7B-Instruct-GPTQ-Int4",
+   "tp": 1,
+   "note": "GPTQ",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [],
+    "quant": "gptq 4-bit g128",
+    "weights_gib": 5.19,
+    "estimated_vram_gib": 7.0
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 160,
+    "peak_gib": 12.29,
+    "text": " Paris. Which of the following options correctly",
+    "kv_cache_tokens": 112352.0,
+    "max_concurrency": 27.43,
+    "kv_available_gib": 6.0,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w4a16",
+   "tp": 1,
+   "note": "Compressed-Tensors W4A16",
+   "prediction": {
+    "verdict": "no-go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF008",
+      "critical",
+      "vLLM rejects GPTQ checkpoints with desc_act=true"
+     ]
+    ],
+    "quant": "gptq 4-bit g128",
+    "weights_gib": 5.34,
+    "estimated_vram_gib": 7.45
+   },
+   "actual": {
+    "loaded": false,
+    "exit_code": 1,
+    "seconds": 22,
+    "peak_gib": 0.0,
+    "text": null,
+    "kv_cache_tokens": null,
+    "max_concurrency": null,
+    "kv_available_gib": null,
+    "weights_gib": null,
+    "error": [
+     "pydantic_core._pydantic_core.ValidationError: 1 validation error for VllmConfig",
+     "  Value error, GPTQ group activation ordering (desc_act=True) is no longer supported. Use a checkpoint with static activation ordering or desc_act=False. [type=value_error, input_value=ArgsKwargs((), {'model_co... 'shutdown_timeout': 0}), input_type=ArgsKwargs]",
+     "    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+    ]
+   }
+  },
+  {
+   "repo": "unsloth/Llama-3.2-1B-Instruct-bnb-4bit",
+   "tp": 1,
+   "note": "bitsandbytes",
+   "prediction": {
+    "verdict": "no-go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF011",
+      "high",
+      "Quantization method 'bitsandbytes' unsupported by vLLM"
+     ],
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "bitsandbytes 4-bit nf4",
+    "weights_gib": 0.96,
+    "estimated_vram_gib": 1.9
+   },
+   "actual": {
+    "loaded": false,
+    "exit_code": 1,
+    "seconds": 21,
+    "peak_gib": 0.0,
+    "text": null,
+    "kv_cache_tokens": null,
+    "max_concurrency": null,
+    "kv_available_gib": null,
+    "weights_gib": null,
+    "error": [
+     "pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig",
+     "  Value error, Unknown quantization method: bitsandbytes. Must be one of ['awq', 'auto_awq', 'fp8', 'fbgemm_fp8', 'fp_quant', 'modelopt', 'modelopt_fp4', 'modelopt_mxfp8', 'modelopt_mixed', 'auto_gptq', 'gptq', 'gptq_marlin', 'awq_marlin', 'humming', 'compressed-tensors', 'experts_int8', 'quark', 'moe_wna16', 'torchao', 'inc', 'mxfp4', 'gpt_oss_mxfp4', 'deepseek_v4_fp8', 'online', 'fp8_per_tensor', 'fp8_per_block', 'fp8_per_channel', 'int8_per_channel_weight_only', 'nvfp4_per_token', 'mxfp8']. [type=value_error, input_value=ArgsKwargs((), {'model': ...nderer_num_workers': 1}), input_type=ArgsKwargs]",
+     "    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+    ]
+   }
+  },
+  {
+   "repo": "Qwen/Qwen3-8B-FP8",
+   "tp": 1,
+   "note": "FP8 on a GPU without FP8 cores",
+   "prediction": {
+    "verdict": "no-go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF004",
+      "high",
+      "No FP8 cores on T4 (sm_75), so FP8 may fail to start"
+     ],
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "fp8 8-bit block-fp8",
+    "weights_gib": 8.79,
+    "estimated_vram_gib": 11.3
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 219,
+    "peak_gib": 12.82,
+    "text": " Paris. The capital of Italy is Rome",
+    "kv_cache_tokens": 16288.0,
+    "max_concurrency": 3.98,
+    "kv_available_gib": 2.24,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "nvidia/Llama-3.1-8B-Instruct-FP8",
+   "tp": 1,
+   "note": "FP8 on a GPU without FP8 cores",
+   "prediction": {
+    "verdict": "no-go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF004",
+      "critical",
+      "ModelOpt checkpoints need sm_80 or newer, target is T4 (sm_75)"
+     ],
+     [
+      "QPF004",
+      "high",
+      "No FP8 cores on T4 (sm_75), so FP8 may fail to start"
+     ],
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "fp8 8-bit",
+    "weights_gib": 8.46,
+    "estimated_vram_gib": 10.88
+   },
+   "actual": {
+    "loaded": false,
+    "exit_code": 1,
+    "seconds": 23,
+    "peak_gib": 0.0,
+    "text": null,
+    "kv_cache_tokens": null,
+    "max_concurrency": null,
+    "kv_available_gib": null,
+    "weights_gib": null,
+    "error": [
+     "pydantic_core._pydantic_core.ValidationError: 1 validation error for VllmConfig",
+     "  Value error, The quantization method modelopt is not supported for the current GPU. Minimum capability: 80. Current capability: 75. [type=value_error, input_value=ArgsKwargs((), {'model_co... 'shutdown_timeout': 0}), input_type=ArgsKwargs]",
+     "    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+    ]
+   }
+  },
+  {
+   "repo": "nvidia/Qwen3-8B-FP4",
+   "tp": 1,
+   "note": "NVFP4 on a GPU without NVFP4 cores",
+   "prediction": {
+    "verdict": "no-go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF004",
+      "critical",
+      "ModelOpt checkpoints need sm_80 or newer, target is T4 (sm_75)"
+     ],
+     [
+      "QPF004",
+      "critical",
+      "NVFP4 requires Blackwell (sm_100+), target is T4 (sm_75)"
+     ],
+     [
+      "QPF004",
+      "high",
+      "No FP8 cores on T4 (sm_75), so FP8 may fail to start"
+     ],
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "nvfp4 4-bit g16 nvfp4-pack-quantized",
+    "weights_gib": 5.96,
+    "estimated_vram_gib": 8.24
+   },
+   "actual": {
+    "loaded": false,
+    "exit_code": 1,
+    "seconds": 33,
+    "peak_gib": 1.39,
+    "text": null,
+    "kv_cache_tokens": null,
+    "max_concurrency": null,
+    "kv_available_gib": null,
+    "weights_gib": null,
+    "error": [
+     "(EngineCore pid=6264) ERROR 11-02 16:29:21 [core.py:1584]     )",
+     "(EngineCore pid=6264) ERROR 11-02 16:29:21 [core.py:1584] ValueError: FP8 KV cache is not supported by the Triton attention backend on Tesla T4 (compute capability 7.5); native FP8 (fp8e4nv) requires SM89+. Re-run with --kv-cache-dtype float16.",
+     "    raise ValueError(",
+     "ValueError: FP8 KV cache is not supported by the Triton attention backend on Tesla T4 (compute capability 7.5); native FP8 (fp8e4nv) requires SM89+. Re-run with --kv-cache-dtype float16.",
+     "    raise RuntimeError(",
+     "RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}"
+    ]
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-14B-Instruct-AWQ",
+   "tp": 1,
+   "note": "close to the memory limit",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [],
+    "quant": "awq 4-bit g128 gemm",
+    "weights_gib": 9.29,
+    "estimated_vram_gib": 12.37
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 220,
+    "peak_gib": 13.81,
+    "text": " Paris. The capital of Spain is Madrid",
+    "kv_cache_tokens": 7296.0,
+    "max_concurrency": 1.78,
+    "kv_available_gib": 1.34,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-32B-Instruct-AWQ",
+   "tp": 1,
+   "note": "too big for one GPU",
+   "prediction": {
+    "verdict": "no-go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF012",
+      "critical",
+      "Estimated per-GPU memory (22.89 GiB) exceeds T4 budget (13.10 GiB)"
+     ]
+    ],
+    "quant": "awq 4-bit g128 gemm",
+    "weights_gib": 18.0,
+    "estimated_vram_gib": 22.89
+   },
+   "actual": {
+    "loaded": false,
+    "exit_code": 1,
+    "seconds": 33,
+    "peak_gib": 13.75,
+    "text": null,
+    "kv_cache_tokens": null,
+    "max_concurrency": null,
+    "kv_available_gib": null,
+    "weights_gib": null,
+    "error": [
+     "(EngineCore pid=6870) ERROR 11-02 16:33:37 [core.py:1584]   File \"/usr/local/lib/python3.13/dist-packages/torch/utils/_device.py\", line 122, in __torch_function__",
+     "(EngineCore pid=6870) ERROR 11-02 16:33:37 [core.py:1584]     return func(*args, **kwargs)",
+     "(EngineCore pid=6870) ERROR 11-02 16:33:37 [core.py:1584] torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 136.00 MiB. GPU 0 has a total capacity of 14.56 GiB of which 56.81 MiB is free. Including non-PyTorch memory, this process has 14.50 GiB memory in use. Of the allocated memory 14.35 GiB is allocated by PyTorch, and 5.43 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)",
+     "torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 136.00 MiB. GPU 0 has a total capacity of 14.56 GiB of which 56.81 MiB is free. Including non-PyTorch memory, this process has 14.50 GiB memory in use. Of the allocated memory 14.35 GiB is allocated by PyTorch, and 5.43 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)",
+     "    raise RuntimeError(",
+     "RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}"
+    ]
+   }
+  },
+  {
+   "repo": "Qwen/Qwen2.5-32B-Instruct-AWQ",
+   "tp": 2,
+   "note": "the same model across two GPUs",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [],
+    "quant": "awq 4-bit g128 gemm",
+    "weights_gib": 18.0,
+    "estimated_vram_gib": 11.77
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 371,
+    "peak_gib": 13.71,
+    "text": " Paris. Correct! The capital of France",
+    "kv_cache_tokens": 10288.0,
+    "max_concurrency": 2.51,
+    "kv_available_gib": 1.26,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "HuggingFaceTB/SmolLM2-135M-Instruct",
+   "tp": 1,
+   "note": "small plain model",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "unquantized (BF16)",
+    "weights_gib": 0.25,
+    "estimated_vram_gib": 1.03
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 102,
+    "peak_gib": 13.24,
+    "text": " Paris. Paris is the largest city in",
+    "kv_cache_tokens": 572912.0,
+    "max_concurrency": 139.87,
+    "kv_available_gib": 12.29,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "HuggingFaceTB/SmolLM2-135M-Instruct",
+   "tp": 2,
+   "note": "heads that may not split across two GPUs",
+   "prediction": {
+    "verdict": "no-go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF006",
+      "critical",
+      "GQA num_key_value_heads not divisible by TP degree"
+     ],
+     [
+      "QPF006",
+      "critical",
+      "num_attention_heads not divisible by TP degree"
+     ],
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "unquantized (BF16)",
+    "weights_gib": 0.25,
+    "estimated_vram_gib": 0.86
+   },
+   "actual": {
+    "loaded": false,
+    "exit_code": 1,
+    "seconds": 18,
+    "peak_gib": 0.0,
+    "text": null,
+    "kv_cache_tokens": null,
+    "max_concurrency": null,
+    "kv_available_gib": null,
+    "weights_gib": null,
+    "error": [
+     "pydantic_core._pydantic_core.ValidationError: 1 validation error for VllmConfig",
+     "  Value error, Total number of attention heads (9) must be divisible by tensor parallel size (2). [type=value_error, input_value=ArgsKwargs((), {'model_co... 'shutdown_timeout': 0}), input_type=ArgsKwargs]",
+     "    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+    ]
+   }
+  },
+  {
+   "repo": "facebook/opt-125m",
+   "tp": 1,
+   "note": "pickle weights only",
+   "prediction": {
+    "verdict": "go",
+    "context": 2048,
+    "findings": [
+     [
+      "QPF014",
+      "critical",
+      "Insecure legacy PyTorch pickle checkpoint format (arbitrary code execution hazard)"
+     ]
+    ],
+    "quant": "unquantized (unknown)",
+    "weights_gib": 0.0,
+    "estimated_vram_gib": null
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 100,
+    "peak_gib": 13.22,
+    "text": " the capital of the French Republic.\n",
+    "kv_cache_tokens": 363664.0,
+    "max_concurrency": 177.57,
+    "kv_available_gib": 12.49,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "Zerul/Qwen3.5-0.8B-W4A16-AutoRound-AWQ",
+   "tp": 1,
+   "note": "Qwen3.5 family",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF003",
+      "medium",
+      "Chat stop token missing from generation eos_token_id"
+     ]
+    ],
+    "quant": "awq 4-bit g128 gemm",
+    "weights_gib": 0.9,
+    "estimated_vram_gib": 1.9
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 619,
+    "peak_gib": 12.86,
+    "text": " the capital of the United States.\n",
+    "kv_cache_tokens": 446464.0,
+    "max_concurrency": 109.0,
+    "kv_available_gib": 9.5,
+    "weights_gib": null
+   }
+  },
+  {
+   "repo": "RedHatAI/Qwen3-30B-A3B-Instruct-2507-quantized.w4a16",
+   "tp": 2,
+   "note": "MoE router quantized to 4-bit",
+   "prediction": {
+    "verdict": "go",
+    "context": 4096,
+    "findings": [
+     [
+      "QPF001",
+      "medium",
+      "Bit-starved sensitive layer (qwen_moe_router_gate)"
+     ],
+     [
+      "QPF004",
+      "medium",
+      "BF16 runs as FP16 on T4 (sm_75)"
+     ]
+    ],
+    "quant": "compressed-tensors 4-bit g128 pack-quantized",
+    "weights_gib": 15.52,
+    "estimated_vram_gib": 10.0
+   },
+   "actual": {
+    "loaded": true,
+    "exit_code": 0,
+    "seconds": 303,
+    "peak_gib": 13.53,
+    "text": " Paris. True or false?\nAnswer:\n\n",
+    "kv_cache_tokens": 77632.0,
+    "max_concurrency": 18.95,
+    "kv_available_gib": 3.55,
+    "weights_gib": null
+   }
+  }
+ ]
+}

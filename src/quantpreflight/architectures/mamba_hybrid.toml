@@ -1,0 +1,35 @@
+id = "mamba_hybrid"
+name = "Mamba / Jamba / Nemotron-H / Bamba Hybrid SSM"
+match_architectures = [
+    "mambaforcausallm",
+    "mamba2forcausallm",
+    "jambaforcausallm",
+    "nemotronhforcausallm",
+    "bambaforcausallm",
+]
+match_model_types = ["mamba", "mamba2", "jamba", "nemotron_h", "bamba"]
+
+col_parallel_suffixes = ["q_proj", "k_proj", "v_proj", "gate_proj", "up_proj", "in_proj"]
+row_parallel_suffixes = ["o_proj", "down_proj", "out_proj"]
+
+[[sensitive_layers]]
+name = "mamba_ssm_state_tensors"
+pattern = '(^|\.)(A_log|dt_bias|D|ssm_a|ssm_d|ssm_dt)$|(^|\.)(mamba|backbone\.layers\.\d+\.mixer)\.conv1d\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "Mamba/Nemotron-H recurrent decay parameters (A_log, D, dt_bias, conv1d) cause NaN or state blowup if quantized."
+
+[[sensitive_layers]]
+name = "jamba_moe_router"
+pattern = '(^|\.)(feed_forward\.router|mlp\.gate|ffn_gate_inp)\.(weight|qweight|weight_packed)$'
+exclude_pattern = 'gate_(up_)?proj'
+min_bits = 16.0
+severity = "medium"
+reason = "A quantized MoE router can distort token-to-expert routing. It still loads, so compare output quality with the original model."
+
+[[sensitive_layers]]
+name = "hybrid_norms"
+pattern = '(^|\.)([a-z0-9_]*norm[a-z0-9_]*)\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "SSM group norms and RMSNorm layers must stay >=16-bit."

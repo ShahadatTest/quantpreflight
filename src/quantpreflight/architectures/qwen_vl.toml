@@ -1,0 +1,44 @@
+id = "qwen_vl"
+name = "Qwen2-VL / Qwen2.5-VL / Qwen3-VL / Qwen3.5 / Qwen4-Exp Multimodal"
+match_architectures = [
+    "qwen2vlforconditionalgeneration",
+    "qwen2_5_vlforconditionalgeneration",
+    "qwen3vlforconditionalgeneration",
+    "qwen3vlmoeforconditionalgeneration",
+    "qwen3_5forconditionalgeneration",
+    "qwen3_5moeforconditionalgeneration",
+    "qwen4expforconditionalgeneration",
+]
+match_model_types = ["qwen2_vl", "qwen2_5_vl", "qwen3_vl", "qwen3_vl_moe", "qwen3_5", "qwen3_5_moe", "qwen4_exp"]
+
+col_parallel_suffixes = ["q_proj", "k_proj", "v_proj", "gate_proj", "up_proj", "in_proj_qkv", "in_proj_z"]
+row_parallel_suffixes = ["o_proj", "down_proj", "out_proj"]
+
+[[sensitive_layers]]
+name = "qwen_vl_gated_deltanet_state"
+pattern = '(^|\.)linear_attn\.(A_log|dt_bias|conv1d\.weight|conv1d\.qweight|conv1d\.weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "Quantizing GatedDeltaNet decay logs or 1D conv kernels below 16-bit causes state divergence."
+
+[[sensitive_layers]]
+name = "qwen_vl_vision_tower_and_merger"
+pattern = '(^|\.)(visual|vision_tower)\..*\.(weight|qweight|weight_packed)$'
+min_bits = 8.0
+severity = "high"
+reason = "Quantizing Qwen-VL visual ViT blocks or patch merger to 4-bit/2-bit breaks OCR legibility and bounding-box grounding."
+
+[[sensitive_layers]]
+name = "qwen_vl_moe_router"
+pattern = '(^|\.)mlp\.(gate|shared_expert_gate)\.(weight|qweight|weight_packed)$'
+exclude_pattern = 'gate_(up_)?proj'
+min_bits = 16.0
+severity = "medium"
+reason = "A quantized MoE router can distort token-to-expert routing. It still loads, so compare output quality with the original model."
+
+[[sensitive_layers]]
+name = "qwen_vl_norms"
+pattern = '(^|\.)([a-z0-9_]*norm[a-z0-9_]*)\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "Normalization weights must remain >=16-bit."

@@ -1,0 +1,69 @@
+# Declarative inference engine container, format, and alignment rules.
+
+# Methods checked against the list vLLM 0.33 reports when it rejects one
+[[engines]]
+id = "vllm"
+name = "vLLM"
+supported_containers = ["safetensors", "gguf", "pytorch_bin"]
+supported_quant_methods = [
+    "none",
+    "awq",
+    "gptq",
+    "compressed-tensors",
+    "fp8",
+    "nvfp4",
+    "mxfp4",
+    "autoround",
+    "gguf",
+    "torchao",
+    "quark",
+]
+marlin_in_align = 128
+marlin_out_align = 64
+fp8_block_restricted_arches = ["sm_89"]
+
+[[engines]]
+id = "sglang"
+name = "SGLang"
+supported_containers = ["safetensors", "gguf", "pytorch_bin"]
+supported_quant_methods = [
+    "none",
+    "awq",
+    "gptq",
+    "compressed-tensors",
+    "fp8",
+    "nvfp4",
+    "mxfp4",
+    "autoround",
+    "bitsandbytes",
+    "gguf",
+]
+marlin_in_align = 128
+marlin_out_align = 64
+fp8_block_restricted_arches = ["sm_89"]
+
+[[engines]]
+id = "trtllm"
+name = "TensorRT-LLM"
+supported_containers = ["safetensors"]
+supported_quant_methods = [
+    "none",
+    "awq",
+    "gptq",
+    "compressed-tensors",
+    "fp8",
+    "nvfp4",
+    "mxfp4",
+]
+marlin_in_align = 128
+marlin_out_align = 64
+fp8_block_restricted_arches = []
+
+[[engines]]
+id = "llamacpp"
+name = "llama.cpp"
+supported_containers = ["gguf"]
+supported_quant_methods = ["gguf"]
+marlin_in_align = 1
+marlin_out_align = 1
+fp8_block_restricted_arches = []

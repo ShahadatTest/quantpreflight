@@ -1,0 +1,41 @@
+id = "phi"
+name = "Phi / Phi-3 / Phi-3.5 MoE / Phi-4 Multimodal"
+match_architectures = [
+    "phiforcausallm",
+    "phi3forcausallm",
+    "phimoeforcausallm",
+    "phi3vforcausallm",
+    "phi4mmforcausallm",
+]
+match_model_types = ["phi", "phi3", "phimoe", "phi3_v", "phi4mm"]
+
+col_parallel_suffixes = ["q_proj", "k_proj", "v_proj", "qkv_proj", "gate_up_proj", "fc1", "w1", "w3"]
+row_parallel_suffixes = ["o_proj", "dense", "down_proj", "fc2", "w2"]
+
+[[sensitive_layers]]
+name = "phi_moe_router"
+pattern = '(^|\.)block_sparse_moe\.gate\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "medium"
+reason = "A quantized MoE router can distort token-to-expert routing. It still loads, so compare output quality with the original model."
+
+[[sensitive_layers]]
+name = "phi_norms"
+pattern = '(^|\.)([a-z0-9_]*norm[a-z0-9_]*)\.(weight|qweight|weight_packed)$'
+min_bits = 16.0
+severity = "critical"
+reason = "LayerNorm scale vectors are tiny and degrade activations if quantized below 16-bit."
+
+[[sensitive_layers]]
+name = "phi_vision_and_audio_embedding"
+pattern = '(^|\.)(vision_embed_tokens|embed_tokens_extend)\..*\.(weight|qweight|weight_packed)$'
+min_bits = 8.0
+severity = "high"
+reason = "Quantizing Phi vision and audio encoders to 4-bit or lower degrades multimodal input."
+
+[[sensitive_layers]]
+name = "phi_embedding_extreme"
+pattern = '(^|\.)(embed_tokens|lm_head)\.(weight|qweight|weight_packed)$'
+min_bits = 4.0
+severity = "high"
+reason = "Sub-4-bit embeddings or lm_head cause severe vocabulary logit collapse."

@@ -8,6 +8,7 @@
 
 <p align="center">
   <a href="https://github.com/layer8labs8/quantpreflight/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/layer8labs8/quantpreflight/ci.yml?branch=main&label=tests&style=flat-square&labelColor=16140f&color=1d4fd7" alt="Tests"></a>
+  <a href="https://pypi.org/project/quantpreflight/"><img src="https://img.shields.io/pypi/v/quantpreflight?style=flat-square&labelColor=16140f&color=1d4fd7" alt="PyPI version"></a>
   <img src="https://img.shields.io/badge/python-3.10%2B-1d4fd7?style=flat-square&labelColor=16140f" alt="Python 3.10 or newer">
   <a href="https://github.com/layer8labs8/quantpreflight/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-1d4fd7?style=flat-square&labelColor=16140f" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/status-alpha-1d4fd7?style=flat-square&labelColor=16140f" alt="Status: alpha">
@@ -17,8 +18,8 @@
   <a href="https://layer8labs8.github.io/quantpreflight/"><strong>Try it in your browser</strong></a>
   &nbsp;·&nbsp; <a href="#quick-start">Quick start</a>
   &nbsp;·&nbsp; <a href="#what-it-checks">What it checks</a>
-  &nbsp;·&nbsp; <a href="docs/accuracy.md">Accuracy</a>
-  &nbsp;·&nbsp; <a href="docs/usage.md">Docs</a>
+  &nbsp;·&nbsp; <a href="https://github.com/layer8labs8/quantpreflight/blob/main/docs/accuracy.md">Accuracy</a>
+  &nbsp;·&nbsp; <a href="https://github.com/layer8labs8/quantpreflight/blob/main/docs/usage.md">Docs</a>
 </p>
 
 A quantized checkpoint can be 40 to 400 GB. You pull it onto your GPU nodes, start the engine, and only then learn that your GPU has no kernel for its format, or that its tensors won't split across your GPUs, or that it doesn't fit. `quantpreflight` tells you first, from a few hundred KiB of config files and tensor headers.
@@ -28,7 +29,7 @@ A quantized checkpoint can be 40 to 400 GB. You pull it onto your GPU nodes, sta
 - **Answers in seconds.** It reads headers, not weights: 887 KiB for a 38.74 GiB checkpoint.
 - **Needs no GPU.** There's no PyTorch and no CUDA, and no dependencies at all on Python 3.11+. It runs on a laptop or in CI.
 - **Checks the whole mix.** 16 rules cover the model, format, engine, GPU, and GPU count together, because that's where most failures come from.
-- **Tested on real hardware.** It predicted 26 of 27 real vLLM loads on Tesla T4, and it has scanned 505 public models with no crashes. [See the results.](docs/accuracy.md)
+- **Tested on real hardware.** It predicted 26 of 27 real vLLM loads on Tesla T4, and it has scanned 505 public models with no crashes. [See the results.](https://github.com/layer8labs8/quantpreflight/blob/main/docs/accuracy.md)
 - **Finds known vulnerabilities.** `--engine-version` checks your vLLM or SGLang version against published advisories.
 - **Fits your workflow.** Use the CLI, a GitHub Action, a pre-commit hook, SARIF output, or the [browser scanner](https://layer8labs8.github.io/quantpreflight/).
 
@@ -38,10 +39,10 @@ A quantized checkpoint can be 40 to 400 GB. You pull it onto your GPU nodes, sta
 
 ## Quick start
 
-Install it from GitHub:
+Install it from PyPI. It needs Python 3.10 or newer:
 
 ```bash
-pip install git+https://github.com/layer8labs8/quantpreflight
+pip install quantpreflight
 ```
 
 Then name a model and where you plan to run it:
@@ -51,7 +52,7 @@ quantpreflight check nvidia/Qwen3-8B-FP4 --gpu H100
 ```
 
 ```text
-quantpreflight v0.2.0
+quantpreflight v0.3.0
   Source:       nvidia/Qwen3-8B-FP4
   Architecture: Qwen3ForCausalLM (safetensors)
   Quantization: nvfp4 4-bit g16 nvfp4-pack-quantized
@@ -83,7 +84,7 @@ git clone https://github.com/layer8labs8/quantpreflight.git
 quantpreflight check quantpreflight/tests/fixtures/broken-model --gpu H100 --tp 4
 ```
 
-The [usage guide](docs/usage.md) covers every option. Set `HF_TOKEN` to scan gated models.
+The [usage guide](https://github.com/layer8labs8/quantpreflight/blob/main/docs/usage.md) covers every option. Set `HF_TOKEN` to scan gated models.
 
 ## What it checks
 
@@ -121,7 +122,7 @@ Run `quantpreflight explain QPF006` for the details of any rule.
 ## Use it in CI
 
 ```yaml
-- uses: layer8labs8/quantpreflight@main
+- uses: layer8labs8/quantpreflight@v0.3.0
   with:
     target: ./exported-checkpoint
     engine: vllm
@@ -130,11 +131,11 @@ Run `quantpreflight explain QPF006` for the details of any rule.
     fail-on: high
 ```
 
-The [usage guide](docs/usage.md#use-it-in-ci) shows SARIF upload to the Security tab and a pre-commit hook.
+The [usage guide](https://github.com/layer8labs8/quantpreflight/blob/main/docs/usage.md#use-it-in-ci) shows SARIF upload to the Security tab and a pre-commit hook.
 
 ## How accurate is it?
 
-Every result here can be reproduced from this repository. The [accuracy report](docs/accuracy.md) has the full tables.
+Every result here can be reproduced from this repository. The [accuracy report](https://github.com/layer8labs8/quantpreflight/blob/main/docs/accuracy.md) has the full tables.
 
 | Check | Result |
 | :--- | ---: |
@@ -162,7 +163,7 @@ Run it before the download. These tools do different jobs:
 A scanner finds known problems, not proof. A clean report doesn't mean the model will load or answer well, and a finding may not apply to your exact engine version.
 
 - It never reads weight values, so it can't see NaNs or measure quality loss.
-- Its GPU rules were checked on T4 only. Other GPUs rest on vendor docs and engine issues until someone [tests them](docs/gpu-testing.md).
+- Its GPU rules were checked on T4 only. Other GPUs rest on vendor docs and engine issues until someone [tests them](https://github.com/layer8labs8/quantpreflight/blob/main/docs/gpu-testing.md).
 - Its compatibility tables can fall behind a new engine release.
 - The memory estimate assumes one request at a time unless you pass `--concurrency`. Its overhead was fitted on T4.
 - It only checks your engine version if you pass `--engine-version`, and only vLLM and SGLang have advisory data.
@@ -176,15 +177,15 @@ A scanner finds known problems, not proof. A clean report doesn't mean the model
 
 **It flagged a model that runs fine. Is that a bug?** It might be. Please [open a report](https://github.com/layer8labs8/quantpreflight/issues/new?template=detection_problem.yml). False alarms are the most useful feedback we get.
 
-**Is my token safe?** `HF_TOKEN` goes only to Hugging Face, and it's removed if a download redirects to another host. See [SECURITY.md](SECURITY.md).
+**Is my token safe?** `HF_TOKEN` goes only to Hugging Face, and it's removed if a download redirects to another host. See [SECURITY.md](https://github.com/layer8labs8/quantpreflight/blob/main/SECURITY.md).
 
 ## Help test it on your GPU
 
-Only Tesla T4 has been checked against real loads so far. If you can run vLLM on another GPU, one run of [`tools/gpu_check.py`](tools/gpu_check.py) shows where the rules are right and where they're wrong. [GPU testing](docs/gpu-testing.md) explains how, and the [help wanted](https://github.com/layer8labs8/quantpreflight/labels/help%20wanted) issues list the GPUs we need most.
+Only Tesla T4 has been checked against real loads so far. If you can run vLLM on another GPU, one run of [`tools/gpu_check.py`](https://github.com/layer8labs8/quantpreflight/blob/main/tools/gpu_check.py) shows where the rules are right and where they're wrong. [GPU testing](https://github.com/layer8labs8/quantpreflight/blob/main/docs/gpu-testing.md) explains how, and the [help wanted](https://github.com/layer8labs8/quantpreflight/labels/help%20wanted) issues list the GPUs we need most.
 
 ## Contributing
 
-Most contributions are one small TOML file. Adding a model family or a GPU takes no Python and no GPU. Start from an existing file in [`architectures/`](src/quantpreflight/architectures) or [`hardware/`](src/quantpreflight/hardware), and see [CONTRIBUTING.md](CONTRIBUTING.md).
+Most contributions are one small TOML file. Adding a model family or a GPU takes no Python and no GPU. Start from an existing file in [`architectures/`](https://github.com/layer8labs8/quantpreflight/blob/main/src/quantpreflight/architectures) or [`hardware/`](https://github.com/layer8labs8/quantpreflight/blob/main/src/quantpreflight/hardware), and see [CONTRIBUTING.md](https://github.com/layer8labs8/quantpreflight/blob/main/CONTRIBUTING.md).
 
 ## Support
 
@@ -192,4 +193,4 @@ If this project helped you, I'm really glad. If you'd like to support it, you ca
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/layer8labs8/quantpreflight/blob/main/LICENSE)

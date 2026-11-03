@@ -6,19 +6,19 @@ If you can run vLLM on another GPU, one run gives us the evidence we can't get o
 
 ## What it does
 
-[`tools/gpu_check.py`](../tools/gpu_check.py) goes through a list of 27 public models. For each one it:
+[`tools/gpu_check.py`](../tools/gpu_check.py) goes through 27 cases, which use 24 public models. For each case it:
 
 1. scans the model the way `quantpreflight check` would, from headers only,
 2. loads it with vLLM in a separate process and asks for a few tokens,
 3. records whether it loaded, the peak memory, and the error if it failed.
 
-The results go to a JSON file after every model, so you can stop at any time and keep what finished.
+The results go to a JSON file after every case, so you can stop at any time and keep what finished.
 
 ## What you need
 
-- Linux with an NVIDIA GPU and a working vLLM install. AMD GPUs with ROCm work too, but peak memory isn't recorded there yet.
+- Linux with an NVIDIA GPU and a working vLLM install. AMD GPUs work with the ROCm build of vLLM. Peak memory isn't recorded there yet, but vLLM's own memory figures are.
 - About 40 GB of free disk. Models download into their own cache folder, which is emptied after each one, so your Hugging Face cache is left alone.
-- One to three hours. Cases that need two GPUs are skipped on a single GPU.
+- One to three hours. The five cases that need two GPUs are skipped on a single GPU.
 
 No Hugging Face token is needed. Every model in the list is public.
 
@@ -31,7 +31,7 @@ pip install -e . vllm
 python tools/gpu_check.py --out gpu_check_results.json
 ```
 
-If you already have vLLM, skip `vllm` in the install so your version stays. To run a few models first, pass words from their names:
+If you already have vLLM, skip `vllm` in the install so your version stays. On AMD, install the ROCm build of vLLM first, then run `pip install -e .`. To run a few models first, pass words from their names:
 
 ```bash
 python tools/gpu_check.py --only Qwen2.5-7B TinyLlama --out gpu_check_results.json
@@ -52,7 +52,7 @@ The file holds the GPU names, memory, the vLLM version, and the last lines of ea
 | Ampere: A100, A10G, RTX 3090 | Whether FP8 checkpoints load through vLLM's weight-only fallback, and the ModelOpt limit at compute capability 80 |
 | Ada: L4, L40S, RTX 4090 | FP8 on GPUs with FP8 cores, and the block FP8 limit on sm_89 |
 | Hopper: H100, H200 | FP8 and block FP8, and whether the memory estimate holds on large GPUs |
-| Blackwell: B200, RTX 5090, DGX Spark | NVFP4, which is the main reason these GPUs are in the table |
+| Blackwell: B200, RTX 5090, DGX Spark | NVFP4, which the tool says only Blackwell can run |
 | AMD: MI250X, MI300X, MI325X | Every AMD rule, none of which has been checked yet |
 
 A result that shows a wrong prediction is the most useful kind. Please share those first.

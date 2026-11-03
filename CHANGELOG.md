@@ -2,9 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.3.0] - 2026-11-03
 
 ### Added
+- The first release on PyPI: `pip install quantpreflight`.
 - Rule `QPF015` and `--engine-version`, which check your vLLM or SGLang version against bundled OSV advisories, with a weekly job to refresh them.
 - Split GGUF support: every `-NNNNN-of-NNNNN.gguf` part is read, and a missing part fires `QPF009`.
 - `--concurrency`, which scales the KV cache in the memory estimate.

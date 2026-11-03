@@ -28,11 +28,12 @@ It takes about 1 to 3 hours and only uses public models. No token or password is
 """
 
 
-def _wheel() -> bytes:
+def _wheel() -> tuple[str, bytes]:
     with tempfile.TemporaryDirectory() as folder:
         command = [sys.executable, "-m", "pip", "wheel", "--no-deps", "--wheel-dir", folder, str(ROOT)]
         subprocess.run(command, check=True, capture_output=True, cwd=folder)
-        return next(Path(folder).glob("*.whl")).read_bytes()
+        wheel = next(Path(folder).glob("*.whl"))
+        return wheel.name, wheel.read_bytes()
 
 
 def _code(number: int, source: str) -> dict[str, object]:
@@ -47,7 +48,8 @@ def _code(number: int, source: str) -> dict[str, object]:
 
 
 def main() -> None:
-    wheel = base64.b64encode(_wheel()).decode()
+    name, data = _wheel()
+    wheel = base64.b64encode(data).decode()
     script = (ROOT / "tools" / "gpu_check.py").read_text(encoding="utf-8")
     cells = [
         {"id": "intro", "cell_type": "markdown", "metadata": {}, "source": INTRO.splitlines(keepends=True)},
@@ -56,10 +58,10 @@ def main() -> None:
             2,
             "import base64, pathlib\n"
             f'pathlib.Path("quantpreflight-0-py3-none-any.b64").write_text("{wheel}")\n'
-            'wheel = pathlib.Path("quantpreflight-0.2.0-py3-none-any.whl")\n'
+            f'wheel = pathlib.Path("{name}")\n'
             'wheel.write_bytes(base64.b64decode(pathlib.Path("quantpreflight-0-py3-none-any.b64").read_text()))\n'
             # The torch that vLLM pulls in must match torchvision and torchaudio
-            "!pip install -q -U vllm torchvision torchaudio ./quantpreflight-0.2.0-py3-none-any.whl\n"
+            f"!pip install -q -U vllm torchvision torchaudio ./{name}\n"
             "!python -c 'import torchaudio' || pip uninstall -y -q torchaudio\n"
         ),
         _code(3, f"pathlib.Path('gpu_check.py').write_text({script!r})\n"),

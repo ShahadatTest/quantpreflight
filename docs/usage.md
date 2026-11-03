@@ -2,6 +2,8 @@
 
 ## Scan a model
 
+Install it with `pip install quantpreflight`, then:
+
 ```bash
 quantpreflight check <target> [options]
 ```
@@ -104,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: layer8labs8/quantpreflight@main
+      - uses: layer8labs8/quantpreflight@v0.3.0
         with:
           target: ./exported-checkpoint
           engine: vllm
@@ -126,7 +128,7 @@ To run it as a [pre-commit](https://pre-commit.com) hook instead:
 ```yaml
 repos:
   - repo: https://github.com/layer8labs8/quantpreflight
-    rev: main
+    rev: v0.3.0
     hooks:
       - id: quantpreflight
 ```

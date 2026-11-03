@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "quantpreflight"
-version = "0.2.0"
-description = "Zero-GPU pre-flight scanner for 32/16/8/4/2-bit quantized AI checkpoints across Safetensors and GGUF."
+version = "0.3.0"
+description = "Find out if a quantized AI model will run on your GPUs before you download it."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
@@ -35,6 +35,7 @@ classifiers = [
     "Environment :: Console",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",

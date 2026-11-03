@@ -20,8 +20,8 @@ from quantpreflight.rules import RULE_CATALOG  # noqa: E402
 from run_benchmark import Score, load_cases, run  # noqa: E402
 from site_scan import scan_text  # noqa: E402
 
-INSTALL = "pip install git+https://github.com/layer8labs8/quantpreflight"
-ACTION_REF = "main"
+INSTALL = "pip install quantpreflight"
+ACTION_REF = f"v{__version__}"
 
 FORMATS = ["AWQ", "GPTQ", "Compressed-Tensors", "FP8", "NVFP4", "MXFP4", "Marlin", "AutoRound", "bitsandbytes", "BitNet", "MLX", "GGUF", "Safetensors"]
 

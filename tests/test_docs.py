@@ -42,6 +42,12 @@ def test_readme_lists_every_engine(engine: str) -> None:
     assert load_engine_profiles()[engine].name in README
 
 
+def test_docs_pin_the_current_release() -> None:
+    pin = f"layer8labs8/quantpreflight@v{__version__}"
+    assert pin in USAGE and pin in README and f"rev: v{__version__}" in USAGE
+    assert "git+https" not in README + USAGE
+
+
 def test_benchmark_numbers_are_current() -> None:
     cases = load_cases()
     total = Score()
@@ -74,7 +80,7 @@ def test_readme_install_command_matches_the_site() -> None:
 
 
 def test_readme_links_point_at_real_files() -> None:
-    for path in re.findall(r"github\.com/layer8labs8/quantpreflight/(?:blob|tree)/main/([^)\"\s]+)", README):
+    for path in re.findall(r"github\.com/layer8labs8/quantpreflight/(?:blob|tree)/main/([^)\"\s#]+)", README):
         assert (ROOT / path).exists(), path
     for path in re.findall(r"quantpreflight/main/(docs/assets/[^\"]+)", README):
         assert (ROOT / path).exists(), path

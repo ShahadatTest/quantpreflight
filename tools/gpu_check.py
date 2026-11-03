@@ -27,7 +27,7 @@ from quantpreflight import __version__  # noqa: E402
 from quantpreflight.cli import SCAN_ERRORS  # noqa: E402
 from quantpreflight.loader import load_checkpoint_metadata  # noqa: E402
 from quantpreflight.models import TargetSpec  # noqa: E402
-from quantpreflight.profiles import ProfileValidationError, load_gpu_profiles, resolve_gpu_profile  # noqa: E402
+from quantpreflight.detect import match_gpu_name  # noqa: E402
 from quantpreflight.rules import analyze_checkpoint  # noqa: E402
 
 CONTEXT = 4096
@@ -105,20 +105,9 @@ def gpu_table() -> list[dict[str, Any]]:
     return json.loads(text.strip().splitlines()[-1])
 
 
-def _squash(text: str) -> str:
-    return "".join(ch for ch in text.upper() if ch.isalnum())
-
-
 def profile_for(name: str, arch: str) -> str | None:
     """Match a device name such as `NVIDIA L40S` to a GPU profile, falling back to its architecture."""
-    # Longest names first, so an L40S isn't read as an L4
-    for gpu_id in sorted(load_gpu_profiles(), key=len, reverse=True):
-        if _squash(gpu_id) in _squash(name):
-            return gpu_id
-    try:
-        return resolve_gpu_profile(arch).id
-    except ProfileValidationError:
-        return None
+    return match_gpu_name(name, arch)
 
 
 def predict(repo: str, tp: int, gpu: str | None, vram_gib: float) -> dict[str, Any]:

@@ -1,4 +1,4 @@
-"""Build a self-contained Kaggle notebook that runs tools/gpu_check.py.
+"""Build a self-contained Kaggle notebook that runs tools/gpu_check.py, or tools/setup_check.py with --setup.
 
 The package wheel is embedded, so the notebook tests your local copy, changes included.
 """
@@ -14,15 +14,17 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "kaggle_gpu_check.ipynb"
-ARGS = " ".join(sys.argv[1:])
+# --setup checks the suggested setups instead of the load predictions
+TOOL = "setup_check" if "--setup" in sys.argv[1:] else "gpu_check"
+ARGS = " ".join(arg for arg in sys.argv[1:] if arg != "--setup")
 
-INTRO = """# quantpreflight GPU check
+INTRO = f"""# quantpreflight GPU check
 
 Compares quantpreflight's predictions with real vLLM loads.
 
 1. In the right panel, set **Accelerator** to **GPU T4 x2** and turn **Internet** on.
 2. Choose **Save Version**, then **Save & Run All (Commit)**, so it keeps running after you close the tab.
-3. When it finishes, open the version's **Output** tab and download `gpu_check_results.json`.
+3. When it finishes, open the version's **Output** tab and download `{TOOL}_results.json`.
 
 It takes about 1 to 3 hours and only uses public models. No token or password is needed.
 """
@@ -50,7 +52,7 @@ def _code(number: int, source: str) -> dict[str, object]:
 def main() -> None:
     name, data = _wheel()
     wheel = base64.b64encode(data).decode()
-    script = (ROOT / "tools" / "gpu_check.py").read_text(encoding="utf-8")
+    script = (ROOT / "tools" / f"{TOOL}.py").read_text(encoding="utf-8")
     cells = [
         {"id": "intro", "cell_type": "markdown", "metadata": {}, "source": INTRO.splitlines(keepends=True)},
         _code(1, "!nvidia-smi\n!df -h /kaggle/working | tail -1\n"),
@@ -64,8 +66,8 @@ def main() -> None:
             f"!pip install -q -U vllm torchvision torchaudio ./{name}\n"
             "!python -c 'import torchaudio' || pip uninstall -y -q torchaudio\n"
         ),
-        _code(3, f"pathlib.Path('gpu_check.py').write_text({script!r})\n"),
-        _code(4, f"!python gpu_check.py {ARGS} --out /kaggle/working/gpu_check_results.json\n"),
+        _code(3, f"pathlib.Path('{TOOL}.py').write_text({script!r})\n"),
+        _code(4, f"!python {TOOL}.py {ARGS} --out /kaggle/working/{TOOL}_results.json\n"),
     ]
     notebook = {
         "cells": cells,

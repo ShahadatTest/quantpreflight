@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2026-11-03
+
+### Added
+- Every report ends with a setup that should start: the closest GPU count that works, the longest context that fits in memory, and the command for vLLM, SGLang, TensorRT-LLM, or llama.cpp. When no setting helps, it says what blocks the start.
+- `quantpreflight suggest <model>`, which scans the quantized versions of a model on Hugging Face and ranks the ones that start on your GPUs.
+- `--gpu auto`, which reads this machine's NVIDIA GPUs, and `--engine-version auto`, which reads the installed vLLM or SGLang.
+- `tools/setup_check.py`, which starts vLLM with the suggested setups and compares. On Tesla T4, 9 of 9 were right. A suggested context leaves 0.5 GiB spare, because the estimate gave the cache up to 0.31 GiB more room than vLLM did.
+- The browser scanner shows the setup too.
+
+### Changed
+- `tools/gpu_check.py` matches GPU names with the same code as `--gpu auto`.
+
 ## [0.3.0] - 2026-11-03
 
 ### Added

@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import json
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from . import __version__
-from .models import ScanReport, Severity
-from .profiles import ProfileValidationError, resolve_gpu_profile
+from .models import ScanReport, Severity, TargetSpec
+from .profiles import ProfileValidationError, load_engine_profiles, resolve_gpu_profile
 from .rules import RULE_CATALOG
+
+if TYPE_CHECKING:
+    from .suggest import Candidate
 
 
 def _fmt_bytes(num_bytes: int) -> str:
@@ -30,6 +33,32 @@ def _gpu_name(query: str) -> str:
     return gpu.id if gpu.id.lower() == query.lower() else f"{gpu.id} (from {query})"
 
 
+def _setup_lines(report: ScanReport) -> list[str]:
+    plan = report.setup
+    if plan is None:
+        return []
+    if plan.status == "blocked":
+        rules = ", ".join(dict.fromkeys(f.rule_id for f in plan.blocking))
+        return [
+            "Setup: no --tp or context length makes this start.",
+            *(f"  {reason}" for reason in plan.changes),
+            f"  {rules} needs a different checkpoint, GPU, or engine.",
+            f"  Find one that works: quantpreflight suggest {report.source}"
+            + (f" --gpu {report.target.gpu}" if report.target.gpu else ""),
+        ]
+    lines = ["Setup: ready as asked." if plan.status == "ready" else "Setup: it starts with these changes."]
+    lines += [f"  - {change}" for change in plan.changes]
+    if plan.max_context is not None and plan.context_len is not None:
+        per = "per request" if report.target.concurrency == 1 else f"for each of {report.target.concurrency} requests"
+        if plan.max_context > plan.context_len:
+            lines.append(f"  Runs with {plan.context_len} tokens {per}, and up to {plan.max_context} would fit at tp={plan.tp}.")
+        else:
+            lines.append(f"  Fits {plan.context_len} tokens {per} at tp={plan.tp}.")
+    if plan.command:
+        lines.append(f"  Run:  {plan.command}")
+    return lines
+
+
 def format_text_report(report: ScanReport) -> str:
     """Render a concise terminal summary and prioritized finding list."""
     tgt_parts = [f"engine={report.target.engine}", f"tp={report.target.tp}"]
@@ -49,9 +78,10 @@ def format_text_report(report: ScanReport) -> str:
         lines.append(f"  Est. VRAM:    {report.estimated_vram_per_gpu_gb:.2f} GiB / GPU (weights, runtime, and KV cache)")
 
     lines.append("")
+    setup = _setup_lines(report)
     if not report.findings:
         lines.append("Result: PASS (0 findings)")
-        return "\n".join(lines)
+        return "\n".join(lines + ([""] + setup if setup else []))
 
     counts: dict[str, int] = {}
     for f in report.findings:
@@ -69,7 +99,7 @@ def format_text_report(report: ScanReport) -> str:
             lines.append(f"    Ref:      {', '.join(f.references)}")
         lines.append("")
 
-    return "\n".join(lines).rstrip()
+    return "\n".join(lines + setup).rstrip()
 
 
 def format_json_report(report: ScanReport) -> str:
@@ -94,6 +124,8 @@ def format_json_report(report: ScanReport) -> str:
         },
         "findings": [f.to_dict() for f in report.findings],
     }
+    if report.setup is not None:
+        payload["setup"] = report.setup.to_dict()
     return json.dumps(payload, indent=2)
 
 
@@ -160,3 +192,56 @@ def format_sarif_report(report: ScanReport) -> str:
         ],
     }
     return json.dumps(sarif, indent=2)
+
+
+def _target_label(target: TargetSpec) -> str:
+    engines = load_engine_profiles()
+    engine = engines[target.engine].name if target.engine in engines else target.engine
+    where = f"on {_gpu_name(target.gpu)}" if target.gpu else "with no GPU named"
+    return f"{engine} {where}, tp={target.tp}"
+
+
+def _candidate_detail(item: "Candidate") -> str:
+    if item.plan is None:
+        return item.error or ""
+    if item.plan.status == "blocked":
+        return ", ".join(dict.fromkeys(f.rule_id for f in item.plan.blocking))
+    parts = [f"tp={item.plan.tp}"]
+    if item.plan.context_len:
+        parts.append(f"{item.plan.context_len} tokens")
+    return ", ".join(parts)
+
+
+def format_suggestions(base: str, target: TargetSpec, candidates: list["Candidate"]) -> str:
+    """Render the ranked versions of a model as a table, with the best pick and its command."""
+    lines = [f"quantpreflight v{__version__}", f"Versions of {base} for {_target_label(target)}:", ""]
+    rows = [("Setup", "Model", "Format", "Weights", "Details")]
+    for item in candidates:
+        status = item.plan.status if item.plan else "skipped"
+        weights = f"{item.weights_gib:.2f} GiB" if item.weights_gib is not None else ""
+        rows.append((status, item.repo, item.quant, weights, _candidate_detail(item)))
+    widths = [max(len(row[col]) for row in rows) for col in range(4)]
+    for row in rows:
+        lines.append("  " + "  ".join(cell.ljust(widths[col]) for col, cell in enumerate(row[:4])) + "  " + row[4])
+
+    best = next((item for item in candidates if item.starts), None)
+    lines.append("")
+    if best is None:
+        lines.append("None of these start on this target. A GPU with more memory or newer kernels, or another engine, may help.")
+        return "\n".join(lines)
+    lines.append(f"Best pick: {best.repo}, the highest precision that starts.")
+    for change in best.plan.changes if best.plan else ():
+        lines.append(f"  - {change}")
+    if best.plan and best.plan.command:
+        lines.append(f"  Run:  {best.plan.command}")
+    return "\n".join(lines)
+
+
+def format_suggestions_json(base: str, target: TargetSpec, candidates: list["Candidate"]) -> str:
+    payload = {
+        "version": __version__,
+        "base_model": base,
+        "target": {"engine": target.engine, "gpu": target.gpu, "tp": target.tp, "context_len": target.context_len},
+        "candidates": [item.to_dict() for item in candidates],
+    }
+    return json.dumps(payload, indent=2)

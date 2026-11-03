@@ -1,0 +1,270 @@
+{
+ "meta": {
+  "gpus": [
+   "Tesla T4",
+   "Tesla T4"
+  ],
+  "vllm": "0.33.0",
+  "date": "2026-11-03"
+ },
+ "rounds": [
+  {
+   "headroom_gib": 0.0,
+   "note": "No headroom. One suggested context was 2% too long.",
+   "results": [
+    {
+     "repo": "Qwen/Qwen2.5-14B-Instruct-AWQ",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": false,
+     "started": false,
+     "agrees": true,
+     "vllm_max_model_len": 7280,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "Qwen/Qwen2.5-14B-Instruct-AWQ",
+     "tp": 1,
+     "max_model_len": "7168",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 7296
+    },
+    {
+     "repo": "Qwen/Qwen2.5-14B-Instruct-AWQ",
+     "tp": 1,
+     "max_model_len": "10240",
+     "expected_start": false,
+     "started": false,
+     "agrees": true,
+     "vllm_max_model_len": 7280,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": false,
+     "started": false,
+     "agrees": true,
+     "vllm_max_model_len": 49088,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4",
+     "tp": 1,
+     "max_model_len": "50176",
+     "expected_start": true,
+     "started": false,
+     "agrees": false,
+     "vllm_max_model_len": 49088,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "Qwen/Qwen2.5-7B-Instruct-AWQ",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 112720
+    },
+    {
+     "repo": "Qwen/Qwen2.5-7B-Instruct",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": false,
+     "started": false,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "Qwen/Qwen2.5-7B-Instruct",
+     "tp": 2,
+     "max_model_len": "default",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 177680
+    }
+   ]
+  },
+  {
+   "headroom_gib": 0.25,
+   "note": "0.25 GiB headroom. One suggested context was 1% too long.",
+   "results": [
+    {
+     "repo": "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4",
+     "tp": 1,
+     "max_model_len": "48128",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 49104
+    },
+    {
+     "repo": "Qwen/Qwen2.5-14B-Instruct-AWQ",
+     "tp": 1,
+     "max_model_len": "6144",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 7296
+    },
+    {
+     "repo": "Qwen/Qwen2.5-14B-Instruct-GPTQ-Int4",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": false,
+     "started": false,
+     "agrees": true,
+     "vllm_max_model_len": 7184,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "Qwen/Qwen2.5-14B-Instruct-GPTQ-Int4",
+     "tp": 1,
+     "max_model_len": "6144",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 7200
+    },
+    {
+     "repo": "Qwen/Qwen3-8B-AWQ",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": false,
+     "started": false,
+     "agrees": true,
+     "vllm_max_model_len": 39584,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "Qwen/Qwen3-8B-AWQ",
+     "tp": 1,
+     "max_model_len": "39936",
+     "expected_start": true,
+     "started": false,
+     "agrees": false,
+     "vllm_max_model_len": 39584,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "solidrust/Mistral-7B-Instruct-v0.3-AWQ",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 64432
+    }
+   ]
+  },
+  {
+   "headroom_gib": 0.5,
+   "note": "0.5 GiB headroom, as released.",
+   "results": [
+    {
+     "repo": "Qwen/Qwen3-8B-AWQ",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": false,
+     "started": false,
+     "agrees": true,
+     "vllm_max_model_len": 39584,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "Qwen/Qwen3-8B-AWQ",
+     "tp": 1,
+     "max_model_len": "37888",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 39600
+    },
+    {
+     "repo": "Qwen/Qwen3-14B-AWQ",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": false,
+     "started": false,
+     "agrees": true,
+     "vllm_max_model_len": 8656,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "Qwen/Qwen3-14B-AWQ",
+     "tp": 1,
+     "max_model_len": "6144",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 8672
+    },
+    {
+     "repo": "casperhansen/mistral-nemo-instruct-2407-awq",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": false,
+     "started": false,
+     "agrees": true,
+     "vllm_max_model_len": 19136,
+     "kv_cache_tokens": null
+    },
+    {
+     "repo": "casperhansen/mistral-nemo-instruct-2407-awq",
+     "tp": 1,
+     "max_model_len": "17408",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 19168
+    },
+    {
+     "repo": "Qwen/Qwen2.5-Coder-7B-Instruct-AWQ",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 112720
+    },
+    {
+     "repo": "Qwen/Qwen3-4B-AWQ",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 66112
+    },
+    {
+     "repo": "TheBloke/Mistral-7B-Instruct-v0.2-AWQ",
+     "tp": 1,
+     "max_model_len": "default",
+     "expected_start": true,
+     "started": true,
+     "agrees": true,
+     "vllm_max_model_len": null,
+     "kv_cache_tokens": 64528
+    }
+   ]
+  }
+ ]
+}

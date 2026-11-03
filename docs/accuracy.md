@@ -5,6 +5,7 @@ This page collects the evidence behind `quantpreflight`, along with its limits. 
 | Check | Result |
 | :--- | ---: |
 | Real vLLM 0.33.0 loads on Tesla T4 | 26 of 27 predicted correctly |
+| Suggested setups on Tesla T4 | 9 of 9 predicted correctly |
 | Public Hugging Face models scanned | 505, with 0 crashes |
 | Scenarios against live models | 49 of 49 caught |
 | Labelled benchmark | 96.9% recall, 100% precision |
@@ -54,6 +55,26 @@ Only T4 has been tested. Rules for L4, H100, Blackwell, and AMD GPUs rest on ven
 The estimate per GPU is `weights × 1.18 + 0.65 GiB + KV cache`. The first two terms were fitted to 16 of these runs, and the estimate landed within 5% of the memory vLLM reported on 12 of them, with a worst case of 16% on the smallest model. The KV cache formula is not fitted, and it matched vLLM's own figure closely.
 
 The fit comes from one GPU type. It assumes one request at a time unless you pass `--concurrency`.
+
+## Setups
+
+Each report ends with a setup that should start, such as a shorter context when the model's full one won't fit. [`tools/setup_check.py`](../tools/setup_check.py) asks for the setup on the GPUs of the machine, starts vLLM with it, and compares. The results are in [`setup_check_t4.json`](../benchmark/setup_check_t4.json). The last column is the longest context vLLM said would fit, from its own error message.
+
+| Model | GPUs | Context | Setup says | Real result | vLLM's longest | Correct |
+| :--- | ---: | ---: | :--- | :--- | ---: | :--- |
+| `Qwen/Qwen3-8B-AWQ` | 1 | model default | Won't start | Failed | 39,584 | Yes |
+| `Qwen/Qwen3-8B-AWQ` | 1 | 37,888 | Starts | Started |  | Yes |
+| `Qwen/Qwen3-14B-AWQ` | 1 | model default | Won't start | Failed | 8,656 | Yes |
+| `Qwen/Qwen3-14B-AWQ` | 1 | 6,144 | Starts | Started |  | Yes |
+| `casperhansen/mistral-nemo-instruct-2407-awq` | 1 | model default | Won't start | Failed | 19,136 | Yes |
+| `casperhansen/mistral-nemo-instruct-2407-awq` | 1 | 17,408 | Starts | Started |  | Yes |
+| `Qwen/Qwen2.5-Coder-7B-Instruct-AWQ` | 1 | model default | Starts | Started |  | Yes |
+| `Qwen/Qwen3-4B-AWQ` | 1 | model default | Starts | Started |  | Yes |
+| `TheBloke/Mistral-7B-Instruct-v0.2-AWQ` | 1 | model default | Starts | Started |  | Yes |
+
+That's 9 of 9 on Tesla T4. It took three rounds. The first, with no spare memory, got 7 of 8 right, and the second got 6 of 7. In both, one suggested context was 1 to 2% longer than what vLLM could hold, because the estimate gave the cache between 0.12 and 0.31 GiB more room than vLLM did. A suggested context now leaves 0.5 GiB spare. On some models that's cautious: Qwen3-14B fits 8,656 tokens, and the setup suggests 6,144. The earlier rounds also started Qwen2.5-14B-AWQ with 7,168 tokens, where the setup now suggests 5,120.
+
+The models in the last round that weren't in the first two are a fresh test, and all of them agreed. Like the memory fit, these results come from one GPU type.
 
 ## Public models
 

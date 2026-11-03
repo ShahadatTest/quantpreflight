@@ -161,6 +161,15 @@ def test_scan_text_uses_the_weight_size_for_memory() -> None:
     assert json.loads(scan_text(config, gpu="L4", weights_gib=40))["findings"][0]["rule_id"] == "QPF012"
 
 
+def test_scan_text_gives_a_setup_without_a_command() -> None:
+    config = '{"model_type": "llama", "num_attention_heads": 8}'
+    setup = json.loads(scan_text(config, tp=3))["setup"]
+    assert setup["status"] == "changed" and setup["tp"] == 2
+    # A pasted config has no model name to put in the command
+    assert setup["command"] is None
+    assert json.loads(scan_text(config, gpu="L4", weights_gib=500))["setup"]["blocking"] == ["QPF012"]
+
+
 def test_scan_text_puts_the_worst_finding_first() -> None:
     config = '{"model_type": "llama", "num_attention_heads": 8, "num_key_value_heads": 2, "num_local_experts": 3, "quantization_config": {"quant_method": "nvfp4"}}'
     severities = [finding["severity"] for finding in json.loads(scan_text(config, gpu="H100", tp=4))["findings"]]
@@ -194,6 +203,7 @@ def test_scan_repo_reads_tensor_headers() -> None:
     assert result["tensors"] == 2
     assert result["quant"] == "unquantized (F16)"
     assert json.loads(result["config"])["model_type"] == "llama"
+    assert result["setup"]["command"] == "vllm serve org/model"
 
 
 def test_scan_repo_runs_the_tensor_rules() -> None:

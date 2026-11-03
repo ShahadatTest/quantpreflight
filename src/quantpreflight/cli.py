@@ -7,32 +7,34 @@ import os
 import pathlib
 import sys
 from typing import Sequence
+import urllib.error
 
 from . import __version__
-from .formatters import format_json_report, format_sarif_report, format_text_report
-from .gguf_io import GGUFFormatError
-from .loader import CheckpointLoadError, load_checkpoint_metadata
+from .detect import detect_engine_version, detect_gpus, resolve_detected_gpu
+from .errors import SCAN_ERRORS
+from .formatters import (
+    format_json_report,
+    format_sarif_report,
+    format_suggestions,
+    format_suggestions_json,
+    format_text_report,
+)
+from .loader import load_checkpoint_metadata
 from .models import Severity, TargetSpec
+from .planner import plan_setup
 from .profiles import (
     ProfileValidationError,
+    load_engine_profiles,
     load_gpu_profiles,
     validate_all_profiles,
 )
 from .rules import RULE_CATALOG, analyze_checkpoint
-from .safetensors_io import SafetensorsFormatError
+from .suggest import suggest
 from .suppress import load_project_config, resolve_ignored_rules
 
 
-# What a malformed checkpoint or a failed fetch can raise while scanning
-SCAN_ERRORS = (
-    CheckpointLoadError,
-    SafetensorsFormatError,
-    GGUFFormatError,
-    ProfileValidationError,
-    ValueError,
-    OSError,
-    RecursionError,
-)
+class _UsageError(Exception):
+    """A bad option, reported with exit code 2."""
 
 
 def _parse_fail_on(raw: str) -> Severity | None:
@@ -40,6 +42,82 @@ def _parse_fail_on(raw: str) -> Severity | None:
     if low == "none":
         return None
     return Severity(low)
+
+
+def _add_target_args(parser: argparse.ArgumentParser) -> None:
+    """Options that say where the model will run, shared by `check` and `suggest`."""
+    parser.add_argument(
+        "--gpu",
+        default=None,
+        help="Target GPU profile or SM arch (e.g. H100, A100, L40S, T4, B200, GB10, MI300X, sm_89), or auto to use this machine's GPU.",
+    )
+    parser.add_argument(
+        "--engine",
+        default="vllm",
+        choices=["vllm", "sglang", "trtllm", "llamacpp"],
+        help="Target inference engine (default: vllm).",
+    )
+    parser.add_argument(
+        "--tp",
+        type=int,
+        default=1,
+        help="Tensor parallel degree (default: 1).",
+    )
+    parser.add_argument(
+        "--engine-version",
+        default=None,
+        help="Installed engine version, checked against published advisories (vLLM and SGLang), or auto to read it from this machine.",
+    )
+    parser.add_argument(
+        "--concurrency",
+        type=int,
+        default=1,
+        help="Requests served at once, for the KV-cache estimate (default: 1).",
+    )
+    parser.add_argument(
+        "--context-len",
+        type=int,
+        default=None,
+        help="Context length for the KV cache estimate. Defaults to the model limit, up to 4096.",
+    )
+    parser.add_argument(
+        "--vram-gb",
+        type=float,
+        default=None,
+        help="Override per-GPU physical VRAM in GiB.",
+    )
+    parser.add_argument(
+        "--gpu-memory-utilization",
+        type=float,
+        default=0.90,
+        help="Usable GPU memory fraction (default: 0.90).",
+    )
+    parser.add_argument(
+        "--marlin-input-dtype",
+        choices=["fp16", "bf16", "fp8", "int8"],
+        default=os.environ.get("VLLM_MARLIN_INPUT_DTYPE"),
+        help="Simulate VLLM_MARLIN_INPUT_DTYPE kernel flag (fp8 or int8).",
+    )
+    parser.add_argument(
+        "--token",
+        default=None,
+        help="Hugging Face token (defaults to HF_TOKEN environment variable).",
+    )
+
+
+def _add_project_args(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--ignore",
+        action="append",
+        default=[],
+        help="Comma-separated rule IDs to suppress (e.g. QPF003,QPF012).",
+    )
+    parser.add_argument(
+        "--config",
+        type=pathlib.Path,
+        default=None,
+        help="Path to .quantpreflight.toml configuration file.",
+    )
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -64,80 +142,13 @@ def _build_parser() -> argparse.ArgumentParser:
             nargs="+",
             help="Hugging Face repo (org/model), URL, or local directory/file path(s).",
         )
-        chk.add_argument(
-            "--gpu",
-            default=None,
-            help="Target GPU profile or SM arch (e.g. H100, A100, L40S, T4, B200, GB10, MI300X, sm_89).",
-        )
-        chk.add_argument(
-            "--engine",
-            default="vllm",
-            choices=["vllm", "sglang", "trtllm", "llamacpp"],
-            help="Target inference engine (default: vllm).",
-        )
-        chk.add_argument(
-            "--tp",
-            type=int,
-            default=1,
-            help="Tensor parallel degree (default: 1).",
-        )
-        chk.add_argument(
-            "--engine-version",
-            default=None,
-            help="Installed engine version, checked against published advisories (vLLM and SGLang).",
-        )
-        chk.add_argument(
-            "--concurrency",
-            type=int,
-            default=1,
-            help="Requests served at once, for the KV-cache estimate (default: 1).",
-        )
-        chk.add_argument(
-            "--context-len",
-            type=int,
-            default=None,
-            help="Context length for the KV cache estimate. Defaults to the model limit, up to 4096.",
-        )
-        chk.add_argument(
-            "--vram-gb",
-            type=float,
-            default=None,
-            help="Override per-GPU physical VRAM in GiB.",
-        )
-        chk.add_argument(
-            "--gpu-memory-utilization",
-            type=float,
-            default=0.90,
-            help="Usable GPU memory fraction (default: 0.90).",
-        )
-        chk.add_argument(
-            "--marlin-input-dtype",
-            choices=["fp16", "bf16", "fp8", "int8"],
-            default=os.environ.get("VLLM_MARLIN_INPUT_DTYPE"),
-            help="Simulate VLLM_MARLIN_INPUT_DTYPE kernel flag (fp8 or int8).",
-        )
+        _add_target_args(chk)
         chk.add_argument(
             "--revision",
             default="main",
             help="Hugging Face git revision / branch / commit (default: main).",
         )
-        chk.add_argument(
-            "--token",
-            default=None,
-            help="Hugging Face token (defaults to HF_TOKEN environment variable).",
-        )
-        chk.add_argument(
-            "--ignore",
-            action="append",
-            default=[],
-            help="Comma-separated rule IDs to suppress (e.g. QPF003,QPF012).",
-        )
-        chk.add_argument(
-            "--config",
-            type=pathlib.Path,
-            default=None,
-            help="Path to .quantpreflight.toml configuration file.",
-        )
+        _add_project_args(chk)
         chk.add_argument(
             "--fail-on",
             choices=["critical", "high", "medium", "low", "none"],
@@ -156,6 +167,16 @@ def _build_parser() -> argparse.ArgumentParser:
             default=None,
             help="Optional file path to write the rendered output.",
         )
+
+    sug = sub.add_parser(
+        "suggest",
+        help="Find the quantized versions of a model that start on your GPUs.",
+    )
+    sug.add_argument("model", help="Hugging Face repo of the model, or of any quantized version of it.")
+    _add_target_args(sug)
+    _add_project_args(sug)
+    sug.add_argument("--limit", type=int, default=15, help="How many quantized versions to check (default: 15).")
+    sug.add_argument("--format", choices=["text", "json"], default="text", help="Output format (default: text).")
 
     explain = sub.add_parser("explain", help="Show what a rule means.")
     explain.add_argument("rule", help="Rule ID, such as QPF006.")
@@ -212,6 +233,79 @@ def _cmd_validate_profiles() -> int:
     return 0
 
 
+def _resolve_target(args: argparse.Namespace, proj_cfg: dict) -> tuple[TargetSpec, int | None]:
+    """Build the target from the options, finding this machine's GPU and engine version when asked."""
+    if args.tp < 1:
+        raise _UsageError("--tp must be >= 1.")
+    if args.concurrency < 1:
+        raise _UsageError("--concurrency must be >= 1.")
+    if not (0.05 <= args.gpu_memory_utilization <= 1.0):
+        raise _UsageError("--gpu-memory-utilization must be between 0.05 and 1.0.")
+
+    gpu = args.gpu or proj_cfg.get("gpu")
+    vram_gb = args.vram_gb
+    gpu_count = None
+    if isinstance(gpu, str) and gpu.strip().lower() == "auto":
+        found = detect_gpus()
+        if not found:
+            raise _UsageError("--gpu auto found no NVIDIA GPU. Pass the GPU you plan to use, such as --gpu H100.")
+        try:
+            gpu, detected_vram = resolve_detected_gpu(found)
+        except ProfileValidationError as exc:
+            raise _UsageError(str(exc)) from exc
+        vram_gb = vram_gb if vram_gb is not None else detected_vram
+        gpu_count = len(found)
+        print(f"Found {gpu_count}x {found[0].name}, checked as {gpu}.", file=sys.stderr)
+
+    engine_version = args.engine_version
+    if engine_version and engine_version.strip().lower() == "auto":
+        engine_version = detect_engine_version(args.engine)
+        if engine_version is None:
+            name = load_engine_profiles()[args.engine].name
+            print(f"Note: {name} isn't installed here, so its version wasn't checked.", file=sys.stderr)
+
+    target = TargetSpec(
+        engine=args.engine,
+        gpu=gpu,
+        tp=args.tp,
+        context_len=args.context_len,
+        vram_gb_override=vram_gb,
+        gpu_memory_utilization=args.gpu_memory_utilization,
+        marlin_input_dtype=args.marlin_input_dtype,
+        engine_version=engine_version,
+        concurrency=args.concurrency,
+    )
+    return target, gpu_count
+
+
+def _cmd_suggest(args: argparse.Namespace) -> int:
+    if args.limit < 1:
+        print("Error: --limit must be >= 1.", file=sys.stderr)
+        return 2
+    try:
+        proj_cfg = load_project_config(args.config)
+        ignored = resolve_ignored_rules(args.ignore, proj_cfg)
+        target, gpu_count = _resolve_target(args, proj_cfg)
+    except _UsageError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 2
+    except Exception as exc:
+        print(f"Configuration error: {exc}", file=sys.stderr)
+        return 2
+    try:
+        base, candidates = suggest(
+            args.model, target, token=args.token, limit=args.limit, ignored_rules=ignored, gpu_count=gpu_count
+        )
+    except (*SCAN_ERRORS, urllib.error.HTTPError) as exc:
+        print(f"Error finding versions of {args.model}: {exc}", file=sys.stderr)
+        return 2
+    if args.format == "json":
+        print(format_suggestions_json(base, target, candidates))
+    else:
+        print(format_suggestions(base, target, candidates))
+    return 0 if any(item.starts for item in candidates) else 1
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = _build_parser()
     args = parser.parse_args(list(argv) if argv is not None else None)
@@ -228,35 +322,20 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "validate-profiles":
         return _cmd_validate_profiles()
 
-    if args.tp < 1:
-        print("Error: --tp must be >= 1.", file=sys.stderr)
-        return 2
-    if args.concurrency < 1:
-        print("Error: --concurrency must be >= 1.", file=sys.stderr)
-        return 2
-    if not (0.05 <= args.gpu_memory_utilization <= 1.0):
-        print("Error: --gpu-memory-utilization must be between 0.05 and 1.0.", file=sys.stderr)
-        return 2
+    if args.command == "suggest":
+        return _cmd_suggest(args)
 
     try:
         proj_cfg = load_project_config(args.config)
         ignored = resolve_ignored_rules(args.ignore, proj_cfg)
         fail_threshold = _parse_fail_on(args.fail_on)
+        target_spec, gpu_count = _resolve_target(args, proj_cfg)
+    except _UsageError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 2
     except Exception as exc:
         print(f"Configuration error: {exc}", file=sys.stderr)
         return 2
-
-    target_spec = TargetSpec(
-        engine=args.engine,
-        gpu=args.gpu or proj_cfg.get("gpu"),
-        tp=args.tp,
-        context_len=args.context_len,
-        vram_gb_override=args.vram_gb,
-        gpu_memory_utilization=args.gpu_memory_utilization,
-        marlin_input_dtype=args.marlin_input_dtype,
-        engine_version=args.engine_version,
-        concurrency=args.concurrency,
-    )
 
     # Deduplicate targets when pre-commit passes both config.json and index.json from one directory
     seen_sources: set[str] = set()
@@ -276,6 +355,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 prefer_gguf=args.engine == "llamacpp",
             )
             rep = analyze_checkpoint(meta, target_spec, ignored_rules=ignored)
+            rep.setup = plan_setup(meta, target_spec, ignored_rules=ignored, gpu_count=gpu_count)
             reports.append(rep)
         except SCAN_ERRORS as exc:
             print(f"Error scanning {raw_target}: {exc}", file=sys.stderr)

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import re
 
@@ -59,6 +60,12 @@ def test_benchmark_numbers_are_current() -> None:
     assert f"{total.recall:.1%} recall and {total.precision:.0%} precision" in ACCURACY
     assert f"{count} small checkpoints" in ACCURACY
     assert f"| Labelled benchmark | {total.recall:.1%} recall, {total.precision:.0%} precision on {count} cases |" in README
+
+
+def test_setup_results_in_the_docs_are_current() -> None:
+    final = json.loads((ROOT / "benchmark" / "setup_check_t4.json").read_text(encoding="utf-8"))["rounds"][-1]["results"]
+    row = f"| Suggested setups on Tesla T4 | {sum(item['agrees'] for item in final)} of {len(final)} predicted correctly |"
+    assert row in README and row in ACCURACY
 
 
 def test_real_results_in_the_docs_are_current() -> None:

@@ -39,9 +39,15 @@ python tools/gpu_check.py --only Qwen2.5-7B TinyLlama --out gpu_check_results.js
 
 Set `QPF_GPU_CHECK_CACHE` to download somewhere other than `~/.cache/quantpreflight-gpu-check`.
 
+To check the setups too, such as the context length the report suggests, run the second tool the same way. It asks for the setup on your GPUs, starts vLLM with it, and compares:
+
+```bash
+python tools/setup_check.py --out setup_check_results.json
+```
+
 ## Share the results
 
-[Open a GPU results issue](https://github.com/layer8labs8/quantpreflight/issues/new?template=gpu_results.yml) and attach `gpu_check_results.json`. Partial runs help too.
+[Open a GPU results issue](https://github.com/layer8labs8/quantpreflight/issues/new?template=gpu_results.yml) and attach `gpu_check_results.json`, and `setup_check_results.json` if you ran it. Partial runs help too.
 
 The file holds the GPU names, memory, the vLLM version, and the last lines of each load's log. Look through the log lines before you post them, in case a path shows a user name you'd rather keep private.
 

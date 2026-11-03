@@ -29,6 +29,7 @@ A quantized checkpoint can be 40 to 400 GB. You pull it onto your GPU nodes, sta
 - **Answers in seconds.** It reads headers, not weights: 887 KiB for a 38.74 GiB checkpoint.
 - **Needs no GPU.** There's no PyTorch and no CUDA, and no dependencies at all on Python 3.11+. It runs on a laptop or in CI.
 - **Checks the whole mix.** 16 rules cover the model, format, engine, GPU, and GPU count together, because that's where most failures come from.
+- **Tells you what works.** It gives you the GPU count and context length that start, with the `vllm serve` command to run. `suggest` finds the quantized versions of a model that run on your GPUs.
 - **Tested on real hardware.** It predicted 26 of 27 real vLLM loads on Tesla T4, and it has scanned 505 public models with no crashes. [See the results.](https://github.com/layer8labs8/quantpreflight/blob/main/docs/accuracy.md)
 - **Finds known vulnerabilities.** `--engine-version` checks your vLLM or SGLang version against published advisories.
 - **Fits your workflow.** Use the CLI, a GitHub Action, a pre-commit hook, SARIF output, or the [browser scanner](https://layer8labs8.github.io/quantpreflight/).
@@ -52,7 +53,7 @@ quantpreflight check nvidia/Qwen3-8B-FP4 --gpu H100
 ```
 
 ```text
-quantpreflight v0.3.0
+quantpreflight v0.4.0
   Source:       nvidia/Qwen3-8B-FP4
   Architecture: Qwen3ForCausalLM (safetensors)
   Quantization: nvfp4 4-bit g16 nvfp4-pack-quantized
@@ -67,7 +68,43 @@ Findings: 1 (1 critical)
     Location: config.json
     Detail:   Checkpoint uses NVFP4 4-bit floating-point quantization, which is not supported on H100 (sm_90).
     Fix:      Deploy NVFP4 checkpoints on Blackwell GPUs (B200/GB10/RTX5090) or use AWQ/GPTQ/FP8.
+
+Setup: no --tp or context length makes this start.
+  QPF004 needs a different checkpoint, GPU, or engine.
+  Find one that works: quantpreflight suggest nvidia/Qwen3-8B-FP4 --gpu H100
 ```
+
+So find one that works. `suggest` scans the quantized versions of the model on Hugging Face and ranks the ones that start:
+
+```bash
+quantpreflight suggest nvidia/Qwen3-8B-FP4 --gpu H100 --limit 4
+```
+
+```text
+quantpreflight v0.4.0
+Versions of Qwen/Qwen3-8B for vLLM on H100, tp=1:
+
+  Setup    Model                              Format                                Weights    Details
+  ready    Qwen/Qwen3-8B                      unquantized (BF16)                    15.26 GiB  tp=1, 40960 tokens
+  ready    Qwen/Qwen3-8B-FP8                  fp8 8-bit block-fp8                   8.79 GiB   tp=1, 40960 tokens
+  ready    Qwen/Qwen3-8B-AWQ                  awq 4-bit g128 gemm                   5.68 GiB   tp=1, 40960 tokens
+  blocked  nvidia/Qwen3-8B-NVFP4              nvfp4 4-bit g16 nvfp4-pack-quantized  5.96 GiB   QPF004
+  blocked  unsloth/Qwen3-8B-unsloth-bnb-4bit  bitsandbytes 4-bit nf4                6.97 GiB   QPF011
+
+Best pick: Qwen/Qwen3-8B, the highest precision that starts.
+  Run:  vllm serve Qwen/Qwen3-8B
+```
+
+When a setting is all that's wrong, `check` says which one to change. Here a 32B model is too big for one L4:
+
+```text
+Setup: it starts with these changes.
+  - Use --tp 2 instead of 1, so the weights fit in memory.
+  Fits 32768 tokens per request at tp=2.
+  Run:  vllm serve Qwen/Qwen2.5-32B-Instruct-AWQ --tensor-parallel-size 2
+```
+
+On the machine you'll serve from, `--gpu auto` reads its GPUs and `--engine-version auto` reads the installed vLLM or SGLang.
 
 It takes a Hugging Face repo ID, a direct URL, a local folder, or a single `.safetensors` or `.gguf` file:
 
@@ -122,7 +159,7 @@ Run `quantpreflight explain QPF006` for the details of any rule.
 ## Use it in CI
 
 ```yaml
-- uses: layer8labs8/quantpreflight@v0.3.0
+- uses: layer8labs8/quantpreflight@v0.4.0
   with:
     target: ./exported-checkpoint
     engine: vllm
@@ -140,6 +177,7 @@ Every result here can be reproduced from this repository. The [accuracy report](
 | Check | Result |
 | :--- | ---: |
 | Real vLLM 0.33 loads on Tesla T4 | 26 of 27 predicted correctly |
+| Suggested setups on Tesla T4 | 9 of 9 predicted correctly |
 | Public Hugging Face models scanned | 505, with 0 crashes |
 | Labelled benchmark | 96.9% recall, 100% precision on 132 cases |
 | Automated tests | About 7,000, on Linux, Windows, and macOS |

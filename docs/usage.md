@@ -12,14 +12,44 @@ quantpreflight check <target> [options]
 
 With `--engine llamacpp`, a repository that has both Safetensors and GGUF files is scanned as GGUF. Every part of a split GGUF file is read, and a missing part is reported.
 
+## Get a setup that starts
+
+After the findings, the report ends with a setup. It tries the GPU counts 1, 2, 4, and 8, closest to your `--tp` first, and the longest context that fits in memory. Then it says one of three things:
+
+- **Ready as asked.** It also says how much context fits.
+- **It starts with these changes.** For example, a `--tp` that splits the attention heads evenly, or a shorter context. vLLM refuses to start when the model's full context doesn't fit, so the command sets `--max-model-len` in that case.
+- **No setting makes this start.** The format needs another GPU, or the engine can't read it. Run `suggest` to find a version that works.
+
+Each setup that starts comes with the command for your engine: `vllm serve`, SGLang's `launch_server`, `trtllm-serve`, or `llama-server`. With `--format json`, it's in the `setup` field. Findings such as `QPF014` warn that loading a model is risky, so they don't count against a start, but they still set the exit code.
+
+## Find a version that runs
+
+```bash
+quantpreflight suggest Qwen/Qwen2.5-7B-Instruct --gpu L4
+```
+
+`suggest` takes a model, or any quantized version of it, and finds the model it came from. It then reads Hugging Face's list of quantized versions, scans the most downloaded ones, and ranks them: the ones that start first, the highest precision first, then the most downloaded. `--limit` sets how many versions it scans, 15 by default. With `--engine llamacpp`, it scans GGUF repositories only, and otherwise it skips them.
+
+It exits with `0` when at least one version starts, `1` when none does, and `2` when the model can't be found.
+
+## Check on the machine you'll serve from
+
+`--gpu auto` reads the GPUs from `nvidia-smi` and checks against the closest profile. If the card's memory differs from that profile, such as an A100 with 40 GB, it uses the card's memory. The setup then only tries GPU counts the machine has. `--engine-version auto` reads the version of the installed vLLM or SGLang:
+
+```bash
+quantpreflight check Qwen/Qwen2.5-7B-Instruct-AWQ --gpu auto --engine-version auto
+```
+
+AMD GPUs aren't detected yet, so pass `--gpu MI300X` there. In `.quantpreflight.toml`, `gpu = "auto"` works too.
+
 ## Options
 
 | Option | What it does | Default |
 | :--- | :--- | :--- |
 | `--engine` | `vllm`, `sglang`, `trtllm`, or `llamacpp` | `vllm` |
-| `--gpu` | Target GPU, alias, or architecture | None |
+| `--gpu` | Target GPU, alias, or architecture, or `auto` | None |
 | `--tp` | GPUs per replica | `1` |
-| `--engine-version` | Installed engine version, checked against advisories | None |
+| `--engine-version` | Installed engine version, checked against advisories, or `auto` | None |
 | `--context-len` | Context length for the cache estimate | Model limit, up to 4096 |
 | `--concurrency` | Requests served at once, for the cache estimate | `1` |
 | `--vram-gb` | Override VRAM per GPU, in GiB | From the GPU table |
@@ -39,6 +69,7 @@ Exit codes: `0` means nothing reached the `--fail-on` level, `1` means something
 
 | Command | What it does |
 | :--- | :--- |
+| `quantpreflight suggest <model>` | Rank the quantized versions of a model that start. It takes the same target options as `check`, plus `--limit` |
 | `quantpreflight explain QPF006` | Explain a rule |
 | `quantpreflight list-rules` | List every rule |
 | `quantpreflight list-gpus` | List GPUs and their capabilities |
@@ -106,7 +137,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: layer8labs8/quantpreflight@v0.3.0
+      - uses: layer8labs8/quantpreflight@v0.4.0
         with:
           target: ./exported-checkpoint
           engine: vllm
@@ -128,7 +159,7 @@ To run it as a [pre-commit](https://pre-commit.com) hook instead:
 ```yaml
 repos:
   - repo: https://github.com/layer8labs8/quantpreflight
-    rev: v0.3.0
+    rev: v0.4.0
     hooks:
       - id: quantpreflight
 ```

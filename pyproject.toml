@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "quantpreflight"
-version = "0.3.0"
+version = "0.4.0"
 description = "Find out if a quantized AI model will run on your GPUs before you download it."
 readme = "README.md"
 license = "MIT"

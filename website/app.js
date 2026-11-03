@@ -94,6 +94,50 @@ const renderVerdict = (result) => {
   return verdict;
 };
 
+const SETUP_TITLES = {
+  ready: 'Ready as asked',
+  changed: 'It starts with these changes',
+  blocked: 'No setting makes this start',
+};
+
+const copyButton = (text) => {
+  const button = element('button', 'copy', 'Copy');
+  button.type = 'button';
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      button.textContent = 'Copied';
+    } catch {
+      button.textContent = 'Select it';
+      getSelection().selectAllChildren(button.parentElement.querySelector('code'));
+    }
+    setTimeout(() => { button.textContent = 'Copy'; }, 1600);
+  });
+  return button;
+};
+
+const renderSetup = (setup) => {
+  const section = element('section', `setup ${setup.status}`);
+  section.append(element('p', 'label kind', 'Setup'), element('h3', '', SETUP_TITLES[setup.status]));
+  if (setup.changes.length) {
+    const list = element('ul');
+    setup.changes.forEach((change) => list.append(element('li', '', change)));
+    section.append(list);
+  }
+  if (setup.status === 'blocked') {
+    section.append(element('p', '', `${setup.blocking.join(', ')} needs a different checkpoint, GPU, or engine. quantpreflight suggest finds one that works.`));
+  } else if (setup.max_context && setup.context_len) {
+    const fits = setup.max_context > setup.context_len ? `, and up to ${setup.max_context} would fit` : '';
+    section.append(element('p', '', `Runs with ${setup.context_len} tokens per request at tp=${setup.tp}${fits}.`));
+  }
+  if (setup.command) {
+    const command = element('div', 'command');
+    command.append(element('code', '', setup.command), copyButton(setup.command));
+    section.append(command);
+  }
+  return section;
+};
+
 const renderResult = (result) => {
   report.classList.remove('stale');
   if (result.error) {
@@ -102,7 +146,8 @@ const renderResult = (result) => {
     report.replaceChildren(verdict);
     return;
   }
-  report.replaceChildren(renderVerdict(result), ...result.findings.map(renderFinding));
+  const setup = result.setup ? [renderSetup(result.setup)] : [];
+  report.replaceChildren(renderVerdict(result), ...setup, ...result.findings.map(renderFinding));
   report.scrollTop = 0;
 };
 

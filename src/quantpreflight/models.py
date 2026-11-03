@@ -141,6 +141,33 @@ class Finding:
 
 
 @dataclass
+class SetupPlan:
+    """A setup that should start, worked out from the scan."""
+
+    # "ready" as asked, "changed" to start, or "blocked" when no setting helps
+    status: str
+    tp: int
+    context_len: int | None = None
+    max_context: int | None = None
+    estimated_vram_per_gpu_gb: float | None = None
+    changes: tuple[str, ...] = ()
+    blocking: tuple[Finding, ...] = ()
+    command: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "status": self.status,
+            "tp": self.tp,
+            "context_len": self.context_len,
+            "max_context": self.max_context,
+            "estimated_vram_per_gpu_gb": self.estimated_vram_per_gpu_gb,
+            "changes": list(self.changes),
+            "blocking": [f.rule_id for f in self.blocking],
+            "command": self.command,
+        }
+
+
+@dataclass
 class ScanReport:
     """Structured scan summary and findings list."""
 
@@ -155,6 +182,7 @@ class ScanReport:
     estimated_vram_per_gpu_gb: float | None
     target: TargetSpec
     findings: list[Finding] = field(default_factory=list)
+    setup: SetupPlan | None = None
 
     def highest_severity(self) -> Severity | None:
         if not self.findings:

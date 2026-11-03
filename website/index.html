@@ -145,7 +145,8 @@
 <article>
 <h3>Command line</h3>
 <pre id="use-cli"><code><!-- install -->
-quantpreflight check Qwen/Qwen2.5-7B-Instruct-AWQ --gpu H100 --tp 4</code></pre>
+quantpreflight check Qwen/Qwen2.5-7B-Instruct-AWQ --gpu H100 --tp 4
+quantpreflight suggest Qwen/Qwen2.5-7B-Instruct --gpu L4</code></pre>
 <button type="button" class="copy" data-copy-from="use-cli">Copy</button>
 </article>
 <article>
@@ -179,7 +180,7 @@ jobs:
 <button type="button" class="copy" data-copy-from="use-action">Copy</button>
 </article>
 </div>
-<p class="intro">It works on Hugging Face repo IDs, direct URLs, local folders, and single <code>.safetensors</code> or <code>.gguf</code> files. Set <code>HF_TOKEN</code> for gated models. The <a href="https://github.com/layer8labs8/quantpreflight/blob/main/docs/usage.md">usage guide</a> covers every option.</p>
+<p class="intro">Each report ends with the GPU count and context length that start, and the command to run. <code>suggest</code> ranks the quantized versions of a model that run on your GPUs. It works on Hugging Face repo IDs, direct URLs, local folders, and single <code>.safetensors</code> or <code>.gguf</code> files. Set <code>HF_TOKEN</code> for gated models. The <a href="https://github.com/layer8labs8/quantpreflight/blob/main/docs/usage.md">usage guide</a> covers every option.</p>
 </section>
 
 <section class="section" id="limits">

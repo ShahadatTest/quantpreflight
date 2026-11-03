@@ -109,6 +109,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .stamp.fails { color: var(--critical); }
 .stamp.passes { color: var(--medium); }
 .stamp.clean { color: var(--clean); }
+.setup { padding: 14px 0; border-bottom: 1px solid var(--line); }
+.setup h3 { margin: 6px 0 0; font-size: 17px; }
+.setup.ready h3 { color: var(--clean); }
+.setup.changed h3 { color: var(--medium); }
+.setup.blocked h3 { color: var(--critical); }
+.setup ul { margin: 8px 0 0; padding-left: 20px; font-size: 15px; line-height: 1.5; }
+.setup p { margin: 8px 0 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.setup .command { margin-top: 10px; }
+.report.stale .setup { opacity: .45; }
 .finding { padding: 14px 0; border-bottom: 1px solid var(--line); }
 .finding:last-child { border-bottom: 0; }
 .finding header { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font: 13px/1.4 var(--mono); }

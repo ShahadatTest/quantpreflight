@@ -9,6 +9,7 @@ from typing import Any
 from quantpreflight.cli import SCAN_ERRORS
 from quantpreflight.loader import _extract_tokenizer_meta
 from quantpreflight.models import CheckpointMeta, TargetSpec
+from quantpreflight.planner import plan_setup
 from quantpreflight.quant_detect import build_safetensors_specs, parse_quant_spec_from_config
 from quantpreflight.rules import analyze_checkpoint
 from quantpreflight.safetensors_io import parse_safetensors_header_bytes, parse_safetensors_index
@@ -39,11 +40,17 @@ def scan_text(text: str, engine: str = "vllm", gpu: str = "", tp: int = 1, weigh
 
 
 def _summary(meta: CheckpointMeta, engine: str, gpu: str, tp: int) -> dict[str, Any]:
-    report = analyze_checkpoint(meta, TargetSpec(engine=engine, gpu=gpu or None, tp=tp))
+    target = TargetSpec(engine=engine, gpu=gpu or None, tp=tp)
+    report = analyze_checkpoint(meta, target)
+    setup = plan_setup(meta, target).to_dict()
+    # A pasted config has no model name to serve
+    if meta.source == "config.json":
+        setup["command"] = None
     return {
         "quant": report.quant_summary.replace("unquantized (unknown)", "unquantized"),
         "vram_gib": report.estimated_vram_per_gpu_gb,
         "findings": [finding.to_dict() for finding in report.findings],
+        "setup": setup,
     }
 
 

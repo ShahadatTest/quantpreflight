@@ -32,8 +32,12 @@ class Score:
     found: int = 0
     missed: list[str] = field(default_factory=list)
     false_alarms: list[str] = field(default_factory=list)
+    cases: int = 0
+    passed: int = 0
 
     def add(self, other: "Score") -> None:
+        self.cases += other.cases
+        self.passed += other.passed
         self.found += other.found
         self.missed += other.missed
         self.false_alarms += other.false_alarms
@@ -187,6 +191,8 @@ def score_case(case: dict[str, Any]) -> Score:
     # A case with nothing to find must stay completely quiet
     unwanted = fired if not must_fire else fired & set(case.get("must_not_fire", []))
     score.false_alarms = [f"{case['id']}: {rule}" for rule in sorted(unwanted)]
+    score.cases = 1
+    score.passed = int(not score.missed and not score.false_alarms)
     return score
 
 
@@ -206,10 +212,10 @@ def main() -> int:
     total = Score()
     failed = False
 
-    print(f"{'Group':<12} {'Cases':>5} {'Caught':>7} {'Missed':>7} {'False alarms':>13}")
+    print(f"{'Group':<12} {'Cases':>5} {'Passed':>7} {'Missed':>7} {'False alarms':>13}")
     for group, score in results.items():
         total.add(score)
-        print(f"{group:<12} {len(cases[group]):>5} {score.found:>7} {len(score.missed):>7} {len(score.false_alarms):>13}")
+        print(f"{group:<12} {score.cases:>5} {score.passed:>7} {len(score.missed):>7} {len(score.false_alarms):>13}")
         if group != GAPS and (score.missed or score.false_alarms):
             failed = True
             for line in score.missed:

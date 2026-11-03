@@ -51,6 +51,17 @@ quantpreflight check nvidia/Qwen3-8B-FP4 --gpu H100
 ```
 
 ```text
+quantpreflight v0.2.0
+  Source:       nvidia/Qwen3-8B-FP4
+  Architecture: Qwen3ForCausalLM (safetensors)
+  Quantization: nvfp4 4-bit g16 nvfp4-pack-quantized
+  Weights:      5.96 GiB across 2 file(s), 1227 tensors
+  Headers read: 301.0 KiB (zero weight bytes downloaded)
+  Target:       engine=vllm, gpu=H100, tp=1
+  Est. VRAM:    8.24 GiB / GPU (weights, runtime, and KV cache)
+
+Findings: 1 (1 critical)
+------------------------------------------------------------------------
 [1] CRITICAL QPF004: NVFP4 requires Blackwell (sm_100+), target is H100 (sm_90)
     Location: config.json
     Detail:   Checkpoint uses NVFP4 4-bit floating-point quantization, which is not supported on H100 (sm_90).
@@ -88,7 +99,7 @@ The [usage guide](docs/usage.md) covers every option. Set `HF_TOKEN` to scan gat
 | Does this GPTQ model use desc_act? | vLLM rejects it outright, and other engines pay for extra gathers across GPUs. | `QPF008` |
 | Is every shard really there? | Missing shards, dangling tensors, duplicates, and wrong MTP draft shapes fail at load. | `QPF009` |
 | Does the config match the weights? | Packed tensors with no quantization_config, or the reverse, load wrongly or waste memory. | `QPF010` |
-| Can this engine read this format? | Safetensors on llama.cpp, GGUF on TensorRT-LLM, and 1-bit or 2-bit GGUF on vLLM all fail. | `QPF011` |
+| Can this engine read this format? | Safetensors on llama.cpp and GGUF on TensorRT-LLM fail to load, and 1-bit or 2-bit GGUF on vLLM or SGLang is often unsupported or slow. | `QPF011` |
 | Will it fit in GPU memory? | Weights, runtime overhead measured on real GPUs, and the KV cache, with DeepSeek MLA, sliding windows, and Mamba state counted properly. | `QPF012` |
 | Are the byte offsets in the file sane? | Overlapping, inverted, or truncated spans mean a corrupt or incomplete file. | `QPF013` |
 | Will loading it run someone else's code? | Pickle weights and trust_remote_code can execute arbitrary code on your host. | `QPF014` |
@@ -103,8 +114,8 @@ Run `quantpreflight explain QPF006` for the details of any rule.
 | :--- | :--- |
 | Formats | AWQ, GPTQ, Compressed-Tensors, FP8, NVFP4, MXFP4, Marlin, AutoRound, bitsandbytes, BitNet, MLX, GGUF, Safetensors |
 | Engines | vLLM, SGLang, TensorRT-LLM, llama.cpp |
-| NVIDIA GPUs | T4, A10G, A100-40GB, A100, L4, L40S, H100, H200, B200, RTX5090, GB10 |
-| AMD GPUs | MI250X, MI300X |
+| NVIDIA GPUs | T4, A10G, A100-40GB, A100, L4, L40S, RTX4090, H100, H200, B200, RTX5090, GB10 |
+| AMD GPUs | MI250X, MI300X, MI325X |
 | Model families | Llama, Mistral, Qwen, DeepSeek, Gemma, Phi, GLM, Mamba and hybrids, with a generic fallback for the rest |
 
 ## Use it in CI
@@ -151,7 +162,7 @@ Run it before the download. These tools do different jobs:
 A scanner finds known problems, not proof. A clean report doesn't mean the model will load or answer well, and a finding may not apply to your exact engine version.
 
 - It never reads weight values, so it can't see NaNs or measure quality loss.
-- Its GPU rules were checked on T4 only. Other GPUs rest on vendor docs and engine issues.
+- Its GPU rules were checked on T4 only. Other GPUs rest on vendor docs and engine issues until someone [tests them](docs/gpu-testing.md).
 - Its compatibility tables can fall behind a new engine release.
 - The memory estimate assumes one request at a time unless you pass `--concurrency`. Its overhead was fitted on T4.
 - It only checks your engine version if you pass `--engine-version`, and only vLLM and SGLang have advisory data.
@@ -166,6 +177,10 @@ A scanner finds known problems, not proof. A clean report doesn't mean the model
 **It flagged a model that runs fine. Is that a bug?** It might be. Please [open a report](https://github.com/layer8labs8/quantpreflight/issues/new?template=detection_problem.yml). False alarms are the most useful feedback we get.
 
 **Is my token safe?** `HF_TOKEN` goes only to Hugging Face, and it's removed if a download redirects to another host. See [SECURITY.md](SECURITY.md).
+
+## Help test it on your GPU
+
+Only Tesla T4 has been checked against real loads so far. If you can run vLLM on another GPU, one run of [`tools/gpu_check.py`](tools/gpu_check.py) shows where the rules are right and where they're wrong. [GPU testing](docs/gpu-testing.md) explains how, and the [help wanted](https://github.com/layer8labs8/quantpreflight/labels/help%20wanted) issues list the GPUs we need most.
 
 ## Contributing
 

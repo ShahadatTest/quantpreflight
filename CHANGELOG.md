@@ -16,6 +16,8 @@ All notable changes to this project will be documented in this file.
 - 132 labelled benchmark cases in ten groups, with recall and precision for each run.
 - Header-only demo checkpoints in `tests/fixtures/`.
 - Workflows for the website, releases, and a self-test of the GitHub Action.
+- GPU profiles for RTX 4090 and MI325X.
+- A [GPU testing](docs/gpu-testing.md) guide and an issue form for sharing results from your own GPUs.
 
 ### Fixed
 - Results checked against real vLLM 0.33 runs on Tesla T4, and against 500 public models:
@@ -40,6 +42,10 @@ All notable changes to this project will be documented in this file.
 - `pad_token_id: -1` no longer fires `QPF002`, because many configs use it to mean "no padding token".
 - A shard reached through a symlink to a folder with a similar name is now rejected.
 - The quantization summary no longer repeats the method name, as in `gptq 4-bit g128 gptq`.
+- `--gpu rtx4090` used the 48 GiB of an L40S, and `--gpu mi325x` used the 192 GiB of an MI300X. Both now have their own profiles.
+- The text report names the GPU an alias resolves to, such as `L40S (from sm_89)`.
+- `tools/gpu_check.py` no longer empties your Hugging Face cache. It downloads into its own folder, detects any GPU PyTorch can see, and no longer reads an L40S as an L4.
+- The benchmark tables count cases passed, instead of findings next to case counts.
 
 ### Changed
 - `QPF002` docs now describe its relation to `CVE-2026-115916` accurately, and the README states the limits of the `QPF012` estimate.

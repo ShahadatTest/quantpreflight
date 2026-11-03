@@ -518,6 +518,16 @@ def test_formatters_render_findings_and_clean_reports() -> None:
     assert "Result: PASS (0 findings)" in format_text_report(analyze_checkpoint(_meta()))
 
 
+@pytest.mark.parametrize(
+    ("query", "shown"),
+    [("H100", "gpu=H100,"), ("rtx4090", "gpu=RTX4090,"), ("sm_89", "gpu=L40S (from sm_89),"), ("Voodoo3", "gpu=Voodoo3,")],
+)
+def test_text_report_names_the_resolved_gpu(query: str, shown: str) -> None:
+    report = analyze_checkpoint(_meta())
+    report.target = TargetSpec(gpu=query)
+    assert shown in format_text_report(report)
+
+
 def test_severity_threshold_gates_pass_result() -> None:
     meta = _meta(config={**LLAMA, "num_attention_heads": 8, "num_key_value_heads": 2})
     report = analyze_checkpoint(meta, TargetSpec(tp=4))

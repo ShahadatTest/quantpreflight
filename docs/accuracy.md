@@ -47,7 +47,7 @@ Each model was scanned, then loaded with vLLM 0.33.0 on Tesla T4 GPUs on Kaggle.
 
 The one miss is FP8 on a GPU without FP8 cores. Of the three FP8 models tried, one loaded and two failed, so the tool warns on all of them. Security rules such as `QPF014` aren't counted here, because they say a model is risky, not that it won't load.
 
-Only T4 has been tested. Rules for L4, H100, Blackwell, and AMD GPUs rest on vendor docs and engine issues.
+Only T4 has been tested. Rules for L4, H100, Blackwell, and AMD GPUs rest on vendor docs and engine issues. [GPU testing](gpu-testing.md) shows how to add results from your own GPUs.
 
 ## Memory
 
@@ -84,20 +84,20 @@ These are risky patterns, not proven failures. Nobody loaded these 505 models, a
 
 Every change runs against [`cases.json`](../benchmark/cases.json), 132 small checkpoints labelled with what must fire and what must stay quiet.
 
-| Cases | Number | Findings caught | Missed | False alarms |
+| Group | Cases | Passed | Findings missed | False alarms |
 | :--- | ---: | ---: | ---: | ---: |
-| Safe setups | 36 | 0 | 0 | 0 |
+| Safe setups | 36 | 36 | 0 | 0 |
 | Sensitive layers | 6 | 6 | 0 | 0 |
 | Tokens and stop IDs | 13 | 13 | 0 | 0 |
 | GPU support | 16 | 16 | 0 | 0 |
 | Silent kernel bugs | 8 | 8 | 0 | 0 |
-| Splitting across GPUs | 15 | 16 | 0 | 0 |
+| Splitting across GPUs | 15 | 15 | 0 | 0 |
 | Broken files | 17 | 17 | 0 | 0 |
 | Engine and format | 12 | 12 | 0 | 0 |
-| GPU memory | 6 | 5 | 0 | 0 |
+| GPU memory | 6 | 6 | 0 | 0 |
 | Known gaps | 3 | 0 | 3 | 0 |
 
-That's 96.9% recall and 100% precision on these cases. We wrote them ourselves, so treat this as a regression check and not a promise about your model.
+A case passes when every finding it expects fires and nothing it forbids does. That's 96.9% recall and 100% precision on these cases. We wrote them ourselves, so treat this as a regression check and not a promise about your model.
 
 The 3 misses are real gaps: NaNs in the weights, running out of memory under real traffic when `--concurrency` isn't set, and bugs that only a live request can trigger when `--engine-version` isn't set.
 

@@ -1,0 +1,35 @@
+name: Share GPU results
+description: Post the results of tools/gpu_check.py from your GPU.
+title: "[GPU results]: <GPU name>"
+labels: ["gpu-testing"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for running the check. [GPU testing](https://github.com/layer8labs8/quantpreflight/blob/main/docs/gpu-testing.md) explains how, if you haven't run it yet.
+  - type: input
+    id: gpu
+    attributes:
+      label: GPU
+      placeholder: 2x NVIDIA L40S
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: vLLM, CUDA or ROCm, and driver versions
+      placeholder: vLLM 0.33.0, CUDA 12.8, driver 570
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Results
+      description: Drag gpu_check_results.json here. Check the log lines first, in case they show a path you'd rather keep private.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything surprising?
+      description: A model that loaded when the tool said no-go, or the other way around, is the most useful thing to point out.

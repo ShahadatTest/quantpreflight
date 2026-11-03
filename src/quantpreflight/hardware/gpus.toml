@@ -68,11 +68,24 @@ supports_marlin = true
 
 [[gpus]]
 id = "L40S"
-aliases = ["l40", "rtx4090", "rtx-4090", "rtx6000-ada", "sm_89", "sm89"]
+aliases = ["l40", "rtx6000-ada", "sm_89", "sm89"]
 vendor = "nvidia"
 arch = "sm_89"
 compute_capability = 89
 vram_gb = 48.0
+supports_bf16 = true
+supports_fp8_w8a8 = true
+supports_fp8_block_scale = false
+supports_nvfp4 = false
+supports_marlin = true
+
+[[gpus]]
+id = "RTX4090"
+aliases = ["rtx-4090", "geforce-rtx-4090"]
+vendor = "nvidia"
+arch = "sm_89"
+compute_capability = 89
+vram_gb = 24.0
 supports_bf16 = true
 supports_fp8_w8a8 = true
 supports_fp8_block_scale = false
@@ -159,11 +172,24 @@ supports_marlin = false
 
 [[gpus]]
 id = "MI300X"
-aliases = ["mi300", "mi325x", "gfx942"]
+aliases = ["mi300", "gfx942"]
 vendor = "amd"
 arch = "gfx942"
 compute_capability = 942
 vram_gb = 192.0
+supports_bf16 = true
+supports_fp8_w8a8 = true
+supports_fp8_block_scale = true
+supports_nvfp4 = false
+supports_marlin = false
+
+[[gpus]]
+id = "MI325X"
+aliases = ["mi325"]
+vendor = "amd"
+arch = "gfx942"
+compute_capability = 942
+vram_gb = 256.0
 supports_bf16 = true
 supports_fp8_w8a8 = true
 supports_fp8_block_scale = true

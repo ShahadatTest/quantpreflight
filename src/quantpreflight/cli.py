@@ -96,7 +96,7 @@ def _build_parser() -> argparse.ArgumentParser:
             "--context-len",
             type=int,
             default=None,
-            help="Context length for smoke KV-cache VRAM estimation.",
+            help="Context length for the KV cache estimate. Defaults to the model limit, up to 4096.",
         )
         chk.add_argument(
             "--vram-gb",

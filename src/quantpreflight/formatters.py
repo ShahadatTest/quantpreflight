@@ -7,6 +7,7 @@ from typing import Any
 
 from . import __version__
 from .models import ScanReport, Severity
+from .profiles import ProfileValidationError, resolve_gpu_profile
 from .rules import RULE_CATALOG
 
 
@@ -20,11 +21,20 @@ def _fmt_bytes(num_bytes: int) -> str:
     return f"{num_bytes} B"
 
 
+def _gpu_name(query: str) -> str:
+    """Name the GPU profile an alias such as `sm_89` resolved to."""
+    try:
+        gpu = resolve_gpu_profile(query)
+    except ProfileValidationError:
+        return query
+    return gpu.id if gpu.id.lower() == query.lower() else f"{gpu.id} (from {query})"
+
+
 def format_text_report(report: ScanReport) -> str:
     """Render a concise terminal summary and prioritized finding list."""
     tgt_parts = [f"engine={report.target.engine}", f"tp={report.target.tp}"]
     if report.target.gpu:
-        tgt_parts.insert(1, f"gpu={report.target.gpu}")
+        tgt_parts.insert(1, f"gpu={_gpu_name(report.target.gpu)}")
 
     lines = [
         f"quantpreflight v{__version__}",
@@ -36,7 +46,7 @@ def format_text_report(report: ScanReport) -> str:
         f"  Target:       {', '.join(tgt_parts)}",
     ]
     if report.estimated_vram_per_gpu_gb is not None:
-        lines.append(f"  Est. VRAM:    {report.estimated_vram_per_gpu_gb:.2f} GiB / GPU (weights + smoke KV + workspace)")
+        lines.append(f"  Est. VRAM:    {report.estimated_vram_per_gpu_gb:.2f} GiB / GPU (weights, runtime, and KV cache)")
 
     lines.append("")
     if not report.findings:

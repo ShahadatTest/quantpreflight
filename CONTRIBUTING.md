@@ -61,7 +61,7 @@ Edit `src/quantpreflight/hardware/gpus.toml` or `src/quantpreflight/hardware/eng
 
 ## Check Results on Real GPUs
 
-`python tools/gpu_check.py` compares each prediction with a real vLLM load on the GPUs of your machine. `python tools/build_gpu_notebook.py` packs the same check into a Kaggle notebook. Results from other GPUs are very welcome, because only T4 has been tested so far.
+`python tools/gpu_check.py` compares each prediction with a real vLLM load on the GPUs of your machine. `python tools/build_gpu_notebook.py` packs the same check into a Kaggle notebook. Results from other GPUs are very welcome, because only T4 has been tested so far. [GPU testing](docs/gpu-testing.md) explains how to run it and share what you find.
 
 ## Report a False Alarm or Missed Crash
 

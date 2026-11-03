@@ -1,8 +1,8 @@
 """Compare quantpreflight's predictions with real vLLM loads on the GPUs of this machine.
 
 Each case is scanned first, then loaded in its own process. Results go to a JSON file after every
-case, so a stopped run keeps what it finished. Only use it on a machine you don't mind filling up:
-it downloads real weights and clears the Hugging Face cache between cases.
+case, so a stopped run keeps what it finished. It downloads real weights into its own cache folder,
+which it empties after each case, so your Hugging Face cache is left alone. See docs/gpu-testing.md.
 """
 
 from __future__ import annotations
@@ -27,12 +27,13 @@ from quantpreflight import __version__  # noqa: E402
 from quantpreflight.cli import SCAN_ERRORS  # noqa: E402
 from quantpreflight.loader import load_checkpoint_metadata  # noqa: E402
 from quantpreflight.models import TargetSpec  # noqa: E402
+from quantpreflight.profiles import ProfileValidationError, load_gpu_profiles, resolve_gpu_profile  # noqa: E402
 from quantpreflight.rules import analyze_checkpoint  # noqa: E402
 
 CONTEXT = 4096
 TIMEOUT_SECONDS = 25 * 60
 SECURITY_RULES = {"QPF014", "QPF015"}
-HF_CACHE = Path.home() / ".cache" / "huggingface" / "hub"
+CACHE = Path(os.environ.get("QPF_GPU_CHECK_CACHE", Path.home() / ".cache" / "quantpreflight-gpu-check"))
 
 # (repo, GPUs per replica, what the case tests)
 CASES: list[tuple[str, int, str]] = [
@@ -52,11 +53,11 @@ CASES: list[tuple[str, int, str]] = [
     ("Qwen/Qwen2.5-7B-Instruct-GPTQ-Int4", 1, "GPTQ"),
     ("RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w4a16", 1, "Compressed-Tensors W4A16"),
     ("unsloth/Llama-3.2-1B-Instruct-bnb-4bit", 1, "bitsandbytes"),
-    ("Qwen/Qwen3-8B-FP8", 1, "FP8 on a GPU without FP8 cores"),
-    ("nvidia/Llama-3.1-8B-Instruct-FP8", 1, "FP8 on a GPU without FP8 cores"),
-    ("nvidia/Qwen3-8B-FP4", 1, "NVFP4 on a GPU without NVFP4 cores"),
-    ("Qwen/Qwen2.5-14B-Instruct-AWQ", 1, "close to the memory limit"),
-    ("Qwen/Qwen2.5-32B-Instruct-AWQ", 1, "too big for one GPU"),
+    ("Qwen/Qwen3-8B-FP8", 1, "FP8"),
+    ("nvidia/Llama-3.1-8B-Instruct-FP8", 1, "ModelOpt FP8"),
+    ("nvidia/Qwen3-8B-FP4", 1, "NVFP4"),
+    ("Qwen/Qwen2.5-14B-Instruct-AWQ", 1, "close to the memory limit of a 16 GB GPU"),
+    ("Qwen/Qwen2.5-32B-Instruct-AWQ", 1, "too big for one 16 GB GPU"),
     ("Qwen/Qwen2.5-32B-Instruct-AWQ", 2, "the same model across two GPUs"),
     ("HuggingFaceTB/SmolLM2-135M-Instruct", 1, "small plain model"),
     ("HuggingFaceTB/SmolLM2-135M-Instruct", 2, "heads that may not split across two GPUs"),
@@ -86,22 +87,38 @@ LOG_PATTERNS = {
     "kv_available_gib": r"Available KV cache memory: ([\d.]+) ?GiB",
     "weights_gib": r"model weights take ([\d.]+) ?GiB",
 }
-GPU_NAMES = {"T4": "T4", "P100": None, "A100": "A100", "H100": "H100", "L4": "L4", "L40S": "L40S"}
+GPU_QUERY = """
+import json, torch
+gpus = []
+for i in range(torch.cuda.device_count()):
+    p = torch.cuda.get_device_properties(i)
+    # CUDA builds also have gcnArchName, so only trust it on ROCm
+    arch = p.gcnArchName.split(":")[0] if torch.version.hip else f"sm_{p.major}{p.minor}"
+    gpus.append({"name": p.name, "memory_gib": round(p.total_memory / 1024**3, 2), "arch": arch})
+print(json.dumps(gpus))
+"""
 
 
 def gpu_table() -> list[dict[str, Any]]:
-    """Return each GPU's name and memory from nvidia-smi."""
-    query = ["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv,noheader,nounits"]
-    text = subprocess.run(query, capture_output=True, text=True, check=True).stdout
-    gpus = []
-    for row in text.strip().splitlines():
-        name, memory = [part.strip() for part in row.split(",")]
-        gpus.append({"name": name, "memory_gib": round(float(memory) / 1024, 2)})
-    return gpus
+    """Return each GPU's name, memory, and architecture as PyTorch sees them."""
+    text = subprocess.run([sys.executable, "-c", GPU_QUERY], capture_output=True, text=True, check=True).stdout
+    return json.loads(text.strip().splitlines()[-1])
 
 
-def profile_for(name: str) -> str | None:
-    return next((profile for key, profile in GPU_NAMES.items() if key in name), None)
+def _squash(text: str) -> str:
+    return "".join(ch for ch in text.upper() if ch.isalnum())
+
+
+def profile_for(name: str, arch: str) -> str | None:
+    """Match a device name such as `NVIDIA L40S` to a GPU profile, falling back to its architecture."""
+    # Longest names first, so an L40S isn't read as an L4
+    for gpu_id in sorted(load_gpu_profiles(), key=len, reverse=True):
+        if _squash(gpu_id) in _squash(name):
+            return gpu_id
+    try:
+        return resolve_gpu_profile(arch).id
+    except ProfileValidationError:
+        return None
 
 
 def predict(repo: str, tp: int, gpu: str | None, vram_gib: float) -> dict[str, Any]:
@@ -140,6 +157,8 @@ class MemoryWatcher(threading.Thread):
 
     def run(self) -> None:
         query = ["nvidia-smi", "--query-gpu=memory.used", "--format=csv,noheader,nounits"]
+        if shutil.which(query[0]) is None:
+            return
         while not self.stopping.wait(2):
             result = subprocess.run(query, capture_output=True, text=True)
             values = [float(row) for row in result.stdout.split() if row.strip()]
@@ -149,7 +168,7 @@ class MemoryWatcher(threading.Thread):
 
 def load(repo: str, tp: int, context: int) -> dict[str, Any]:
     """Load the model with vLLM in a new process and generate a few tokens."""
-    env = {**os.environ, "HF_HUB_DISABLE_PROGRESS_BARS": "1"}
+    env = {**os.environ, "HF_HUB_DISABLE_PROGRESS_BARS": "1", "HF_HUB_CACHE": str(CACHE)}
     watcher = MemoryWatcher()
     watcher.start()
     started = time.time()
@@ -190,11 +209,11 @@ def run(out: Path, only: list[str], dry_run: bool, gpu: str | None, vram: float)
         if check.returncode != 0:
             raise SystemExit(f"This machine can't run the checks:\n{check.stderr[-2000:]}")
         gpus = gpu_table()
-        gpu = profile_for(gpus[0]["name"])
+        gpu = profile_for(gpus[0]["name"], gpus[0]["arch"])
         vram = gpus[0]["memory_gib"]
         import vllm  # type: ignore[import-not-found]
 
-        meta |= {"gpus": gpus, "vllm": vllm.__version__}
+        meta |= {"gpus": gpus, "profile": gpu, "vllm": vllm.__version__}
     print(meta, flush=True)
 
     for repo, tp, note in CASES:
@@ -208,7 +227,7 @@ def run(out: Path, only: list[str], dry_run: bool, gpu: str | None, vram: float)
             entry["actual"] = load(repo, tp, entry["prediction"].get("context", CONTEXT))
             actual = entry["actual"]
             print(f"ACTUAL loaded={actual['loaded']} peak={actual['peak_gib']} GiB text={actual['text']!r} error={actual.get('error')}", flush=True)
-            shutil.rmtree(HF_CACHE, ignore_errors=True)
+            shutil.rmtree(CACHE, ignore_errors=True)
         results.append(entry)
         out.write_text(json.dumps({"meta": meta, "results": results}, indent=1), encoding="utf-8")
 

@@ -89,7 +89,7 @@ const renderVerdict = (result) => {
     element('span', `stamp ${stamp[0]}`, stamp[1]),
     element('p', '', summary),
   );
-  if (result.vram_gib) verdict.append(element('p', 'vram', `Estimated ${result.vram_gib.toFixed(2)} GiB per GPU, with a minimal cache.`));
+  if (result.vram_gib) verdict.append(element('p', 'vram', `Estimated ${result.vram_gib.toFixed(2)} GiB per GPU, for one request of up to 4,096 tokens.`));
   if (result.tensors) verdict.append(element('p', 'vram', `${result.tensors} tensors, ${result.weights_gib} GiB of weights. Headers read: ${result.bytes_read}.`));
   return verdict;
 };

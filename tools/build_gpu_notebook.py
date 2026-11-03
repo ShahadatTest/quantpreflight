@@ -1,6 +1,6 @@
 """Build a self-contained Kaggle notebook that runs tools/gpu_check.py.
 
-The package wheel is embedded, so the notebook works while the repository is private.
+The package wheel is embedded, so the notebook tests your local copy, changes included.
 """
 
 from __future__ import annotations
@@ -30,7 +30,8 @@ It takes about 1 to 3 hours and only uses public models. No token or password is
 
 def _wheel() -> bytes:
     with tempfile.TemporaryDirectory() as folder:
-        subprocess.run([sys.executable, "-m", "build", "--wheel", "--outdir", folder, str(ROOT)], check=True, capture_output=True)
+        command = [sys.executable, "-m", "pip", "wheel", "--no-deps", "--wheel-dir", folder, str(ROOT)]
+        subprocess.run(command, check=True, capture_output=True, cwd=folder)
         return next(Path(folder).glob("*.whl")).read_bytes()
 
 

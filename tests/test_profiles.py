@@ -54,7 +54,8 @@ def test_moe_router_regex_never_matches_swiglu_gate_proj() -> None:
 def test_gpu_alias_resolution_and_unknown_error() -> None:
     gpus = load_gpu_profiles()
     assert resolve_gpu_profile("sm_89", gpus).id in ("L4", "L40S")
-    assert resolve_gpu_profile("rtx4090", gpus).id == "L40S"
+    assert resolve_gpu_profile("rtx4090", gpus).vram_gb == 24.0
+    assert resolve_gpu_profile("mi325x", gpus).vram_gb == 256.0
     assert resolve_gpu_profile("dgx-spark", gpus).id == "GB10"
     assert resolve_gpu_profile("gfx942", gpus).id == "MI300X"
 

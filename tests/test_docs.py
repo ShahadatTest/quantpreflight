@@ -47,7 +47,7 @@ def test_benchmark_numbers_are_current() -> None:
     total = Score()
     for group, score in run(cases).items():
         total.add(score)
-        row = f"| {BENCHMARK_GROUPS[group]} | {len(cases[group])} | {score.found} | {len(score.missed)} | {len(score.false_alarms)} |"
+        row = f"| {BENCHMARK_GROUPS[group]} | {score.cases} | {score.passed} | {len(score.missed)} | {len(score.false_alarms)} |"
         assert row in ACCURACY
     count = sum(len(items) for items in cases.values())
     assert f"{total.recall:.1%} recall and {total.precision:.0%} precision" in ACCURACY

@@ -23,7 +23,7 @@ from site_scan import scan_text  # noqa: E402
 INSTALL = "pip install git+https://github.com/layer8labs8/quantpreflight"
 ACTION_REF = "main"
 
-FORMATS = ["AWQ", "GPTQ", "Compressed-Tensors", "FP8", "NVFP4", "MXFP4", "Marlin", "AutoRound", "bitsandbytes", "BitNet", "GGUF", "Safetensors"]
+FORMATS = ["AWQ", "GPTQ", "Compressed-Tensors", "FP8", "NVFP4", "MXFP4", "Marlin", "AutoRound", "bitsandbytes", "BitNet", "MLX", "GGUF", "Safetensors"]
 
 EXAMPLES = [
     ("fits", "Fits", {"engine": "vllm", "gpu": "H100", "tp": 4, "weights_gib": 38.74}),
@@ -43,7 +43,7 @@ QUESTIONS = {
     "QPF008": ("Does this GPTQ model use desc_act?", "vLLM rejects it outright, and other engines pay for extra gathers across GPUs."),
     "QPF009": ("Is every shard really there?", "Missing shards, dangling tensors, duplicates, and wrong MTP draft shapes fail at load."),
     "QPF010": ("Does the config match the weights?", "Packed tensors with no quantization_config, or the reverse, load wrongly or waste memory."),
-    "QPF011": ("Can this engine read this format?", "Safetensors on llama.cpp, GGUF on TensorRT-LLM, and 1-bit or 2-bit GGUF on vLLM all fail."),
+    "QPF011": ("Can this engine read this format?", "Safetensors on llama.cpp and GGUF on TensorRT-LLM fail to load, and 1-bit or 2-bit GGUF on vLLM or SGLang is often unsupported or slow."),
     "QPF012": ("Will it fit in GPU memory?", "Weights, runtime overhead measured on real GPUs, and the KV cache, with DeepSeek MLA, sliding windows, and Mamba state counted properly."),
     "QPF013": ("Are the byte offsets in the file sane?", "Overlapping, inverted, or truncated spans mean a corrupt or incomplete file."),
     "QPF014": ("Will loading it run someone else's code?", "Pickle weights and trust_remote_code can execute arbitrary code on your host."),
@@ -90,7 +90,7 @@ def _items(names: list[str]) -> str:
 
 def _gpus() -> list[dict[str, str]]:
     gpus = sorted(load_gpu_profiles().values(), key=lambda gpu: (gpu.vendor != "nvidia", gpu.compute_capability, gpu.id))
-    return [{"id": gpu.id, "label": f"{gpu.id} ({gpu.vram_gb:g} GB)"} for gpu in gpus]
+    return [{"id": gpu.id, "label": f"{gpu.id} ({gpu.vram_gb:g} GiB)"} for gpu in gpus]
 
 
 def _engines() -> list[dict[str, str]]:
@@ -112,8 +112,8 @@ def _benchmark() -> dict[str, str]:
     for group, score in run(cases).items():
         total.add(score)
         rows.append(
-            f'<tr><th scope="row">{escape(BENCHMARK_GROUPS[group])}</th><td>{len(cases[group])}</td>'
-            f"<td>{score.found}</td><td>{len(score.missed)}</td><td>{len(score.false_alarms)}</td></tr>"
+            f'<tr><th scope="row">{escape(BENCHMARK_GROUPS[group])}</th><td>{score.cases}</td>'
+            f"<td>{score.passed}</td><td>{len(score.missed)}</td><td>{len(score.false_alarms)}</td></tr>"
         )
     return {
         "benchmark": "\n".join(rows),

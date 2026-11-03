@@ -130,6 +130,8 @@ def test_page_runs_only_scripts_it_allows(page: str) -> None:
         ("5", "doesn't look like"),
         ("[" * 200_000, "nested too deeply"),
     ],
+    # The deep case would make an ID longer than Windows allows in an environment variable
+    ids=["open-brace", "missing-value", "empty", "list", "no-model-keys", "number", "deep-nesting"],
 )
 def test_text_that_cannot_be_read_says_why(text: str, message: str) -> None:
     assert message in json.loads(scan_text(text))["error"]

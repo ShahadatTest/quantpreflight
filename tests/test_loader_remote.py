@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import io
+import pickle
 import json
 import urllib.error
 import urllib.request
@@ -178,6 +179,7 @@ def test_any_safetensors_files_are_used_as_a_fallback(hub: FakeHub) -> None:
 
 
 _PICKLE_ZIP = b"PK\x03\x04rest"
+_PICKLE_PROTO0 = pickle.dumps({"data": [1, 2]}, protocol=0)
 _METAL_BIN = b"GPT-OSS v1.0\x00weights"
 
 
@@ -189,17 +191,19 @@ def test_remote_legacy_and_code_files_are_recorded(hub: FakeHub) -> None:
     assert meta.legacy_weight_files == ("pytorch_model.bin",)
     assert meta.custom_code_files == ("modeling_x.py",)
     assert (BASE + "/pytorch_model.bin") in hub.requests
-    assert (0, 3) in hub.ranges
+    assert (0, 7) in hub.ranges
 
 
 def test_remote_metal_model_bin_is_not_treated_as_pickle(hub: FakeHub) -> None:
     hub.add("model.safetensors", _shard("a.weight"))
     hub.add("metal_model.bin", _METAL_BIN)
-    hub.add("pytorch_model.bin", _PICKLE_ZIP)
-    hub.siblings("model.safetensors", "metal_model.bin", "pytorch_model.bin")
+    hub.add("pytorch_model.bin", _PICKLE_PROTO0)
+    hub.add("zip_model.bin", _PICKLE_ZIP)
+    hub.siblings("model.safetensors", "metal_model.bin", "pytorch_model.bin", "zip_model.bin")
     meta = load_checkpoint_metadata("org/model")
-    assert meta.legacy_weight_files == ("pytorch_model.bin",)
+    assert set(meta.legacy_weight_files) == {"pytorch_model.bin", "zip_model.bin"}
     assert "metal_model.bin" not in meta.legacy_weight_files
+    assert (0, 7) in hub.ranges
 
 
 @pytest.mark.parametrize(

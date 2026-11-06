@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import pickle
 import os
 from pathlib import Path
 from typing import Any
@@ -288,6 +289,7 @@ def test_invalid_json_names_the_file(tmp_path: Path) -> None:
 # torch.save zip / classic pickle protocol magic (issue #6)
 _PICKLE_ZIP = b"PK\x03\x04rest"
 _PICKLE_PROTO = b"\x80\x02abc"
+_PICKLE_PROTO0 = pickle.dumps({"data": [1, 2]}, protocol=0)
 
 
 @pytest.mark.parametrize(
@@ -341,6 +343,17 @@ def test_metal_model_bin_is_not_treated_as_pickle(tmp_path: Path) -> None:
     (ckpt / "pytorch_model.bin").write_bytes(_PICKLE_ZIP)
     meta = load_checkpoint_metadata(str(ckpt))
     assert meta.legacy_weight_files == ("pytorch_model.bin",)
+    assert "metal_model.bin" not in meta.legacy_weight_files
+
+
+def test_protocol_0_pickle_is_treated_as_pickle(tmp_path: Path) -> None:
+    """Pickle protocol 0 starts with ASCII opcode bytes (issue #6), must still be flagged."""
+    ckpt = _ckpt(tmp_path)
+    (ckpt / "metal_model.bin").write_bytes(b"GPT-OSS v1.0\x00weights")
+    (ckpt / "zip_model.bin").write_bytes(_PICKLE_ZIP)
+    (ckpt / "pytorch_model.bin").write_bytes(_PICKLE_PROTO0)
+    meta = load_checkpoint_metadata(str(ckpt))
+    assert set(meta.legacy_weight_files) == {"pytorch_model.bin", "zip_model.bin"}
     assert "metal_model.bin" not in meta.legacy_weight_files
 
 

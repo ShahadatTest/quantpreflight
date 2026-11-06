@@ -36,8 +36,8 @@ class CheckpointLoadError(RuntimeError):
 
 _LEGACY_WEIGHT_SUFFIXES = (".bin", ".pt", ".pth")
 _LEGACY_WEIGHT_NAME_HINTS = ("model", "pytorch", "weight", "consolidated")
-# torch.save since 1.6 writes a zip; classic pickle protocols start with opcode 0x80.
-_TORCH_ZIP_MAGIC = b"PK\x03\x04"
+# Formats known not to be torch pickle (issue #6)
+_KNOWN_NON_PICKLE_PREFIXES: tuple[bytes, ...] = (b"GPT-OSS ", b"GGUF")
 
 
 def _looks_like_legacy_weight_name(filename: str) -> bool:
@@ -47,15 +47,13 @@ def _looks_like_legacy_weight_name(filename: str) -> bool:
     )
 
 
-def _header_looks_like_torch_pickle(header: bytes) -> bool:
-    """True when the first bytes match a torch zip or a pickle protocol frame."""
-    if not header:
-        return False
-    return header.startswith(_TORCH_ZIP_MAGIC) or header[0] == 0x80
+def _header_is_known_non_pickle(header: bytes) -> bool:
+    """True when the first bytes match a format known not to be torch pickle."""
+    return any(header.startswith(prefix) for prefix in _KNOWN_NON_PICKLE_PREFIXES)
 
 
 def _local_legacy_weight_files(directory: Path, filenames: list[str]) -> list[str]:
-    """Name-filter then sniff magic bytes so Metal/other .bin formats are not flagged."""
+    """Name-filter then sniff magic bytes so Metal/other non-pickle formats are not flagged."""
     found: list[str] = []
     for fn in filenames:
         if not _looks_like_legacy_weight_name(fn):
@@ -63,12 +61,12 @@ def _local_legacy_weight_files(directory: Path, filenames: list[str]) -> list[st
         path = directory / fn
         try:
             with path.open("rb") as handle:
-                header = handle.read(4)
+                header = handle.read(8)
         except OSError:
             # Unreadable files still warn — a scanner should err on the side of caution.
             found.append(fn)
             continue
-        if _header_looks_like_torch_pickle(header):
+        if not _header_is_known_non_pickle(header):
             found.append(fn)
     return found
 
@@ -80,19 +78,22 @@ def _remote_legacy_weight_files(
     token: str | None,
     timeout: float,
 ) -> list[str]:
-    found: list[str] = []
-    for fn in filenames:
-        if not _looks_like_legacy_weight_name(fn):
-            continue
+    candidates = [fn for fn in filenames if _looks_like_legacy_weight_name(fn)]
+    if not candidates:
+        return []
+
+    def _probe_candidate(fn: str) -> bool:
         url = f"{base_url}/{fn}"
         try:
-            header = _http_fetch_bytes(url, byte_range=(0, 3), token=token, timeout=timeout)
+            header = _http_fetch_bytes(url, byte_range=(0, 7), token=token, timeout=timeout)
         except Exception:
-            found.append(fn)
-            continue
-        if _header_looks_like_torch_pickle(header):
-            found.append(fn)
-    return found
+            return True
+        return not _header_is_known_non_pickle(header)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=min(8, len(candidates))) as pool:
+        matches = list(pool.map(_probe_candidate, candidates))
+
+    return [fn for fn, is_pickle in zip(candidates, matches) if is_pickle]
 
 
 class _RangePreservingRedirectHandler(urllib.request.HTTPRedirectHandler):
